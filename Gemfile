@@ -35,13 +35,15 @@ group :development do
   gem 'rb-inotify', :require=>false
   gem 'letter_opener'
 end
+
 group :development, :test, :travis do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'sqlite3'
-end
-group :test, :travis do
   gem 'capybara'
+end
+
+group :test, :travis do
   gem 'database_cleaner', '1.0.1'
   gem 'email_spec'
   gem 'launchy'
