@@ -1,9 +1,8 @@
 3000acres
 =========
 
-[3000 Acres](http://www.3000acres.org) website.
-
-3000 acres will connect people to land, to resources and to each other.
+[3000 Acres](http://www.3000acres.org) will connect people to land, to
+resources and to each other.
 
 We want to unlock the acres of underutilised land locked behind
 chainlink fences. Bring urban farming to sites awaiting development and
