@@ -79,6 +79,7 @@ Acres::Application.configure do
       :password  => ENV["MANDRILL_API_KEY"]
     }
 
+  config.action_mailer.default_url_options = { :host => "3000acres.org" }
 
   # Disable automatic flushing of the log to improve performance.
   # config.autoflush_log = false

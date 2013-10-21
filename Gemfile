@@ -22,7 +22,6 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
   gem 'guard-bundler'
-  gem 'guard-cucumber'
   gem 'guard-rails'
   gem 'guard-rspec'
   gem 'html2haml'
@@ -37,7 +36,6 @@ group :development, :test do
 end
 group :test do
   gem 'capybara'
-  gem 'cucumber-rails', :require=>false
   gem 'database_cleaner', '1.0.1'
   gem 'email_spec'
   gem 'launchy'
