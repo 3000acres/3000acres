@@ -35,7 +35,7 @@ group :development do
   gem 'rb-inotify', :require=>false
   gem 'letter_opener'
 end
-group :development, :test do
+group :development, :test, :travis do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'sqlite3'
