@@ -34,12 +34,12 @@ group :development do
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
   gem 'letter_opener'
+  gem 'sqlite3'
 end
 
 group :development, :test, :travis do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
-  gem 'sqlite3'
   gem 'capybara'
 end
 
