@@ -17,6 +17,7 @@ gem 'simple_form', '>= 3.0.0.rc'
 gem 'therubyracer', :platform=>:ruby
 gem 'twitter-bootstrap-rails'
 gem 'unicorn'
+gem 'mandrill-api'
 
 group :travis, :staging, :production do
   gem 'pg'
