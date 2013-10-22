@@ -76,14 +76,16 @@ Acres::Application.configure do
       :address   => "smtp.mandrillapp.com",
       :port      => 25,
       :user_name => ENV["MANDRILL_USERNAME"],
-      :password  => ENV["MANDRILL_API_KEY"]
+      :password  => ENV["MANDRILL_APIKEY"]
     }
 
-  config.action_mailer.default_url_options = { :host => "staging.3000acres.org" }
+  config.action_mailer.default_url_options = { :host => "acres-staging.herokuapp.com" }
 
   # Disable automatic flushing of the log to improve performance.
   # config.autoflush_log = false
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  config.site_name = "3000 Acres (staging)"
 end

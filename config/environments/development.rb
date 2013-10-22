@@ -32,10 +32,12 @@ Acres::Application.configure do
       :address   => "smtp.mandrillapp.com",
       :port      => 25,
       :user_name => ENV["MANDRILL_USERNAME"],
-      :password  => ENV["MANDRILL_API_KEY"]
+      :password  => ENV["MANDRILL_APIKEY"]
     }
   # Send email in development mode.
   config.action_mailer.perform_deliveries = true
   config.action_mailer.default_url_options = { :host => "3000acres.org" }
+
+  config.site_name = "3000 Acres (dev)"
 
 end
