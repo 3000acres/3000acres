@@ -22,6 +22,10 @@ group :travis, :staging, :production do
   gem 'pg'
 end
 
+group :staging, :production do
+  gem 'rails_12factor' # supresses heroku messages
+end
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
