@@ -17,9 +17,14 @@ gem 'simple_form', '>= 3.0.0.rc'
 gem 'therubyracer', :platform=>:ruby
 gem 'twitter-bootstrap-rails'
 gem 'unicorn'
+gem 'mandrill-api'
 
 group :travis, :staging, :production do
   gem 'pg'
+end
+
+group :staging, :production do
+  gem 'rails_12factor' # supresses heroku messages
 end
 
 group :development do
@@ -35,13 +40,18 @@ group :development do
   gem 'rb-inotify', :require=>false
   gem 'letter_opener'
 end
+
+group :development, :test do
+  gem 'sqlite3'
+end
+
 group :development, :test, :travis do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
-  gem 'sqlite3'
-end
-group :test, :travis do
   gem 'capybara'
+end
+
+group :test, :travis do
   gem 'database_cleaner', '1.0.1'
   gem 'email_spec'
   gem 'launchy'
