@@ -38,4 +38,6 @@ Acres::Application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.default_url_options = { :host => "3000acres.org" }
 
+  config.site_name = "3000 Acres (dev)"
+
 end

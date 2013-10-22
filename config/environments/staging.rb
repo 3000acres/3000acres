@@ -86,4 +86,6 @@ Acres::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  config.site_name = "3000 Acres (staging)"
 end
