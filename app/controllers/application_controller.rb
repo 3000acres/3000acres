@@ -8,8 +8,7 @@ class ApplicationController < ActionController::Base
 
   private
   def load_cms_context
-    @cms_site = Cms::Site.first
-    @cms_layout = @cms_site.layouts.find_by_identifier('default')
+    @cms_topnav = Cms::Site.find_by_identifier('topnav')
   end
 
   def store_location

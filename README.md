@@ -8,6 +8,30 @@ We want to unlock the acres of underutilised land locked behind
 chainlink fences. Bring urban farming to sites awaiting development and
 activate our rooftops.
 
+## Setup
+
+Notes on setting up the app:
+
+### Create admin user(s)
+
+Via the rails console, find the user you want, eg:
+
+    u = User.find_by_name('Skud')
+
+Then do:
+
+    u.add_role :admin
+
+### Set up CMS
+
+Sign in as an admin user, then go to the CMS admin page (/cms-admin) and
+set up as follows:
+
+* A site called "topnav"
+* A layout called "default", using the application layout
+
+You may then create child pages for the top navbars, eg.  "About", "Donate" etc.
+
 ## For coders
 
 3000 Acres is a Ruby on Rails 4 app.  Feel free to fork it and play with
