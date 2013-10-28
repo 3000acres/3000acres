@@ -3,7 +3,7 @@
 ComfortableMexicanSofa.configure do |config|
   # Title of the admin area
   #   config.cms_title = 'ComfortableMexicanSofa CMS Engine'
-  
+
   # Controller that is inherited from CmsAdmin::BaseController
   #   config.base_controller = 'ApplicationController'
 
@@ -18,7 +18,7 @@ ComfortableMexicanSofa.configure do |config|
 
   # When arriving at /cms-admin you may chose to redirect to arbirtary path,
   # for example '/cms-admin/users'
-  #   config.admin_route_redirect = ''
+     config.admin_route_redirect = '/cms-admin/sites/1/pages'
 
   # File uploads use Paperclip and can support filesystem or s3 uploads.  Override
   # the upload method and appropriate settings based on Paperclip.  For S3 see:
@@ -59,7 +59,7 @@ ComfortableMexicanSofa.configure do |config|
   # Admin interface will respect the locale of the site being managed. However you can
   # force it to English by setting this to `:en`
   #   config.admin_locale = nil
-  
+
   # If you want to keep your CMS tables in a location other than the default database
   # add a database_config. For example, setting it to 'cms' will look for a cms_#{Rails.env}
   # definition in your database.yml file
@@ -87,7 +87,7 @@ ComfortableMexicanSofa.configure do |config|
   # e.g. config.hostname_aliases = {'host.com' => 'host.inv', 'host_a.com' => ['host.lvh.me', 'host.dev']}
   # Default is nil (not used)
   #   config.hostname_aliases = nil
-  
+
   # Reveal partials that can be overwritten in the admin area.
   # Default is false.
   #   config.reveal_cms_partials = false
@@ -96,9 +96,8 @@ end
 
 module CmsDeviseAuth
   def authenticate
-# unless current_user && current_user.admin?
-    unless current_user
-      redirect_to new_user_session_path
+    unless current_user && current_user.has_role?(:admin)
+      redirect_to root_path, :alert => 'Permission denied. Please sign in as an admin user to use the CMS admin area.'
     end
   end
 end
