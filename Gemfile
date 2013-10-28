@@ -19,6 +19,8 @@ gem 'twitter-bootstrap-rails'
 gem 'unicorn'
 gem 'mandrill-api'
 
+gem 'comfortable_mexican_sofa', '~> 1.9.0'
+
 group :travis, :staging, :production do
   gem 'pg'
 end

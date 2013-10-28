@@ -7,13 +7,50 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 # Environment variables (ENV['...']) can be set in the file config/application.yml.
 # See http://railsapps.github.io/rails-environment-variables.html
-puts 'ROLES'
-YAML.load(ENV['ROLES']).each do |role|
-  Role.find_or_create_by_name(role)
-  puts 'role: ' << role
+
+def load_data
+  # for all 3000 Acres sites, including production ones
+  load_roles
+
+  # for development environments only
+  if Rails.env.development?
+    load_test_users
+    load_admin_users
+  end
 end
-puts 'DEFAULT USERS'
-user = User.find_or_create_by_email :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
-puts 'user: ' << user.name
-user.confirm!
-user.add_role :admin
+
+def load_roles
+  puts "Creating admin role..."
+  @admin = Role.create(:name => 'Admin')
+  puts "Done."
+end
+
+def load_test_users
+  puts "Loading test users..."
+  (1..3).each do |i|
+    @user = User.create(
+        :name => "test#{i}",
+        :email => "test#{i}@example.com",
+        :password => "password#{i}",
+    )
+    @user.confirm!
+    @user.save!
+  end
+  puts "Finished loading test users."
+end
+
+def load_admin_users
+  puts "Adding admin users..."
+  @admin_user = User.create(
+    :name => "admin1",
+    :email => "admin1@example.com",
+    :password => "password1",
+  )
+  @admin_user.confirm!
+  @admin_user.add_role :admin
+  @admin_user.save!
+
+  puts "Done!"
+end
+
+load_data
