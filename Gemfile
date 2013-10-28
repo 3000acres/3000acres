@@ -51,6 +51,7 @@ group :development, :test, :travis do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'capybara'
+  gem 'selenium-webdriver'
 end
 
 group :test, :travis do
