@@ -36,7 +36,7 @@ Acres::Application.configure do
     }
   # Send email in development mode.
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.default_url_options = { :host => "3000acres.org" }
+  config.action_mailer.default_url_options = { :host => "localhost", :port => "8080" }
 
   config.site_name = "3000 Acres (dev)"
 
