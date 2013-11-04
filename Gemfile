@@ -15,7 +15,7 @@ gem 'less-rails'
 gem 'rolify'
 gem 'simple_form', '>= 3.0.0.rc'
 gem 'therubyracer', :platform=>:ruby
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails', :git => 'https://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'bootstrap3'
 gem 'unicorn'
 gem 'mandrill-api'
 
