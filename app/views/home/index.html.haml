@@ -1,3 +1,18 @@
-%h3 Home
-
-= render :partial => 'facebook'
+.row.homepage-banner
+  .col-md-12
+    %h1 This is the banner area
+.row
+  .col-md-8
+    %div#map{:style => 'height: 500px'}
+  .col-md-4
+    = render :partial => 'facebook'
+.row
+  .col-md-12
+    %h1 VicHealth and TACSI logos go here
+.row
+  .col-md-12
+    %h1 social media links go here
+    %ul
+      %li Twitter
+      %li Facebook
+      %li etc
