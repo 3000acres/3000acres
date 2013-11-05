@@ -1,13 +1,24 @@
-= link_to Acres::Application.config.site_name, root_path, :class => 'brand'
-%ul.nav
-  - if @cms_topnav
-    - @cms_topnav.pages.root.children.published.each do |page|
-      %li= link_to page.label, page.full_path
-  - if user_signed_in?
-    - if current_user.has_role? :admin
-      %li{ :data => { :no_turbolink => true }}= link_to 'CMS Admin', cms_admin_path
-    %li= link_to 'Edit account', edit_user_registration_path
-    %li= link_to 'Sign out', destroy_user_session_path, :method=>'delete'
-  - else
-    %li= link_to 'Sign in', new_user_session_path
-    %li= link_to 'Sign up', new_user_registration_path
+.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header
+      %a.btn.btn-navbar(data-target=".navbar-collapse" data-toggle="collapse")
+        %span.glyphicon-bar
+        %span.glyphicon-bar
+        %span.glyphicon-bar
+      %a.navbar-brand(href=root_path)= Acres::Application.config.site_name
+
+    .navbar-collapse.collapse
+      %ul.nav.navbar-nav
+
+        - if @cms_topnav
+          - @cms_topnav.pages.root.children.published.each do |page|
+            %li= link_to page.label, page.full_path
+
+        - if user_signed_in?
+          - if current_user.has_role? :admin
+            %li{ :data => { :no_turbolink => true }}= link_to 'CMS Admin', cms_admin_path
+          %li= link_to 'Edit account', edit_user_registration_path
+          %li= link_to 'Sign out', destroy_user_session_path, :method=>'delete'
+        - else
+          %li= link_to 'Sign in', new_user_session_path
+          %li= link_to 'Sign up', new_user_registration_path
