@@ -18,6 +18,8 @@ gem 'therubyracer', :platform=>:ruby
 gem 'twitter-bootstrap-rails', :git => 'https://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'bootstrap3'
 gem 'unicorn'
 gem 'mandrill-api'
+gem 'leaflet-rails'
+gem 'leaflet-markercluster-rails'
 
 gem 'comfortable_mexican_sofa', '~> 1.9.0'
 
