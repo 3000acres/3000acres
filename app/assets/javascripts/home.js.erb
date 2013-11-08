@@ -1,6 +1,6 @@
 // Map
 
-cloudmade_key = "<%= ENV['CLOUDMADE_KEY'] %>";
+cloudmade_key = "<%= Acres::Application.config.cloudmade_key %>";
 cloudmade_url = "http://{s}.tile.cloudmade.com/" + cloudmade_key + "/1714/256/{z}/{x}/{y}.png";
 
 map = L.map('map').setView([-37.85, 145.06], 10);
