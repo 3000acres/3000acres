@@ -1,0 +1,36 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @site.name
+%p
+  %b Description:
+  = @site.description
+%p
+  %b Address:
+  = @site.address
+%p
+  %b Suburb:
+  = @site.suburb
+%p
+  %b Latitude:
+  = @site.latitude
+%p
+  %b Longitude:
+  = @site.longitude
+%p
+  %b Size:
+  = @site.size
+%p
+  %b Water:
+  = @site.water
+%p
+  %b Available until:
+  = @site.available_until
+%p
+  %b Status:
+  = @site.status
+
+= link_to 'Edit', edit_site_path(@site)
+\|
+= link_to 'Back', sites_path

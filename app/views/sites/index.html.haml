@@ -1,0 +1,37 @@
+%h1 Listing sites
+
+%table
+  %tr
+    %th Name
+    %th Description
+    %th Address
+    %th Suburb
+    %th Latitude
+    %th Longitude
+    %th Size
+    %th Water
+    %th Available until
+    %th Status
+    %th
+    %th
+    %th
+
+  - @sites.each do |site|
+    %tr
+      %td= site.name
+      %td= site.description
+      %td= site.address
+      %td= site.suburb
+      %td= site.latitude
+      %td= site.longitude
+      %td= site.size
+      %td= site.water
+      %td= site.available_until
+      %td= site.status
+      %td= link_to 'Show', site
+      %td= link_to 'Edit', edit_site_path(site)
+      %td= link_to 'Destroy', site, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Site', new_site_path

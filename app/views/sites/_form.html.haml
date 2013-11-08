@@ -1,0 +1,17 @@
+= simple_form_for(@site) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :description
+    = f.input :address
+    = f.input :suburb
+    = f.input :latitude
+    = f.input :longitude
+    = f.input :size
+    = f.input :water
+    = f.input :available_until
+    = f.input :status
+
+  .form-actions
+    = f.button :submit
