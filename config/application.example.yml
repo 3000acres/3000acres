@@ -12,7 +12,3 @@ ADMIN_EMAIL: admin@3000acres.org
 ROLES: [admin, user]
 MANDRILL_USERNAME: admin@3000acres.org
 MANDRILL_APIKEY: your key here
-
-# Cloudmade key is used to display map on homepage
-# Get yours at http://account.cloudmade.com/user
-CLOUDMADE_KEY: your key here

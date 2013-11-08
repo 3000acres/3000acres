@@ -24,6 +24,9 @@ module Acres
       g.helper_specs false
     end
 
+    # this key is visible in the HTML anyway so no big risk to put it in git
+    config.cloudmade_key = '56299f81f3514c7ca300defbc201af20'
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
