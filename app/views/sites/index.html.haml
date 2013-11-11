@@ -1,11 +1,10 @@
 - content_for :title, "All sites"
 
-%table
+%table.table.table-striped
   %tr
-    %th Name
-    %th Description
     %th Address
     %th Suburb
+    %th Name
     %th Latitude
     %th Longitude
     %th Size
@@ -18,10 +17,9 @@
 
   - @sites.each do |site|
     %tr
-      %td= site.name
-      %td= site.description
       %td= site.address
       %td= site.suburb
+      %td= site.name
       %td= site.latitude
       %td= site.longitude
       %td= site.size
@@ -34,4 +32,4 @@
 
 %br
 
-= link_to 'New Site', new_site_path
+= link_to 'New Site', new_site_path, :class => 'btn btn-default'
