@@ -1,9 +1,12 @@
+- content_for :title, @local_government_area.name
+
 %p#notice= notice
 
 %p
   %b Name:
   = @local_government_area.name
 
-= link_to 'Edit', edit_local_government_area_path(@local_government_area)
-\|
-= link_to 'Back', local_government_areas_path
+- if can? :update, @local_government_area
+  = link_to 'Edit', edit_local_government_area_path(@local_government_area)
+
+%p= link_to 'View all', local_government_areas_path

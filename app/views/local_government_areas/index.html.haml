@@ -1,19 +1,6 @@
-%h1 Listing local_government_areas
+- content_for :title, "Local Government Areas"
 
-%table
-  %tr
-    %th Name
-    %th
-    %th
-    %th
+%ul
+  - @local_government_areas.each do |lga|
+    %li= link_to lga.name, lga
 
-  - @local_government_areas.each do |local_government_area|
-    %tr
-      %td= local_government_area.name
-      %td= link_to 'Show', local_government_area
-      %td= link_to 'Edit', edit_local_government_area_path(local_government_area)
-      %td= link_to 'Destroy', local_government_area, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Local government area', new_local_government_area_path
