@@ -13,7 +13,9 @@ feature "add site" do
     end
 
     scenario "can add site" do
-      visit new_site_path
+      visit root_path
+      click_link "Sites Admin"
+      click_link "New Site"
       fill_in 'Address', :with => '1 Smith St'
       fill_in 'Suburb', :with => 'Smithville'
       click_button 'Create Site'
