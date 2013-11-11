@@ -11,12 +11,23 @@
 def load_data
   # for all 3000 Acres sites, including production ones
   load_roles
+  load_local_government_areas
 
   # for development environments only
   if Rails.env.development?
     load_test_users
     load_admin_users
   end
+end
+
+def load_local_government_areas
+  source_path = Rails.root.join('db', 'seeds')
+  source_file = "#{source_path}/local_government_areas.csv"
+  puts "Loading local government areas from #{source_file}..."
+  CSV.foreach(source_file) do |row|
+    LocalGovernmentArea.create(:name => row[0])
+  end
+  puts "Finished loading local government areas"
 end
 
 def load_roles

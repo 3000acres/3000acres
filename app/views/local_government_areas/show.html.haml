@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @local_government_area.name
+
+= link_to 'Edit', edit_local_government_area_path(@local_government_area)
+\|
+= link_to 'Back', local_government_areas_path

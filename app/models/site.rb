@@ -1,7 +1,10 @@
 class Site < ActiveRecord::Base
 
+belongs_to :local_government_area
+
 validates :address, :presence => true
 validates :suburb, :presence => true
+validates :local_government_area, :presence => true
 
 STATUSES = [ "unknown", "suitable", "unsuitable", "in-progress", "active" ]
 validates :status, :presence => true # for the benefit of simple_form

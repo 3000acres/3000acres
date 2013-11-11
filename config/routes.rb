@@ -1,5 +1,7 @@
 Acres::Application.routes.draw do
 
+  resources :local_government_areas
+
   resources :sites
 
   root :to => "home#index"

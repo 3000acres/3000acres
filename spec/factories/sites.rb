@@ -10,5 +10,6 @@ FactoryGirl.define do
     water false
     available_until "2013-11-08"
     status "unknown"
+    local_government_area
   end
 end
