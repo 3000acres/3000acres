@@ -1,0 +1,36 @@
+- content_for :title, @site.to_s
+
+%p
+  %b Name:
+  = @site.name
+%p
+  %b Description:
+  = @site.description
+%p
+  %b Address:
+  = @site.address
+%p
+  %b Suburb:
+  = @site.suburb
+%p
+  %b Latitude:
+  = @site.latitude
+%p
+  %b Longitude:
+  = @site.longitude
+%p
+  %b Size:
+  = @site.size
+  square metres
+%p
+  %b Water available?
+  = @site.water ? "Yes" : "No"
+%p
+  %b Available until:
+  = @site.available_until.blank? ? "indefinitely" : @site.available_until
+%p
+  %b Status:
+  = @site.status
+
+- if can? :update, @site
+  %p= link_to 'Edit', edit_site_path(@site), :class => 'btn btn-default'

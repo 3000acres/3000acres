@@ -1,0 +1,7 @@
+- content_for :title, "Editing #{@local_government_area.name}"
+
+= render 'form'
+
+= link_to 'Show', @local_government_area
+\|
+= link_to 'Back', local_government_areas_path

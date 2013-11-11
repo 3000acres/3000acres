@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131021075816) do
+ActiveRecord::Schema.define(version: 20131111025209) do
 
   create_table "cms_blocks", force: true do |t|
     t.integer  "page_id",                     null: false
@@ -130,6 +130,12 @@ ActiveRecord::Schema.define(version: 20131021075816) do
   add_index "cms_snippets", ["site_id", "identifier"], name: "index_cms_snippets_on_site_id_and_identifier", unique: true
   add_index "cms_snippets", ["site_id", "position"], name: "index_cms_snippets_on_site_id_and_position"
 
+  create_table "local_government_areas", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "roles", force: true do |t|
     t.string   "name"
     t.integer  "resource_id"
@@ -140,6 +146,22 @@ ActiveRecord::Schema.define(version: 20131021075816) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], name: "index_roles_on_name"
+
+  create_table "sites", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "address"
+    t.string   "suburb"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.decimal  "size"
+    t.boolean  "water"
+    t.date     "available_until"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "local_government_area_id"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

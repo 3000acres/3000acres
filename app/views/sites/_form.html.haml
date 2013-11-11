@@ -1,0 +1,19 @@
+= simple_form_for(@site) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name, :placeholder => "Our fantastic community garden", :hint => "Optional (we'll use the address if you don't give us one)."
+    = f.input :address, :placeholder => '99 Bourke St'
+    = f.input :suburb, :placeholder => 'Melbourne'
+    = f.input :local_government_area, :as => 'select', :collection => LocalGovernmentArea.all
+
+    = f.input :description
+
+    = f.input :status, :as => 'select', :collection => Site::STATUSES, :default => 'unknown'
+
+    = f.input :size, :label=> "Size (square metres)"
+    = f.input :water, :label => 'Water available?', :as => 'select'
+    = f.input :available_until, :as => 'string', :placeholder => '2015-01-01', :hint => "YYYY-MM-DD format; leave blank if it's available indefinitely."
+
+  .form-actions
+    = f.button :submit
