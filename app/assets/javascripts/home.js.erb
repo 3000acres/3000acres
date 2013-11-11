@@ -1,11 +1,28 @@
 // Map
 
+things_to_map = 'sites.json';
 cloudmade_key = "<%= Acres::Application.config.cloudmade_key %>";
 cloudmade_url = "http://{s}.tile.cloudmade.com/" + cloudmade_key + "/1714/256/{z}/{x}/{y}.png";
 
 map = L.map('map').setView([-37.85, 145.06], 10);
+showMap(map);
 
-L.tileLayer(cloudmade_url, {
-  attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors under <a href="http://www.openstreetmap.org/copyright">ODbL</a> | Map imagery &copy; <a href="http://cloudmade.com">Cloudmade</a>',
-  maxZoom: 18
-}).addTo(map);
+function showMap(map) {
+  L.tileLayer(cloudmade_url, {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors under <a href="http://www.openstreetmap.org/copyright">ODbL</a> | Map imagery &copy; <a href="http://cloudmade.com">Cloudmade</a>',
+    maxZoom: 18
+  }).addTo(map);
+  markers = new L.MarkerClusterGroup({showCoverageOnHover: false});
+  $.getJSON(things_to_map, function(sites) {
+    $.each(sites, function(i, site) {
+      if (site.latitude && site.longitude) {
+        marker = new L.Marker(new L.LatLng(site.latitude, site.longitude));
+        link = "<p><a href='/sites/" + site.id + "'>" + site.display_name + "</a></p>";
+        marker.bindPopup(link).openPopup();
+        markers.addLayer(marker);
+      }
+    });
+  });
+
+  map.addLayer(markers);
+}
