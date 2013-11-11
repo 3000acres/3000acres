@@ -2,12 +2,10 @@
 
 FactoryGirl.define do
   factory :site do
-    name "MyString"
-    description "MyText"
-    address "MyString"
-    suburb "MyString"
-    latitude 1.5
-    longitude 1.5
+    name "Awesome Community Garden"
+    description "This is a great community garden..."
+    address "99 Bourke St"
+    suburb "Melbourne"
     size "9.99"
     water false
     available_until "2013-11-08"

@@ -2,16 +2,17 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :name
+    = f.input :name, :placeholder => "Our fantastic community garden", :hint => "Optional (we'll use the address if you don't give us one)."
+    = f.input :address, :placeholder => '99 Bourke St'
+    = f.input :suburb, :placeholder => 'Melbourne'
+
     = f.input :description
-    = f.input :address
-    = f.input :suburb
-    = f.input :latitude
-    = f.input :longitude
-    = f.input :size
-    = f.input :water
-    = f.input :available_until
+
     = f.input :status
+
+    = f.input :size
+    = f.input :water, :label => 'Water available?', :as => 'select'
+    = f.input :available_until, :as => 'string', :placeholder => '2015-01-01', :hint => "YYYY-MM-DD format; leave blank if it's available indefinitely."
 
   .form-actions
     = f.button :submit
