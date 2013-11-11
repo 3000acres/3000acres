@@ -1,7 +1,5 @@
 - content_for :title, @site.to_s
 
-%p#notice= notice
-
 %p
   %b Name:
   = @site.name
@@ -23,16 +21,16 @@
 %p
   %b Size:
   = @site.size
+  square metres
 %p
-  %b Water:
-  = @site.water
+  %b Water available?
+  = @site.water ? "Yes" : "No"
 %p
   %b Available until:
-  = @site.available_until
+  = @site.available_until.blank? ? "indefinitely" : @site.available_until
 %p
   %b Status:
   = @site.status
 
-= link_to 'Edit', edit_site_path(@site)
-\|
-= link_to 'Back', sites_path
+- if can? :update, @site
+  %p= link_to 'Edit', edit_site_path(@site), :class => 'btn btn-default'

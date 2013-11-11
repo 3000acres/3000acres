@@ -11,7 +11,7 @@
 
     = f.input :status, :as => 'select', :collection => Site::STATUSES, :default => 'unknown'
 
-    = f.input :size
+    = f.input :size, :label=> "Size (square metres)"
     = f.input :water, :label => 'Water available?', :as => 'select'
     = f.input :available_until, :as => 'string', :placeholder => '2015-01-01', :hint => "YYYY-MM-DD format; leave blank if it's available indefinitely."
 
