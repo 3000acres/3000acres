@@ -1,4 +1,5 @@
 class SitesController < ApplicationController
+  before_action :load_site, only: :create
   load_and_authorize_resource
 
   before_action :set_site, only: [:show, :edit, :update, :destroy]
@@ -72,5 +73,11 @@ class SitesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def site_params
       params.require(:site).permit(:name, :description, :address, :suburb, :latitude, :longitude, :size, :water, :available_until, :status)
+    end
+
+    # the following is needed to make CanCan work under Rails 4; see
+    # https://github.com/ryanb/cancan/issues/835
+    def load_site
+      @site = Site.new(site_params)
     end
 end

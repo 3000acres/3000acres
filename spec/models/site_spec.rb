@@ -16,6 +16,29 @@ describe Site do
       site = FactoryGirl.build(:site, :suburb => nil)
       site.should_not be_valid
     end
-  end
 
+    context 'status' do
+      before(:each) do
+        @site = FactoryGirl.create(:site)
+      end
+
+      it 'should have a status' do
+        @site.status.should eq 'unknown'
+      end
+
+      it 'all valid status values should work' do
+        ['unknown', 'suitable', 'unsuitable', 'in-progress', 'active'].each do |s|
+          @site = FactoryGirl.build(:site, :status => s)
+          @site.should be_valid
+        end
+      end
+
+      it 'should refuse invalid status values' do
+        @site = FactoryGirl.build(:site, :status => 'not valid')
+        @site.should_not be_valid
+        @site.errors[:status].should include("not valid is not a valid status")
+      end
+    end
+
+  end
 end

@@ -8,7 +8,7 @@
 
     = f.input :description
 
-    = f.input :status
+    = f.input :status, :as => 'select', :collection => Site::STATUSES, :default => 'unknown'
 
     = f.input :size
     = f.input :water, :label => 'Water available?', :as => 'select'

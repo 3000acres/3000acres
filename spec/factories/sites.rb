@@ -9,6 +9,6 @@ FactoryGirl.define do
     size "9.99"
     water false
     available_until "2013-11-08"
-    status "MyString"
+    status "unknown"
   end
 end
