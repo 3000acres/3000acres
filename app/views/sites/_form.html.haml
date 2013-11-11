@@ -5,6 +5,7 @@
     = f.input :name, :placeholder => "Our fantastic community garden", :hint => "Optional (we'll use the address if you don't give us one)."
     = f.input :address, :placeholder => '99 Bourke St'
     = f.input :suburb, :placeholder => 'Melbourne'
+    = f.input :local_government_area, :as => 'select', :collection => LocalGovernmentArea.all
 
     = f.input :description
 
