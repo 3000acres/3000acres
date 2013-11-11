@@ -20,4 +20,18 @@ feature "add site" do
       current_path.should eq site_path(Site.last)
     end
   end
+
+  context "any visitor" do
+    before(:each) do
+      @site = FactoryGirl.create(:site)
+    end
+
+    scenario "view site details" do
+      visit site_path(@site)
+      page.should have_content @site.to_s #heading
+      page.should have_content @site.address
+      page.should have_content @site.suburb
+    end
+
+  end
 end

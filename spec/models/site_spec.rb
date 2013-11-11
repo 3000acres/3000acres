@@ -2,6 +2,21 @@ require 'spec_helper'
 
 describe Site do
 
+  context "stringification" do
+    it "uses the specified name if available" do
+      site = FactoryGirl.build(:site, :name => 'AwesomeGarden')
+      site.to_s.should eq "AwesomeGarden"
+    end
+    it "falls back to the address" do
+      site = FactoryGirl.build(:site,
+        :name => nil,
+        :address => 'foo',
+        :suburb => 'bar'
+      )
+      site.to_s.should eq "foo, bar"
+    end
+  end
+
   context "geocoding" do
     it 'has a full address' do
       address = "1 Smith St"
