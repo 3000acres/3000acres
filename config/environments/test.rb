@@ -37,3 +37,12 @@ Acres::Application.configure do
 
   config.site_name = "3000 Acres (test)"
 end
+
+Geocoder::Lookup::Test.add_stub(
+  "99 Bourke St, Melbourne", [
+    {
+      'latitude' => -37.8122455,
+      'longitude' => 144.9702439
+    }
+  ]
+)
