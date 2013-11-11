@@ -2,6 +2,16 @@ require 'spec_helper'
 
 describe Site do
 
+  context "geocoding" do
+    it 'has a full address' do
+      address = "1 Smith St"
+      suburb = "Smithville"
+      Acres::Application.config.region = "Smithlandia"
+      site = FactoryGirl.create(:site, :address => address, :suburb => suburb)
+      site.full_address.should eq "1 Smith St, Smithville, Smithlandia"
+    end
+  end
+
   context "required fields" do
     it 'address is required' do
       site = FactoryGirl.build(:site)

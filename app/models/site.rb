@@ -12,7 +12,11 @@ validates :status, :inclusion => { :in => STATUSES,
         :allow_nil => false,
         :allow_blank => false
 
-LGAS = [
-]
+geocoded_by :full_address
+after_validation :geocode
+
+def full_address
+  [address, suburb, Acres::Application.config.region].compact.join(', ')
+end
 
 end
