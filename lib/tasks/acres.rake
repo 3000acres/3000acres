@@ -42,5 +42,13 @@ namespace :acres do
 
   desc "One-off tasks needed at various times and kept for posterity"
   namespace :oneoff do
+    desc "Create friendly_id slugs for existing sites"
+    task :initialize_friendlyid_slugs => :environment do
+      Site.find_each do |m|
+        m.slug = nil
+        m.save!
+      end
+    end
+
   end
 end

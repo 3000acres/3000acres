@@ -21,6 +21,7 @@ gem 'mandrill-api'
 gem 'geocoder'
 gem 'leaflet-rails'
 gem 'leaflet-markercluster-rails'
+gem 'friendly_id'
 
 gem 'comfortable_mexican_sofa', '~> 1.9.0'
 
