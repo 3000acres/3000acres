@@ -31,7 +31,8 @@ class SitesController < ApplicationController
 
     respond_to do |format|
       if @site.save
-        format.html { redirect_to @site, notice: 'Site was successfully created.' }
+        add_another_link = view_context.link_to "Add another", new_site_path, :class => 'btn btn-default'
+        format.html { redirect_to @site, notice: "Site was successfully created. #{add_another_link}" }
         format.json { render action: 'show', status: :created, location: @site }
       else
         format.html { render action: 'new' }
