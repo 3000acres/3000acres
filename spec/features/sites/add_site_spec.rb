@@ -21,6 +21,14 @@ feature "add site" do
       click_button 'Create Site'
       current_path.should eq site_path(Site.last)
     end
+
+    scenario "add another button" do
+      visit new_site_path
+      fill_in 'Address', :with => '1 Smith St'
+      fill_in 'Suburb', :with => 'Smithville'
+      click_button 'Create Site'
+      page.should have_content "Add another"
+    end
   end
 
   context "any visitor" do
