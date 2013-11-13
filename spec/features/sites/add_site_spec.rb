@@ -43,5 +43,11 @@ feature "add site" do
       page.should have_content @site.suburb
     end
 
+    scenario "site has a friendly url" do
+      @site = FactoryGirl.create(:site, :address => '1 smith st', :suburb => 'jonestown')
+      visit site_path(@site)
+      current_path.should match /1-smith-st-jonestown/
+    end
+
   end
 end

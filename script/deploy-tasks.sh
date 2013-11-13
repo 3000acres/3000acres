@@ -10,5 +10,5 @@
 # echo "YYYY-MM-DD - do something or other"
 # rake acres:oneoff:something
 
-echo "2013-11-11 - import LGAs"
-rake acres:import_lgas file=db/seeds/local_government_areas.csv
+echo "2013-11-13 - set up friendly ID slugs"
+rake acres:oneoff:initialize_friendlyid_slugs

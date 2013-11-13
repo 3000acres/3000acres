@@ -1,5 +1,8 @@
 class Site < ActiveRecord::Base
 
+  extend FriendlyId
+  friendly_id :slug_candidates, :use => [:slugged, :finders]
+
   belongs_to :local_government_area
 
   validates :address, :presence => true
@@ -15,6 +18,19 @@ class Site < ActiveRecord::Base
   geocoded_by :full_address
   after_validation :geocode
 
+  # slug_candidates()
+  # used to generate a slug for friendly_id
+  # this will generate eg. 1-smith-st-jonestown
+  def slug_candidates
+    [
+      "#{address} #{suburb}"
+    ]
+  end
+
+  # full_address()
+  # used for geocoding
+  # will generate eg. 1 smith st, jonestown, victoria, australia
+  # edit config/application.rb to change the region used
   def full_address
     [address, suburb, Acres::Application.config.region].compact.join(', ')
   end
