@@ -1,27 +1,38 @@
-alert("DEBUG: in sites javascript");
 // Map
 cloudmade_key = "<%= Acres::Application.config.cloudmade_key %>";
 cloudmade_url = "http://{s}.tile.cloudmade.com/" + cloudmade_key + "/1714/256/{z}/{x}/{y}.png";
 
-detailmap = L.map('detailmap');
-showDetailMap(detailmap);
+map = L.map('map');
+showMap(map);
 
-function showDetailMap(detailmap) {
-  alert("DEBUG: showing map");
-  site_to_map = location.pathname + '.json';
+function showMap(map) {
   L.tileLayer(cloudmade_url, {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors under <a href="http://www.openstreetmap.org/copyright">ODbL</a> | Map imagery &copy; <a href="http://cloudmade.com">Cloudmade</a>',
     maxZoom: 18
-  }).addTo(detailmap);
-  $.getJSON(site_to_map, function(site) {
-    alert("DEBUG: found site");
-    if (site.latitude && site.longitude) {
-      alert("DEBUG: got lat/long");
-      detailmap.setView([site.latitude, site.longitude], 14);
-      marker = new L.Marker(new L.LatLng(site.latitude, site.longitude));
-      link = "<p><a href='/sites/" + site.slug + "'>" + site.display_name + "</a></p>";
-      marker.bindPopup(link).openPopup();
-      detailmap.addLayer(marker);
-    }
-  });
+  }).addTo(map);
+  if (location.pathname === "/") { // homepage
+    map.setView([-37.85, 145.06], 10); // Melbourne
+    $.getJSON('sites.json', function(sites) {
+      $.each(sites, function(i, site) {
+        if (site.latitude && site.longitude) {
+          addMarker(site, map)
+        }
+      });
+    })
+  } else { // specific site
+    $.getJSON(location.pathname + '.json', function(site) {
+      if (site.latitude && site.longitude) {
+        map.setView([site.latitude, site.longitude], 14); // more zoomed in
+        addMarker(site, map)
+      }
+    });
+  }
 }
+
+function addMarker(site, map) {
+  marker = new L.Marker(new L.LatLng(site.latitude, site.longitude));
+  link = "<p><a href='/sites/" + site.slug + "'>" + site.display_name + "</a></p>";
+  marker.bindPopup(link).openPopup();
+  map.addLayer(marker);
+}
+
