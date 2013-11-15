@@ -6,13 +6,16 @@ detail_map = L.map('detail-map');
 showDetailMap(detail_map);
 
 function showDetailMap(detail_map) {
+  alert("DEBUG: showing map")
   site_to_map = location.pathname + '.json';
   L.tileLayer(cloudmade_url, {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors under <a href="http://www.openstreetmap.org/copyright">ODbL</a> | Map imagery &copy; <a href="http://cloudmade.com">Cloudmade</a>',
     maxZoom: 18
   }).addTo(detail_map);
   $.getJSON(site_to_map, function(site) {
+    alert("DEBUG: found site")
     if (site.latitude && site.longitude) {
+      alert("DEBUG: got lat/long")
       detail_map.setView([site.latitude, site.longitude], 14)
       marker = new L.Marker(new L.LatLng(site.latitude, site.longitude));
       link = "<p><a href='/sites/" + site.slug + "'>" + site.display_name + "</a></p>";
