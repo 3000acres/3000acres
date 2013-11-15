@@ -41,6 +41,7 @@ feature "add site" do
       page.should have_content @site.to_s #heading
       page.should have_content @site.address
       page.should have_content @site.suburb
+      page.should have_css('div#site-map')
     end
 
     scenario "site has a friendly url" do
