@@ -1,18 +1,24 @@
-.row.homepage-banner
-  .col-md-12
-    %h1 This is the banner area
+- content_for :banner do
+  %h1 This is the banner area
+
+%h1 Find a project
+
 .row
   .col-md-8
     %div#map{:style => 'height: 500px'}
   .col-md-4
     = render :partial => 'facebook'
-.row
-  .col-md-12
-    %h1 VicHealth and TACSI logos go here
-.row
-  .col-md-12
-    %h1 social media links go here
-    %ul
-      %li= link_to "Twitter", "http://twitter.com/3000acres"
-      %li= link_to "Facebook", "http://facebook.com/3000acres"
-      %li etc
+
+
+%h1 Connect with us
+%ul
+  %li Subscribe to Newsletter
+  %li= link_to "Twitter", "http://twitter.com/3000acres"
+  %li= link_to "Facebook", "http://facebook.com/3000acres"
+
+%h1 Partners
+%ul
+  %li VicHealth
+  %li TACSI
+
+
