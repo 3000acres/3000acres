@@ -11,9 +11,9 @@ class ApplicationController < ActionController::Base
     @cms_topnav = Cms::Site.find_by_identifier('topnav')
   end
 
+
   def store_location
-    # store last url - this is needed for post-login redirect to whatever the user last visited.
-    if (request.fullpath != new_user_session_path && \
+    if (!request.fullpath.match("/users/") &&
       !request.xhr?) # don't store ajax calls
       session[:previous_url] = request.fullpath
     end
