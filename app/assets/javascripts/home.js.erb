@@ -16,7 +16,7 @@ function showMap(map) {
     $.each(sites, function(i, site) {
       if (site.latitude && site.longitude) {
         marker = new L.Marker(new L.LatLng(site.latitude, site.longitude));
-        link = "<p><a href='/sites/" + site.id + "'>" + site.display_name + "</a></p>";
+        link = "<p><a href='/sites/" + site.slug + "'>" + site.display_name + "</a></p>";
         marker.bindPopup(link).openPopup();
         map.addLayer(marker);
       }
