@@ -6,6 +6,15 @@ class ApplicationController < ActionController::Base
   before_action :load_cms_context
   after_filter :store_location
 
+  before_filter :configure_permitted_parameters, if: :devise_controller?
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email, :password, :password_confirmation, :remember_me) }
+    devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:name, :email, :password, :remember_me) }
+  end
+
   private
   def load_cms_context
     @cms_topnav = Cms::Site.find_by_identifier('topnav')
@@ -14,6 +23,7 @@ class ApplicationController < ActionController::Base
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last visited.
     if (request.fullpath != new_user_session_path && \
+      request.fullpath != "/users/password" && \
       !request.xhr?) # don't store ajax calls
       session[:previous_url] = request.fullpath
     end
