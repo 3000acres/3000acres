@@ -1,14 +1,16 @@
 .navbar.navbar-default.navbar-fixed-top
   .container
     .navbar-header
-      %a.btn.btn-navbar(data-target=".navbar-collapse" data-toggle="collapse")
-        %span.glyphicon-bar
-        %span.glyphicon-bar
-        %span.glyphicon-bar
-      %a.navbar-brand(href=root_path)= Acres::Application.config.site_name
-
+      %button.navbar-toggle(type="button" data-target=".navbar-collapse" data-toggle="collapse")
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a.navbar-brand(href=root_path)
+        = image_tag("/assets/3000acres_logo.png", :size => "100x100", :alt => Acres::Application.config.site_name)
+        
+        
     .navbar-collapse.collapse
-      %ul.nav.navbar-nav
+      %ul.nav.navbar-nav.navbar-right
 
         - if @cms_topnav
           - @cms_topnav.pages.root.children.published.each do |page|
