@@ -16,7 +16,7 @@ feature "cms admin" do
     # sign in as an ordinary user
     visit root_path
     click_link 'Sign in'
-    fill_in 'Email', :with => @user.email
+    fill_in 'Login', :with => @user.email
     fill_in 'Password', :with => @user.password
     click_button 'Sign in'
     visit cms_admin_path
@@ -28,7 +28,7 @@ feature "cms admin" do
     visit root_path
     # now we sign in as an admin user
     click_link 'Sign in'
-    fill_in 'Email', :with => @admin_user.email
+    fill_in 'Login', :with => @admin_user.email
     fill_in 'Password', :with => @admin_user.password
     click_button 'Sign in'
     visit cms_admin_path
