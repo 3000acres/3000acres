@@ -1,5 +1,9 @@
 - content_for :banner do
+  %div.info
+    This is the info that appears in the banner area.
   %h1 This is the banner area
+
+
 
 %h1 Find a project
 
@@ -8,17 +12,3 @@
     %div#map{:style => 'height: 500px'}
   .col-md-4
     = render :partial => 'facebook'
-
-
-%h1 Connect with us
-%ul
-  %li Subscribe to Newsletter
-  %li= link_to "Twitter", "http://twitter.com/3000acres"
-  %li= link_to "Facebook", "http://facebook.com/3000acres"
-
-%h1 Partners
-%ul
-  %li VicHealth
-  %li TACSI
-
-

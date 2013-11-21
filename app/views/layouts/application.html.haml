@@ -18,8 +18,10 @@
                 %h1= yield(:title)
               = render 'layouts/messages'
               = yield
-          %footer
       / ! end of .container
     / ! end of #main
+
+    %footer
+      = render 'layouts/footer'
 
     = javascript_include_tag "application"
