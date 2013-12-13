@@ -1,14 +1,107 @@
 - content_for :banner do
-  %div.info
-    This is the info that appears in the banner area.
-  %h1 This is the banner area
+  %div.banner_inner.banner_home
+    .container
+      .row
+        .col-md-6
+          %h1
+            3000
+            %span acres
+          %h3 aims to unlock underutilised land across the city to grow food and build strong communities
+        .col-md-6
+          %p newsletter subscribe form (mailchimp) goes here
+    %small.photo_attribute
+      %a(target="blank" href="http://www.flickr.com/photos/28940296@N05/4991157749/sizes/l/in/photostream/") CC-BY-NC by aston5man (Flickr)
 
+%div.section
+  .row
+    .col-md-12
+      %h1.heading_main Find a project
+      %p.heading_sub Explore opportunities to get involved in food projects in your neighbourhood
+  .row
+    .col-md-12
+      %div#map{:style => 'height: 500px'}
+      %table.stats_home
+        %tbody
+          %tr
+            %td
+              %h4
+                %span 0
+                acres
+              %p currently active food projects        
+            %td
+              %h4
+                %span 0
+                projects
+              %p currently active food projects
+            %td
+              %h4
+                %span 0
+                members
+              %p currently joined to active projects
+              
+%div.section
+  .row
+    .col-md-12
+      %h1.heading_main PLACEHOLDER
+  .row
+    .col-md-8
+      %p hsa dhja sdhj sadjh asjhd asjhd asjh djhas djhas djahs djhas d
+    .col-md-4
+      = render :partial => 'facebook'
 
+%div.section
+  .carousel.slide#carousel_home(data-ride="carousel")      
+    .carousel-inner
+      .item.active
+        .row
+          .col-md-12
+            %h2 This is a heading
+        .row
+          .col-md-4
+            %p This is an image
+          .col-md-8
+            %p THis is the text
+      .item
+        .row
+          .col-md-12
+            %h2 This is a heading
+        .row
+          .col-md-4
+            %p This is an image
+          .col-md-8
+            %p THis is the text
+      .item
+        .row
+          .col-md-12
+            %h2 This is a heading
+        .row
+          .col-md-4
+            %p This is an image
+          .col-md-8
+            %p THis is the text
+        
+    %ol.carousel-indicators
+      %li.active(data-target="#carousel_home" data-slide-to="0")
+      %li(data-target="#carousel_home" data-slide-to="1")
+      %li(data-target="#carousel_home" data-slide-to="2")
+      
+    %a.left.carousel.control(href="#carousel_home" data-slide="prev")
+      %span.glyphicon.glyphicon-chevron-left
+    %a.right.carousel.control(href="#carousel_home" data-slide="next")
+      %span.glyphicon.glyphicon-chevron-right
 
-%h1 Find a project
-
-.row
-  .col-md-8
-    %div#map{:style => 'height: 500px'}
-  .col-md-4
-    = render :partial => 'facebook'
+%div.section.partners
+  .row
+    .col-md-12
+      %h1.heading_main PARTNERS
+  .row
+    .col-md-4
+      %a(href="http://www.vichealth.vic.gov.au/" target="_blank")
+        = image_tag("/assets/logo_vichealth_60.png", :size => "312x60", :alt => "VicHealth")
+    .col-md-4
+      %a(href="http://www.tacsi.org.au/" target="_blank")
+        = image_tag("/assets/logo_tacsi_60.png", :size => "294x60", :alt => "TACSI")
+    .col-md-4
+      %a(href="http://harvestdp.com/" target="_blank")
+        = image_tag("/assets/logo_hdp_100.png", :size => "190x100", :alt => "Harvest Digital Planning")
+      

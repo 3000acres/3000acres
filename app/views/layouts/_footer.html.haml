@@ -1,20 +1,23 @@
 .container
   .row
-    .col-md-3
+    .col-md-4
       %h4 Connect with us
-      %ul
-        %li Email
-        %li= link_to "Twitter", "http://twitter.com/3000acres"
-        %li= link_to "Facebook", "http://facebook.com/3000acres"
-        %li Subscribe to Newsletter
-    .col-md-3
-      %h4 Open source
-      %ul
-        %li Why open source?
-        %li= link_to "Source code", "http://github.com/3000acres"
-        %li Get involved
-    .col-md-6
-      %h4 Thanks to...
-      %ul
-        %li VicHealth
-        %li TACSI
+      %ul.sm_icons
+        %li
+          %a(href="http://facebook.com/3000acres" target="_blank")
+            %div.facebook.sm_icon
+        %li
+          %a(href="http://twitter.com/3000acres" target="_blank")
+            %div.twitter.sm_icon
+      %p Subscribe to Newsletter
+    .col-md-4
+      %h4 Major partners
+      %ul.partners
+        %li
+          %a(href="http://www.vichealth.vic.gov.au/" target="_blank")
+            = image_tag("/assets/logo_vichealth_30.png", :size => "156x30", :alt => "VicHealth")
+        %li
+          %a(href="http://www.tacsi.org.au/" target="_blank")
+            = image_tag("/assets/logo_tacsi_30.png", :size => "147x30", :alt => "TACSI")
+    .col-md-4
+      %h4 Open Source
