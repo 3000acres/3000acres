@@ -7,7 +7,7 @@ feature "add site" do
       @admin_user = FactoryGirl.create(:admin_user)
       visit root_path
       click_link 'Sign in'
-      fill_in 'Email', :with => @admin_user.email
+      fill_in 'Login', :with => @admin_user.email
       fill_in 'Password', :with => @admin_user.password
       click_button 'Sign in'
     end

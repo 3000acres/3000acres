@@ -10,17 +10,17 @@
   %body{:class => "#{controller_name} #{action_name}"}
     = render 'layouts/navigation'
     #main{:role => "main"}
-      .container
-        .content
-          .row
-            .col-md-12
-              - if content_for?(:title)
-                %h1= yield(:title)
-              = render 'layouts/messages'
-              = yield
+      %section#banner
+        = yield(:banner)
+      %section#main
+        .container
+          .content
+            .row
+              .col-md-12
+                = render 'layouts/messages'
+                = yield
       / ! end of .container
     / ! end of #main
-
     %footer
       = render 'layouts/footer'
 
