@@ -23,6 +23,11 @@ gem 'leaflet-rails'
 gem 'leaflet-markercluster-rails'
 gem 'friendly_id'
 
+# the following gem is needed to work around a really annoying change in
+# Rails 4. See https://github.com/rails/sprockets-rails/issues/49 for
+# more info.
+gem 'non-stupid-digest-assets'
+
 gem 'comfortable_mexican_sofa', '~> 1.9.0'
 
 group :travis, :staging, :production do
