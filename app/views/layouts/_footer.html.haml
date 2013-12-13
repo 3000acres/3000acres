@@ -2,14 +2,10 @@
   .row
     .col-md-4
       %h4 Connect with us
-      %ul.sm_icons
-        %li
-          %a(href="http://facebook.com/3000acres" target="_blank")
-            %div.facebook.sm_icon
-        %li
-          %a(href="http://twitter.com/3000acres" target="_blank")
-            %div.twitter.sm_icon
-      %p Subscribe to Newsletter
+      %ul
+        %li= link_to "Facebook", "http://facebook.com/3000acres", :html_options => { :target => '_blank' }
+        %li= link_to "Twitter", "http://twitter.com/3000acres", :html_options => { :target => '_blank' }
+      %p Subscribe to our newsletter
     .col-md-4
       %h4 Major partners
       %ul.partners
