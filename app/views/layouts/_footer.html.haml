@@ -3,17 +3,17 @@
     .col-md-4
       %h4 Connect with us
       %ul
-        %li= link_to "Facebook", "http://facebook.com/3000acres", :html_options => { :target => '_blank' }
-        %li= link_to "Twitter", "http://twitter.com/3000acres", :html_options => { :target => '_blank' }
+        %li= link_to "Facebook", "http://facebook.com/3000acres", { :target => '_blank' }
+        %li= link_to "Twitter", "http://twitter.com/3000acres", { :target => '_blank' }
       %p Subscribe to our newsletter
     .col-md-4
       %h4 Major partners
       %ul.partners
         %li
-          %a(href="http://www.vichealth.vic.gov.au/" target="_blank")
+          = link_to "http://www.vichealth.vic.gov.au/", { :target => %'_blank' } do
             = image_tag("/assets/logo_vichealth_30.png", :size => "156x30", :alt => "VicHealth")
         %li
-          %a(href="http://www.tacsi.org.au/" target="_blank")
+          = link_to "http://www.tacsi.org.au/", { :target => %'_blank' } do
             = image_tag("/assets/logo_tacsi_30.png", :size => "147x30", :alt => "TACSI")
     .col-md-4
       %h4 Open Source
