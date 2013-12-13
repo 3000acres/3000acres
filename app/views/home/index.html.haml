@@ -38,7 +38,7 @@
                 %span 0
                 members
               %p currently joined to active projects
-              
+
 %div.section
   .row
     .col-md-12
@@ -48,47 +48,6 @@
       %p hsa dhja sdhj sadjh asjhd asjhd asjh djhas djhas djahs djhas d
     .col-md-4
       = render :partial => 'facebook'
-
-%div.section
-  .carousel.slide#carousel_home(data-ride="carousel")      
-    .carousel-inner
-      .item.active
-        .row
-          .col-md-12
-            %h2 This is a heading
-        .row
-          .col-md-4
-            %p This is an image
-          .col-md-8
-            %p THis is the text
-      .item
-        .row
-          .col-md-12
-            %h2 This is a heading
-        .row
-          .col-md-4
-            %p This is an image
-          .col-md-8
-            %p THis is the text
-      .item
-        .row
-          .col-md-12
-            %h2 This is a heading
-        .row
-          .col-md-4
-            %p This is an image
-          .col-md-8
-            %p THis is the text
-        
-    %ol.carousel-indicators
-      %li.active(data-target="#carousel_home" data-slide-to="0")
-      %li(data-target="#carousel_home" data-slide-to="1")
-      %li(data-target="#carousel_home" data-slide-to="2")
-      
-    %a.left.carousel.control(href="#carousel_home" data-slide="prev")
-      %span.glyphicon.glyphicon-chevron-left
-    %a.right.carousel.control(href="#carousel_home" data-slide="next")
-      %span.glyphicon.glyphicon-chevron-right
 
 %div.section.partners
   .row
@@ -104,4 +63,3 @@
     .col-md-4
       %a(href="http://harvestdp.com/" target="_blank")
         = image_tag("/assets/logo_hdp_100.png", :size => "190x100", :alt => "Harvest Digital Planning")
-      
