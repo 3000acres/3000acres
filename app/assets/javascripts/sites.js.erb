@@ -2,7 +2,7 @@
 cloudmade_key = "<%= Acres::Application.config.cloudmade_key %>";
 cloudmade_url = "http://{s}.tile.cloudmade.com/" + cloudmade_key + "/1714/256/{z}/{x}/{y}.png";
 
-map = L.map('map');
+map = L.map('map', { scrollWheelZoom: false });
 showMap(map);
 
 function showMap(map) {
