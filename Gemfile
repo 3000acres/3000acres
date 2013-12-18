@@ -18,6 +18,7 @@ gem 'therubyracer', :platform=>:ruby
 gem 'twitter-bootstrap-rails', :git => 'https://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'bootstrap3'
 gem 'unicorn'
 gem 'mandrill-api'
+gem 'gibbon' # for mailchimp newsletter subscriptions
 gem 'geocoder'
 gem 'leaflet-rails'
 gem 'leaflet-markercluster-rails'
