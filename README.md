@@ -27,10 +27,15 @@ Then do:
 Sign in as an admin user, then go to the CMS admin page (/cms-admin) and
 set up as follows:
 
-* A site called "topnav"
+* A site called "topnav", identifier "topnav", path "/"
 * A layout called "default", using the application layout
+* Under pages, set up:
+    * A top-level page called "topnav"
+    * Under that, any pages that you want to appear in the top navbar,
+      eg. "About", "Donate", etc.
 
-You may then create child pages for the top navbars, eg.  "About", "Donate" etc.
+All this "topnav" guff is required to get the pages to show up
+automatically in the top navigation bar.
 
 ## For coders
 
