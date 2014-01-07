@@ -46,7 +46,6 @@ class User < ActiveRecord::Base
   end
 
   def newsletter_subscribe
-    puts 'SUBSCRIBING'
     gb = Gibbon::API.new
     res = gb.lists.subscribe({
       :id => ENV['MAILCHIMP_NEWSLETTER_ID'],
@@ -57,7 +56,6 @@ class User < ActiveRecord::Base
   end
 
   def newsletter_unsubscribe
-    puts 'UNSUBSCRIBING'
     gb = Gibbon::API.new
     res = gb.lists.unsubscribe({
       :id => ENV['MAILCHIMP_NEWSLETTER_ID'],
