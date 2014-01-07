@@ -41,5 +41,10 @@ module Acres
     # usernames which are forbidden when people are signing up
     config.forbidden_usernames = %w(acres 3000acres 3000_acres admin moderator staff)
 
+    Gibbon::API.api_key = ENV['MAILCHIMP_APIKEY']
+    Gibbon::API.timeout = 10
+    Gibbon::API.throws_exceptions = false
+    config.newsletter_list_id = ENV['MAILCHIMP_NEWSLETTER_ID']
+
   end
 end

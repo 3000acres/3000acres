@@ -28,6 +28,42 @@ class User < ActiveRecord::Base
   # This is in addition to a real persisted field like 'name'
   attr_accessor :login
 
+  after_save :update_newsletter_subscription
+
+
+  def update_newsletter_subscription
+    if confirmed_at_changed? and newsletter # just signed up/confirmed email
+      newsletter_subscribe
+    elsif confirmed_at # i.e. after user's established their account
+      if newsletter_changed? # edited user settings
+        if newsletter
+          newsletter_subscribe
+        else
+          newsletter_unsubscribe
+        end
+      end
+    end
+  end
+
+  def newsletter_subscribe
+    gb = Gibbon::API.new
+    res = gb.lists.subscribe({
+      :id => ENV['MAILCHIMP_NEWSLETTER_ID'],
+      :email => { :email => email },
+      :merge_vars => { :name => name },
+      :double_optin => false # they alredy confirmed their email with us
+    })
+  end
+
+  def newsletter_unsubscribe
+    gb = Gibbon::API.new
+    res = gb.lists.unsubscribe({
+      :id => ENV['MAILCHIMP_NEWSLETTER_ID'],
+      :email => { :email => email }
+    })
+  end
+
+
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)

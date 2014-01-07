@@ -35,10 +35,18 @@ SimpleForm.setup do |config|
     end
   end
 
+  config.wrappers :checkbox, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
+    b.use :tag => 'div', :class => 'controls' do |ba|
+      ba.use :label_input
+    end
+  end
+
   config.form_class = "form-horizontal"
   config.label_class = "col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label"
   config.input_class = "form-control"
   config.button_class = 'btn btn-default'
   config.default_wrapper = :bootstrap3
+
+
 
 end
