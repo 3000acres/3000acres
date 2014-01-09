@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131218052257) do
+ActiveRecord::Schema.define(version: 20140109051635) do
 
   create_table "cms_blocks", force: true do |t|
     t.integer  "page_id",                     null: false
@@ -196,5 +196,10 @@ ActiveRecord::Schema.define(version: 20131218052257) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+
+  create_table "watches", force: true do |t|
+    t.integer "user_id"
+    t.integer "site_id"
+  end
 
 end

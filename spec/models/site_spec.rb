@@ -66,4 +66,18 @@ describe Site do
     end
 
   end
+
+  context 'watches' do
+    before(:each) do
+      @site = FactoryGirl.create(:site)
+    end
+
+    it "can watch a site" do
+      @site.watches.count.should == 0
+      @watch = FactoryGirl.create(:watch, :site => @site)
+      @site.watches << @watch
+      @site.watches.count.should == 1
+    end
+  end
+
 end
