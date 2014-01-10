@@ -1,0 +1,33 @@
+$(function(){
+  
+  bannerResize();
+  $(window).resize(function(){
+		bannerResize();
+	});
+
+  $(".video-outer").hover(function(){
+    $(".video-inner", this).fadeIn();
+  }, function(){
+    $(".video-inner", this).fadeOut();
+  });
+
+  $(".video-outer").jqueryVideoLightning({
+    autoplay: 1,
+    backdrop_color: "#000",
+    backdrop_opacity: 0.6
+  });
+  
+});
+
+function bannerResize(){
+  var vH = $(window).height();
+  var vW = $(window).width();
+  $('#banner').height(vH-80);
+  if(vW>420){
+    var vHmt = vH/5;
+    $('.banner-content').css('margin-top',vHmt);
+  }
+  else{
+    $('.banner-content').css('margin-top',50);
+  }  
+}

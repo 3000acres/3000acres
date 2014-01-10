@@ -41,7 +41,7 @@
 // -------------------------
 
 @body-bg:               @white;
-@text-color:            @gray-darker;
+@text-color:            @gray;
 
 // Links
 // -------------------------
@@ -51,8 +51,7 @@
 
 // Typography
 // -------------------------
-
-@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,300);
 
 @font-face {
     font-family: 'megalopolis_extraregular';
@@ -63,17 +62,16 @@
          url('fonts/megalopolisextra-webfont.svg#megalopolis_extraregular') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
 
 @font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
 @font-family-serif:       Georgia, "Times New Roman", Times, serif;
 @font-family-monospace:   Monaco, Menlo, Consolas, "Courier New", monospace;
-@font-family-base:        @font-family-sans-serif;
+@font-family-base:        "Open Sans", @font-family-sans-serif;
 
 @font-size-base:          14px;
 
-@headings-font-family:    "megalopolis_extraregular", @font-family-sans-serif;
+@headings-font-family:    "Open Sans", @font-family-sans-serif;
 @headings-font-weight:    700;
 @headings-line-height:    1.1;
 @headings-color:          @brand-primary;
@@ -158,7 +156,7 @@
 // -------------------------
 
 // Basics of a navbar
-@navbar-height:                    90px;
+@navbar-height:                    80px;
 @navbar-margin-bottom:             @line-height-computed;
 @navbar-border-radius:             @border-radius-base;
 @navbar-padding-horizontal:        floor(@grid-gutter-width / 2);
@@ -285,6 +283,8 @@
 @alert-danger-text:           @state-danger-text;
 @alert-danger-border:         @state-danger-border;
 
+html,body {width:100%;height:100%;margin:0;padding:0;}
+
 body {
   padding-top: @navbar-height;
 }
@@ -303,7 +303,11 @@ p.heading_sub{
   text-align:center;
 }
 
-// Header Styling
+h2{
+  color: @brand-primary;
+}
+
+// Navbar Styling
 
 .navbar{
   background-color: @white; 
@@ -315,11 +319,7 @@ p.heading_sub{
 
 .navbar-brand{
   padding:0px;
-  position:absolute;
-  z-index:1;
-  left:0px;
-  top:0px;
-  margin:10px 0px 0px 0px;
+  margin:5px 0px 0px 0px;
 }
 
 .navbar-nav > li > a {
@@ -333,14 +333,18 @@ p.heading_sub{
 #main h1{
   color:@brand-primary;
   margin-top:40px;
+  margin-bottom:20px;
 }
 
 // Banner section
 #banner{
-  height: 400px;
-  overflow: hidden;
+  top:0px;
+  left: 0;
+  right: 0;
+  bottom: 0;
   position: relative;
-  width: 100%;
+  width: auto;
+  height: auto;
   text-align:left;
   border-bottom:5px solid @brand-primary;
 }
@@ -357,15 +361,17 @@ p.heading_sub{
 }
 
 .banner_home{
-  background:url('/assets/wheelbarrow-cropped.jpg') no-repeat scroll center top rgba(0, 0, 0, 0);
+  background:url('/assets/backgroundcolour.jpg') no-repeat scroll center top rgba(0, 0, 0, 0);
+  -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 .banner_inner{  
-  position:absolute;
-	z-index:1;
+  position:relative;
 	width:100%;
-	padding-top:100px;
-	height:400px;
+	height:100%;
 	background-size:cover;  
 }
 
@@ -380,27 +386,30 @@ p.heading_sub{
   }
 }
 
+#banner .banner-content{
+  
+}
+
 #banner h1{
-  text-shadow: -1.5px 1px 0 #000000;
   text-align:left;
   margin-top:0px;
   color:@brand-primary;
+  font-size:50px;
 }
 
 #banner h1 span{
   color:@white;
-  text-transform:lowercase;
 }
 
-#banner h3{
+@media only screen and (max-width: 480px) {
+  #banner h1{
+    font-size:40px;
+  }
+}
+
+#banner h4{
   color:@white;
   line-height:1.3;
-  text-shadow: -1.5px 1px 0 #000000;
-}
-
-#banner .right-col h3{
-  margin-top:0px;
-  margin-bottom:20px;
 }
 
 #banner p{
@@ -487,10 +496,40 @@ footer ul.partners > li{
   color:@brand-primary;  
 }
 
-#carousel_home{
-  background:@brand-primary;
+// NEWS STYLING
+.video-outer{
+  background:url('/assets/news-video.jpg') no-repeat 0px 0px rgba(0, 0, 0, 0);
+  position:relative;
+  width:100%;
+  height:420px;
+  margin-top:20px;
 }
 
-.section.partners .col-md-4{
-  text-align:center;
+.video-outer:hover{
+  cursor:pointer;
+}
+
+.video-outer .video-inner{
+  background:url('/assets/news-video-hover.jpg') no-repeat 0px 0px rgba(0, 0, 0, 0);
+  width:100%;
+  height:420px;
+  display:none;
+  position:absolute;
+  top:0px;
+  left:0px;
+}
+
+.fb-like-box{
+  border:10px solid @brand-primary;
+  margin-top:20px;
+}
+
+// PARTNERS SECTION
+.section.partners{
+  margin-bottom:80px;
+}
+.section.partners h3{
+  color:#666666;
+  margin-top:40px;
+  margin-bottom:20px;
 }
