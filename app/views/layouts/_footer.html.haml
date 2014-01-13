@@ -2,9 +2,15 @@
   .row
     .col-md-4
       %h4 Connect with us
-      %ul
-        %li= link_to "Facebook", "http://facebook.com/3000acres", { :target => '_blank' }
-        %li= link_to "Twitter", "http://twitter.com/3000acres", { :target => '_blank' }
+      %ul.sm_icons
+        %li
+          %a(href="http://facebook.com/3000acres" target="_blank")
+            %div.facebook.sm_icon
+              %span.sr-only Facebook
+        %li
+          %a(href="http://twitter.com/3000acres" target="_blank")
+            %div.twitter.sm_icon
+              %span.sr-only Twitter
 
       #newsletter-footer
         %p Subscribe to our newsletter
@@ -12,7 +18,7 @@
         =form_tag("http://3000acres.us3.list-manage.com/subscribe/post?u=3d6770001275929f73950dfc2&amp;id=2011150da6", { :class => 'form-inline', :target => '_blank' }) do
           .form-group
             = label_tag("EMAIL", "Email address", { :class => 'sr-only'})
-            = email_field_tag("EMAIL", nil, { :placeholder => 'you@example.com' })
+            = email_field_tag("EMAIL", nil, { :placeholder => 'you@example.com', :class => 'form-control' })
           %div{:style => "position: absolute; left: -5000px;"}
             <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
             = text_field_tag("b_3d6770001275929f73950dfc2_2011150da6", nil)
