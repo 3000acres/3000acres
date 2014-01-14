@@ -1,0 +1,6 @@
+- content_for :title, "Local Government Areas"
+
+%ul
+  - @local_government_areas.each do |lga|
+    %li= link_to lga.name, lga
+

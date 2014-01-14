@@ -1,0 +1,11 @@
+%h2 Sign up
+= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-vertical' }) do |f|
+  = f.error_notification
+  = display_base_errors resource
+  = f.input :name, :label => 'Login name', :autofocus => true
+  = f.input :email, :required => true
+  = f.input :password, :required => true
+  = f.input :password_confirmation, :required => true
+  = f.input :newsletter, :as => :boolean, :hint => "Subscribe to the #{Acres::Application.config.site_name} newsletter. We promise we'll never spam you or sell your email address, and you can unsubscribe any time."
+  = f.button :submit, 'Sign up', :class => 'btn btn-default'
+= render "devise/shared/links"

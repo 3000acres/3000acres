@@ -1,0 +1,11 @@
+%title
+  - if ! cms_page_content(:title).blank?
+    = cms_page_content(:title)
+    \:
+    = Acres::Application.config.site_name
+  - elsif content_for?(:title)
+    = yield(:title)
+    \:
+    = Acres::Application.config.site_name
+  - else
+    = Acres::Application.config.site_name

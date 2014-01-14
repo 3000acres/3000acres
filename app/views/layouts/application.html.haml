@@ -1,0 +1,27 @@
+!!!
+%html
+  %head
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+      = render 'layouts/title'
+      %meta{:content => content_for?(:description) ? yield(:description) : Acres::Application.config.site_name, :name => "description"}
+        = stylesheet_link_tag "application", :media => "all"
+        = csrf_meta_tags
+        = yield(:head)
+  %body{:class => "#{controller_name} #{action_name}"}
+    = render 'layouts/navigation'
+    #main{:role => "main"}
+      .container
+        .content
+          .row
+            .col-md-12
+              - if content_for?(:title)
+                %h1= yield(:title)
+              = render 'layouts/messages'
+              = yield
+      / ! end of .container
+    / ! end of #main
+
+    %footer
+      = render 'layouts/footer'
+
+    = javascript_include_tag "application"

@@ -1,0 +1,11 @@
+- content_for :title, "Change your password"
+
+= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f|
+  = devise_error_messages!
+
+  = f.hidden_field :reset_password_token
+  = f.input :password, :autofocus => true, :label => 'New password'
+  = f.input :password_confirmation, :autofocus => true, :label => 'Confirm new password'
+  = f.button :submit, "Change my password", :class => 'btn btn-default'
+
+= render "devise/shared/links"

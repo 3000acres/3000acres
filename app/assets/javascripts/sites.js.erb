@@ -1,0 +1,38 @@
+// Map
+cloudmade_key = "<%= Acres::Application.config.cloudmade_key %>";
+cloudmade_url = "http://{s}.tile.cloudmade.com/" + cloudmade_key + "/1714/256/{z}/{x}/{y}.png";
+
+map = L.map('map', { scrollWheelZoom: false });
+showMap(map);
+
+function showMap(map) {
+  L.tileLayer(cloudmade_url, {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors under <a href="http://www.openstreetmap.org/copyright">ODbL</a> | Map imagery &copy; <a href="http://cloudmade.com">Cloudmade</a>',
+    maxZoom: 18
+  }).addTo(map);
+  if (location.pathname === "/") { // homepage
+    map.setView([-37.85, 145.06], 10); // Melbourne
+    $.getJSON('sites.json', function(sites) {
+      $.each(sites, function(i, site) {
+        if (site.latitude && site.longitude) {
+          addMarker(site, map)
+        }
+      });
+    })
+  } else { // specific site
+    $.getJSON(location.pathname + '.json', function(site) {
+      if (site.latitude && site.longitude) {
+        map.setView([site.latitude, site.longitude], 14); // more zoomed in
+        addMarker(site, map)
+      }
+    });
+  }
+}
+
+function addMarker(site, map) {
+  marker = new L.Marker(new L.LatLng(site.latitude, site.longitude));
+  link = "<p><a href='/sites/" + site.slug + "'>" + site.display_name + "</a></p>";
+  marker.bindPopup(link).openPopup();
+  map.addLayer(marker);
+}
+
