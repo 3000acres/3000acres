@@ -73,7 +73,8 @@ class SitesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def site_params
-      params.require(:site).permit(:name, :description, :address, :suburb, :latitude, :longitude, :size, :water, :available_until, :status)
+      params.require(:site).permit(:name, :description, :address,
+          :suburb, :latitude, :longitude, :size, :water, :available_until, :status, :local_government_area_id)
     end
 
     # the following is needed to make CanCan work under Rails 4; see

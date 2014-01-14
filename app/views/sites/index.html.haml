@@ -2,11 +2,10 @@
 
 %table.table.table-striped
   %tr
+    %th Name
     %th Address
     %th Suburb
-    %th Name
-    %th Latitude
-    %th Longitude
+    %th Local Government Area
     %th Size
     %th Water
     %th Available until
@@ -17,11 +16,10 @@
 
   - @sites.each do |site|
     %tr
+      %td= site.name
       %td= site.address
       %td= site.suburb
-      %td= site.name
-      %td= site.latitude
-      %td= site.longitude
+      %td= site.local_government_area ? site.local_government_area.name : ''
       %td= site.size
       %td= site.water
       %td= site.available_until

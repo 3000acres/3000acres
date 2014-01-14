@@ -17,6 +17,9 @@
       %b Suburb:
       = @site.suburb
     %p
+      %b Local Government Area:
+      = @site.local_government_area ? @site.local_government_area.name : 'unknown'
+    %p
       %b Latitude:
       = @site.latitude
     %p
