@@ -58,5 +58,13 @@ namespace :acres do
       end
     end
 
+    desc "Set added_by_user for sites"
+    task :initialize_added_by => :environment do
+      Site.find_each do |m|
+        m.added_by_user_id = 1
+        m.save!
+      end
+    end
+
   end
 end

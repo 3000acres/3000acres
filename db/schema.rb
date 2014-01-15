@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140115010837) do
+ActiveRecord::Schema.define(version: 20140115084437) do
 
   create_table "cms_blocks", force: true do |t|
     t.integer  "page_id",                     null: false
@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(version: 20140115010837) do
     t.datetime "updated_at"
     t.integer  "local_government_area_id"
     t.string   "slug"
+    t.integer  "added_by_user_id"
   end
 
   add_index "sites", ["slug"], name: "index_sites_on_slug", unique: true

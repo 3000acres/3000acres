@@ -11,5 +11,6 @@ FactoryGirl.define do
     available_until "2013-11-08"
     status "unknown"
     local_government_area
+    added_by_user
   end
 end

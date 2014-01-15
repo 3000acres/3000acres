@@ -4,6 +4,7 @@ class Site < ActiveRecord::Base
   friendly_id :slug_candidates, :use => [:slugged, :finders]
 
   belongs_to :local_government_area
+  belongs_to :added_by_user, :class_name => 'User'
   has_many :watches
 
   validates :address, :presence => true
