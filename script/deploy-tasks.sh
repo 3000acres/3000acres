@@ -10,5 +10,8 @@
 # echo "YYYY-MM-DD - do something or other"
 # rake acres:oneoff:something
 
-echo "2013-11-13 - set up friendly ID slugs"
-rake acres:oneoff:initialize_friendlyid_slugs
+# echo "2013-11-13 - set up friendly ID slugs"
+# rake acres:oneoff:initialize_friendlyid_slugs
+
+echo "2014-01-15 - set up friendly ID slugs for users"
+rake acres:oneoff:initialize_user_slugs

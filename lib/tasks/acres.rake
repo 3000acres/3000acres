@@ -50,5 +50,13 @@ namespace :acres do
       end
     end
 
+    desc "Create friendly_id slugs for existing users"
+    task :initialize_user_slugs => :environment do
+      User.find_each do |m|
+        m.slug = nil
+        m.save!
+      end
+    end
+
   end
 end
