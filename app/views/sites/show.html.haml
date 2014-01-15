@@ -20,8 +20,7 @@
             .form-actions
               = f.submit "Watch this site", :class => 'btn btn-primary'
     - else
-      %p
-        Sign in or sign up to watch this site.
+      %p= render :partial => "shared/signin_signup", :locals => { :to => 'watch this site' }
 
     - if ! @site.name.blank?
       %p
