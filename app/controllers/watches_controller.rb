@@ -31,7 +31,7 @@ class WatchesController < ApplicationController
 
     respond_to do |format|
       if @watch.save
-        format.html { redirect_to site_path(@watch.site), notice: "You're now watching this site." }
+        format.html { redirect_to site_path(@watch.site), notice: "You're now watching #{@watch.site}." }
         format.json { render action: 'show', status: :created, location: @watch }
       else
         format.html { redirect_to site_path(@watch.site), notice: "Could not watch this site." }
@@ -60,7 +60,7 @@ class WatchesController < ApplicationController
     @site = @watch.site
     @watch.destroy
     respond_to do |format|
-      format.html { redirect_to @site, :notice => "You've stopped watching this site."}
+      format.html { redirect_to request.referer, :notice => "You've stopped watching #{@site}."}
       format.json { head :no_content }
     end
   end
