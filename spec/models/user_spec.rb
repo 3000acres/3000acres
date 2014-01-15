@@ -169,4 +169,17 @@ describe User do
     end
   end
 
+  context 'watches' do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+    end
+
+    it "can watch a site" do
+      @user.watches.count.should == 0
+      @watch = FactoryGirl.create(:watch, :user => @user)
+      @user.watches << @watch
+      @user.watches.count.should == 1
+    end
+  end
+
 end
