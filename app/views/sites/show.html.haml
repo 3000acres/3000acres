@@ -4,21 +4,35 @@
   .col-md-8
     %div#map{:style => 'height: 400px'}
   .col-md-4
-    %p
-      %b Name:
-      = @site.name
-    %p
-      %b Description:
-      = @site.description
+    - if can? :create, Watch
+      %p
+        = form_for :watch, :as => :post, :url => watches_path, :method => :post do |f|
+          .form-inputs
+            = f.hidden_field :site_id, :value => @site.id
+          .form-actions
+            = f.submit "Watch this site", :class => 'btn btn-primary'
+
+    - if ! @site.name.blank?
+      %p
+        %b Name:
+        = @site.name
+    - if ! @site.description.blank?
+      %p
+        %b Description:
+        = @site.description
+
     %p
       %b Address:
       = @site.address
     %p
       %b Suburb:
       = @site.suburb
-    %p
-      %b Local Government Area:
-      = @site.local_government_area ? @site.local_government_area.name : 'unknown'
+
+    - if @site.local_government_area
+      %p
+        %b Local Government Area:
+        = @site.local_government_area.name
+
     %p
       %b Latitude:
       = @site.latitude
@@ -27,8 +41,11 @@
       = @site.longitude
     %p
       %b Size:
-      = @site.size
-      square metres
+      - if @site.size
+        = @site.size
+        square metres
+      - else
+        unknown
     %p
       %b Water available?
       = @site.water ? "Yes" : "No"

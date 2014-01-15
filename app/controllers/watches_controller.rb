@@ -27,15 +27,14 @@ class WatchesController < ApplicationController
   # POST /watches
   # POST /watches.json
   def create
-    @watch = Watch.new(watch_params)
+    @watch = Watch.new(watch_params.merge(:user_id => current_user.id))
 
     respond_to do |format|
       if @watch.save
-        add_another_link = view_context.link_to "Add another", new_watch_path, :class => 'btn btn-default'
-        format.html { redirect_to @watch, notice: "Watch was successfully created. #{add_another_link}" }
+        format.html { redirect_to site_path(@watch.site), notice: "You're now watching this site." }
         format.json { render action: 'show', status: :created, location: @watch }
       else
-        format.html { render action: 'new' }
+        format.html { redirect_to site_path(@watch.site), notice: "Could not watch this site." }
         format.json { render json: @watch.errors, status: :unprocessable_entity }
       end
     end
