@@ -69,3 +69,17 @@
     - if can? :update, @site
       %p= link_to 'Edit', edit_site_path(@site), :class => 'btn btn-default'
 
+
+.row
+  .col-md-12
+    %h2 Who watches this site?
+    - if @site.watches.count > 0
+      %p
+        = pluralize @site.watches.count, "person"
+        = @site.watches.count == 1 ? "is" : "are"
+        watching this site.
+      %ul
+        - @site.watches.each do |w|
+          %li= link_to w.user.name, user_path(w.user)
+    - else
+      %p Nobody, yet. You could be the first!

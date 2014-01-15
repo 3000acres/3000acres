@@ -18,6 +18,7 @@ feature "watches" do
       click_button 'Watch this site'
       current_path.should eq site_path(@site)
       page.should have_content "You're now watching #{@site}"
+      page.should have_content "1 person is watching this site"
     end
 
     scenario "can unwatch site" do
@@ -27,6 +28,7 @@ feature "watches" do
       click_button 'Stop watching'
       current_path.should eq site_path(@site)
       page.should have_content "You've stopped watching #{@site}"
+      page.should have_content "Nobody, yet. You could be the first!"
     end
 
     scenario "page shows watched sites" do
