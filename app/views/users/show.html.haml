@@ -7,7 +7,7 @@
 - else
   %p
     = @user.name
-    watches
+    is watching
     = succeed "." do
       = pluralize @user.watches.count, "site"
 
