@@ -57,9 +57,10 @@ class WatchesController < ApplicationController
   # DELETE /watches/1
   # DELETE /watches/1.json
   def destroy
+    @site = @watch.site
     @watch.destroy
     respond_to do |format|
-      format.html { redirect_to watches_url }
+      format.html { redirect_to @site, :notice => "You've stopped watching this site."}
       format.json { head :no_content }
     end
   end

@@ -13,6 +13,7 @@ class SitesController < ApplicationController
   # GET /sites/1
   # GET /sites/1.json
   def show
+    @watch = Watch.where(:site_id => params[:id], :user_id => current_user.id).first || nil
   end
 
   # GET /sites/new

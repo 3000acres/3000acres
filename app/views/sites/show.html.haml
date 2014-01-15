@@ -6,11 +6,22 @@
   .col-md-4
     - if can? :create, Watch
       %p
-        = form_for :watch, :as => :post, :url => watches_path, :method => :post do |f|
-          .form-inputs
-            = f.hidden_field :site_id, :value => @site.id
-          .form-actions
-            = f.submit "Watch this site", :class => 'btn btn-primary'
+        - if @watch
+          You're watching this site.
+          = form_for :watch, :url => watch_path(@watch), :method => :delete do |f|
+            .form-inputs
+              = f.hidden_field :site_id, :value => @site.id
+            .form-actions
+              = f.submit "Stop watching", :class => 'btn btn-primary'
+        - else
+          = form_for :watch, :as => :post, :url => watches_path, :method => :post do |f|
+            .form-inputs
+              = f.hidden_field :site_id, :value => @site.id
+            .form-actions
+              = f.submit "Watch this site", :class => 'btn btn-primary'
+    - else
+      %p
+        Sign in or sign up to watch this site.
 
     - if ! @site.name.blank?
       %p
