@@ -73,10 +73,22 @@ describe Site do
     end
 
     it "can watch a site" do
-      @site.watches.count.should == 0
-      @watch = FactoryGirl.create(:watch, :site => @site)
-      @site.watches << @watch
-      @site.watches.count.should == 1
+      expect {
+        FactoryGirl.create(:watch, :site => @site)
+      }.to change { @site.watches.count}.by(1)
+    end
+
+    it "auto-watches site when added by a non-admin" do
+      @user = FactoryGirl.create(:user)
+      @this_site = FactoryGirl.create(:site, :added_by_user => @user)
+      @this_site.watches.count.should == 1
+      @this_site.watches.last.user.should eq @user
+    end
+
+    it "doesn't auto-watch for admins" do
+      @admin_user = FactoryGirl.create(:admin_user)
+      @this_site = FactoryGirl.create(:site, :added_by_user => @admin_user)
+      @this_site.watches.count.should == 0
     end
   end
 

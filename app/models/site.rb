@@ -19,6 +19,19 @@ class Site < ActiveRecord::Base
 
   geocoded_by :full_address
   after_validation :geocode
+  after_create :autowatch
+
+  # autowatch()
+  # When a user adds a site, they automatically get to watch it. Unless
+  # they're an admin, in which case that would be overwhelming.
+  def autowatch
+    unless added_by_user.has_role?(:admin)
+      Watch.create(
+        :site_id => id,
+        :user_id => added_by_user_id
+      )
+    end
+  end
 
   # slug_candidates()
   # used to generate a slug for friendly_id
