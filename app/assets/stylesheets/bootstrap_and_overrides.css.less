@@ -162,28 +162,28 @@
 @navbar-padding-horizontal:        floor(@grid-gutter-width / 2);
 @navbar-padding-vertical:          ((@navbar-height - @line-height-computed) / 2);
 
-@navbar-default-color:             @green;
-@navbar-default-bg:                @white;
-@navbar-default-border:            darken(@navbar-default-bg, 6.5%);
+@navbar-color:             @green;
+@navbar-bg:                @white;
+@navbar-border:            darken(@navbar-bg, 6.5%);
 
 // Navbar links
-@navbar-default-link-color:                @green;
-@navbar-default-link-hover-color:          darken(@navbar-default-link-color, 10%);
-@navbar-default-link-hover-bg:             transparent;
-@navbar-default-link-active-color:         darken(@navbar-default-link-color, 10%);
-@navbar-default-link-active-bg:            darken(@navbar-default-bg, 6.5%);
-@navbar-default-link-disabled-color:       #ccc;
-@navbar-default-link-disabled-bg:          transparent;
+@navbar-link-color:                @green;
+@navbar-link-hover-color:          darken(@navbar-link-color, 10%);
+@navbar-link-hover-bg:             transparent;
+@navbar-link-active-color:         darken(@navbar-link-color, 10%);
+@navbar-link-active-bg:            darken(@navbar-bg, 6.5%);
+@navbar-link-disabled-color:       #ccc;
+@navbar-link-disabled-bg:          transparent;
 
 // Navbar brand label
-@navbar-default-brand-color:               @brand-primary;
-@navbar-default-brand-hover-color:         darken(@navbar-default-brand-color, 10%);
-@navbar-default-brand-hover-bg:            transparent;
+@navbar-brand-color:               @brand-primary;
+@navbar-brand-hover-color:         darken(@navbar-brand-color, 10%);
+@navbar-brand-hover-bg:            transparent;
 
 // Navbar toggle
-@navbar-default-toggle-hover-bg:           #ddd;
-@navbar-default-toggle-icon-bar-bg:        #ccc;
-@navbar-default-toggle-border-color:       #ddd;
+@navbar-toggle-hover-bg:           #ddd;
+@navbar-toggle-icon-bar-bg:        #ccc;
+@navbar-toggle-border-color:       #ddd;
 
 // Form states and alerts
 // -------------------------
@@ -283,7 +283,7 @@
 @alert-danger-text:           @state-danger-text;
 @alert-danger-border:         @state-danger-border;
 
-html,body {width:100%;height:100%;margin:0;padding:0;}
+html,body { width:100%;height:100%;margin:0;padding:0; }
 
 body {
   padding-top: @navbar-height;
@@ -293,23 +293,19 @@ section {
   margin-bottom: 20px;
 }
 
-#homepage h1 {
-  text-transform: uppercase;
-  text-align: center;
+h1, h2, h3, h4 {
+  // I have no idea why @headings-color doesn't work :-/
   color: @brand-primary;
 }
 
-h2{
-  color: @brand-primary;
+#homepage h1 {
+  text-transform: uppercase;
+  text-align: center;
 }
 
 // Navbar Styling
 
-.navbar{
-  background-color: @white; 
-}
-
-.navbar-header{
+.navbar-header {
   position:relative;
 }
 
@@ -321,7 +317,6 @@ h2{
 .navbar-nav > li > a {
   padding-top:30px;
   padding-bottom:30px;
-  color:@brand-primary;
   font-size:18px;
 }
 
