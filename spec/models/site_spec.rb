@@ -64,7 +64,21 @@ describe Site do
         @site.errors[:status].should include("not valid is not a valid status")
       end
     end
+  end
 
+  context "website" do
+    it 'validates website' do
+      @site = FactoryGirl.build(:site, :website => 'http://example.com')
+      @site.should be_valid
+      @site = FactoryGirl.build(:site, :website => 'example.com')
+      @site.should_not be_valid
+    end
+    it 'allows blank and nil website' do
+      @site = FactoryGirl.build(:site, :website => '')
+      @site.should be_valid
+      @site = FactoryGirl.build(:site, :website => nil)
+      @site.should be_valid
+    end
   end
 
   context 'watches' do

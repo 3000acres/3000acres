@@ -14,6 +14,7 @@
     = f.input :name, :placeholder => "Our fantastic community garden", :hint => "Optional (we'll use the address if you don't give us one)."
 
     = f.input :description
+    = f.input :website, :placeholder => "http://fantasticgarden..."
 
     - if can? :set_status, Site
       = f.input :status, :as => 'select', :collection => Site::STATUSES, :default => 'unknown'
