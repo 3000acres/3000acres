@@ -1,0 +1,15 @@
+%section
+  .row
+    .col-md-12
+      %h1.heading_main Get Involved
+      %p.text-center
+        Each pin on this map represents a site for a
+        community garden, whether potential or actual.
+        %br
+        Do you know of a potential community garden site that's not on the map?
+        - if can? :create, Site
+          = link_to "Add it here.", new_site_path
+        - else
+          = render :partial => "shared/signin_signup", :locals => { :to => "add a site" }
+    .col-md-12
+      %div#map{:style => 'height: 500px'}

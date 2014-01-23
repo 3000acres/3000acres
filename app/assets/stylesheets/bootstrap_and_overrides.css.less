@@ -289,18 +289,14 @@ body {
   padding-top: @navbar-height;
 }
 
-.section{
-  margin-top:40px;
+section {
+  margin-bottom: 20px;
 }
 
-h1.heading_main {
+#homepage h1 {
   text-transform: uppercase;
   text-align: center;
   color: @brand-primary;
-}
-
-p.heading_sub{
-  text-align:center;
 }
 
 h2{
@@ -329,14 +325,6 @@ h2{
   font-size:18px;
 }
 
-// Main
-#main h1{
-  color:@brand-primary;
-  margin-top:40px;
-  margin-bottom:20px;
-}
-
-// Banner section
 .jumbotron {
   top: 0px;
   left: 0px;
@@ -346,7 +334,7 @@ h2{
   width: auto;
   height: auto;
   text-align:left;
-  text-shadow: 2px 2px 3px @black;
+  text-shadow: 4px 4px 8px @black;
   border-bottom:5px solid @brand-primary;
   background:url('/assets/wheelbarrow-cropped.jpg') no-repeat scroll center top rgba(0, 0, 0, 0);
   -webkit-background-size: cover;
@@ -357,6 +345,10 @@ h2{
 
 .jumbotron p {
   color: @white;
+}
+
+.jumbotron h1 {
+  color: @brand-primary
 }
 
 .jumbotron h1 span.subhead {
@@ -376,6 +368,11 @@ h2{
   right:5px;
   bottom:5px;
   color: @white;
+}
+
+.partner-logos {
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
 
 // Footer styling
@@ -476,12 +473,3 @@ footer ul.partners > li{
   margin-top:20px;
 }
 
-// PARTNERS SECTION
-.section.partners{
-  margin-bottom:80px;
-}
-.section.partners h3{
-  color:#666666;
-  margin-top:40px;
-  margin-bottom:20px;
-}
