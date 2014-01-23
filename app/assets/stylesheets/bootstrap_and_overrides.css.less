@@ -337,93 +337,45 @@ h2{
 }
 
 // Banner section
-#banner{
-  top:0px;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.jumbotron {
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
   position: relative;
   width: auto;
   height: auto;
   text-align:left;
+  text-shadow: 2px 2px 3px @black;
   border-bottom:5px solid @brand-primary;
-}
-
-@media only screen and (max-width: 1024px) {
-  #banner {
-    margin:0
-  }
-}
-@media only screen and (max-width: 480px) {
-  #banner {
-    height:auto;
-  }
-}
-
-.banner_home{
-  background:url('/assets/backgroundcolour.jpg') no-repeat scroll center top rgba(0, 0, 0, 0);
+  background:url('/assets/wheelbarrow-cropped.jpg') no-repeat scroll center top rgba(0, 0, 0, 0);
   -webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
-.banner_inner{  
+.jumbotron p {
+  color: @white;
+}
+
+.jumbotron h1 span.subhead {
+  color: @white;
+}
+
+.banner_inner{
   position:relative;
-	width:100%;
-	height:100%;
-	background-size:cover;  
+  width:100%;
+  height:100%;
+  background-size:cover;
 }
 
-@media only screen and (max-width: 1024px) {
-  .banner_inner {
-    margin:0
-  }
-}
-@media only screen and (max-width: 480px) {
-  .banner_inner {
-    position:static;
-  }
-}
-
-#banner .banner-content{
-  
-}
-
-#banner h1{
-  text-align:left;
-  margin-top:0px;
-  color:@brand-primary;
-  font-size:50px;
-}
-
-#banner h1 span{
-  color:@white;
-}
-
-@media only screen and (max-width: 480px) {
-  #banner h1{
-    font-size:40px;
-  }
-}
-
-#banner h4{
-  color:@white;
-  line-height:1.3;
-}
-
-#banner p{
-  color:@white;
-}
-
-#banner .btn.input-lg{
-  font-size:18px;
-}
-
-.photo_attribute{
+.photo_attribute a {
+  font-size: 80%;
   position:absolute;
   right:5px;
   bottom:5px;
+  color: @white;
 }
 
 // Footer styling

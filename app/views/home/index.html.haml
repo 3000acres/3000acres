@@ -1,23 +1,21 @@
 - content_for :banner do
-  %div.banner_inner.banner_home
-    .container
-      .row
-        .col-md-8
-          %div.banner-content
-            %h1
-              3000 Acres
-              %br
-              %span Connecting People to Land
-            %h4 aims to unlock underutilised land across the city to grow food and build strong communities
+  .jumbotron
+    %h1
+      3000 Acres
+      %br
+      %span.subhead Connecting People to Land
+    %p 
+      3000 Acres aims to unlock underutilised land across the
+      city to grow food and build strong communities.
 
-            =form_tag("http://3000acres.us3.list-manage.com/subscribe/post?u=3d6770001275929f73950dfc2&amp;id=2011150da6", { :class => 'form-inline', :target => '_blank' }) do
-              .form-group
-                = label_tag("EMAIL", "Email address", { :class => 'sr-only'})
-                = email_field_tag("EMAIL", nil, { :placeholder => 'you@example.com', :class => 'col-xs-12 input-lg font-control' })
-              %div{:style => "position: absolute; left: -5000px;"}
-                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                = text_field_tag("b_3d6770001275929f73950dfc2_2011150da6", nil)
-              = submit_tag("Subscribe", { :class => 'btn btn-primary input-lg' })
+    =form_tag("http://3000acres.us3.list-manage.com/subscribe/post?u=3d6770001275929f73950dfc2&amp;id=2011150da6", { :class => 'form-inline', :target => '_blank' }) do
+      .form-group
+        = label_tag("EMAIL", "Email address", { :class => 'sr-only'})
+        = email_field_tag("EMAIL", nil, { :placeholder => 'you@example.com', :class => 'col-xs-12 input-lg font-control' })
+      %div{:style => "position: absolute; left: -5000px;"}
+        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+        = text_field_tag("b_3d6770001275929f73950dfc2_2011150da6", nil)
+      = submit_tag("Newsletter subscribe", { :class => 'btn btn-primary input-lg' })
 
     %small.photo_attribute
       %a(target="blank" href="http://www.flickr.com/photos/28940296@N05/4991157749/sizes/l/in/photostream/") CC-BY-NC by aston5man (Flickr)
