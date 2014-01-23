@@ -66,6 +66,11 @@
       %b Status:
       = @site.status
 
+    - if @site.added_by_user
+      %p
+        %b Added by:
+        = link_to @site.added_by_user.name, user_path(@site.added_by_user)
+
     - if can? :update, @site
       %p= link_to 'Edit', edit_site_path(@site), :class => 'btn btn-default'
 

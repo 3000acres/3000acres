@@ -15,3 +15,6 @@
 
 echo "2014-01-15 - set up friendly ID slugs for users"
 rake acres:oneoff:initialize_user_slugs
+
+echo "2014-01-15 - set up added_by_user for sites"
+rake acres:oneoff:initialize_added_by

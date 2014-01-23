@@ -10,6 +10,7 @@
     %th Water
     %th Available until
     %th Status
+    %th Added by
     %th
     %th
     %th
@@ -24,6 +25,7 @@
       %td= site.water
       %td= site.available_until
       %td= site.status
+      %td= link_to site.added_by_user.name, user_path(site.added_by_user)
       %td= link_to 'Show', site_path(site)
       %td= link_to 'Edit', edit_site_path(site)
       %td= link_to 'Destroy', site_path(site), :method => :delete, :data => { :confirm => 'Are you sure?' }

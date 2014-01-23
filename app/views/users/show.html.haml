@@ -14,8 +14,30 @@
   %table.table.table-striped
     - @user.watches.each do |w|
       %tr
-        %td= link_to w.site, w.site
+        %td= link_to w.site, site_path(w.site)
         - if can? :manage, w
           %td= link_to "Stop watching", watch_path(w), :method => :delete, :class => 'btn btn-default'
 
+
+- if @user.sites_added.count > 0
+
+  %h2 Sites added
+  %p
+    = @user.name
+    has added
+    = succeed "." do
+      = pluralize @user.sites_added.count, "site"
+
+  %table.table.table-striped
+    %tr
+      %th Site
+      %th Status
+      %th Added on
+      %th
+
+    - @user.sites_added.each do |s|
+      %tr
+        %td= link_to s, site_path(s)
+        %td= s.status
+        %td= s.created_at
 

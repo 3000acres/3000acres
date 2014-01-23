@@ -31,6 +31,10 @@ class SitesController < ApplicationController
   # POST /sites.json
   def create
     @site = Site.new(site_params)
+    @site.added_by_user = current_user
+    unless can? :set_status, Site
+      @site.status = "unknown"
+    end
 
     respond_to do |format|
       if @site.save

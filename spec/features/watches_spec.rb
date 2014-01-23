@@ -7,7 +7,7 @@ feature "watches" do
       @user = FactoryGirl.create(:user)
       @site = FactoryGirl.create(:site)
       visit root_path
-      click_link 'Sign in'
+      click_link 'navbar-signin'
       fill_in 'Login', :with => @user.email
       fill_in 'Password', :with => @user.password
       click_button 'Sign in'

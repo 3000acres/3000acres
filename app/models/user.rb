@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :watches
+  has_many :sites_added, :class_name => 'Site', :foreign_key => :added_by_user_id
 
   validates :name,
     :length => {
