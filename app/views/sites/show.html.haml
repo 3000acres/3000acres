@@ -66,6 +66,11 @@
       %b Status:
       = @site.status
 
+    - if ! @site.website.blank?
+      %p
+        %b Website:
+        = link_to @site.website, @site.website
+
     - if @site.added_by_user
       %p
         %b Added by:

@@ -16,6 +16,7 @@ class Site < ActiveRecord::Base
           :message => "%{value} is not a valid status" },
           :allow_nil => false,
           :allow_blank => false
+  validates :website, :url => { :allow_blank => true, :allow_nil => true }
 
   geocoded_by :full_address
   after_validation :geocode

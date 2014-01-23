@@ -12,5 +12,6 @@ FactoryGirl.define do
     status "unknown"
     local_government_area
     added_by_user
+    website 'http://example.com'
   end
 end
