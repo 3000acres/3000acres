@@ -15,7 +15,7 @@ feature "cms admin" do
   scenario "can't view CMS admin if not an admin user" do
     # sign in as an ordinary user
     visit root_path
-    click_link 'Sign in'
+    click_link 'navbar-signin'
     fill_in 'Login', :with => @user.email
     fill_in 'Password', :with => @user.password
     click_button 'Sign in'
@@ -27,7 +27,7 @@ feature "cms admin" do
   scenario "admin users can view CMS admin area" do
     visit root_path
     # now we sign in as an admin user
-    click_link 'Sign in'
+    click_link 'navbar-signin'
     fill_in 'Login', :with => @admin_user.email
     fill_in 'Password', :with => @admin_user.password
     click_button 'Sign in'

@@ -2,7 +2,7 @@ FactoryGirl.define do
   sequence(:email) { |n| "user#{n}@example.com" }
   sequence(:name) { |n| "user#{n}" }
 
-  factory :user, aliases: [:added_by_user] do
+  factory :user do
     name { generate(:name) }
     email { generate(:email) }
     password 'changeme'
@@ -10,7 +10,10 @@ FactoryGirl.define do
     # required if the Devise Confirmable module is used
     confirmed_at Time.now
 
-    factory :admin_user do
+    # we're using admin_user as the default "added by" user because that's
+    # the most typical case, and because it avoids triggering special
+    # behaviour like auto-watching a site when it's created
+    factory :admin_user, aliases: [:added_by_user] do
       roles { [ FactoryGirl.create(:admin) ] }
     end
 

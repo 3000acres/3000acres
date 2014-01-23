@@ -9,7 +9,7 @@
               %br
               %span TO LAND
             %h4 aims to unlock underutilised land across the city to grow food and build strong communities
-            
+
             =form_tag("http://3000acres.us3.list-manage.com/subscribe/post?u=3d6770001275929f73950dfc2&amp;id=2011150da6", { :class => 'form-inline', :target => '_blank' }) do
               .form-group
                 = label_tag("EMAIL", "Email address", { :class => 'sr-only'})
@@ -17,8 +17,8 @@
               %div{:style => "position: absolute; left: -5000px;"}
                 <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
                 = text_field_tag("b_3d6770001275929f73950dfc2_2011150da6", nil)
-              = submit_tag("Subscribe", { :class => 'btn btn-primary input-lg' })          
-          
+              = submit_tag("Subscribe", { :class => 'btn btn-primary input-lg' })
+
     %small.photo_attribute
       %a(target="blank" href="http://www.flickr.com/photos/28940296@N05/4991157749/sizes/l/in/photostream/") CC-BY-NC by aston5man (Flickr)
 
@@ -34,7 +34,6 @@
     .col-md-4
       = render :partial => 'facebook'
 
-    
 %div.section.home-map
   .row
     .col-md-12
@@ -43,6 +42,16 @@
   .row
     .col-md-12
       %div#map{:style => 'height: 500px'}
+  .row
+    .col-md-12
+      %h2.text-center Tell us about potential sites
+      %p.text-center
+        Do you know of a potential community garden site that's not on the map?
+        - if can? :create, Site
+          = link_to "Add it here.", new_site_path
+        - else
+          = render :partial => "shared/signin_signup", :locals => { :to => "add a site" }
+
 
 %div.section.partners
   .row
