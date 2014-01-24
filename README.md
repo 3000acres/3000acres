@@ -73,4 +73,7 @@ also be found [on github](https://github.com/596acres/).
 
 Some code comes from [Growstuff](http://growstuff.org/) under AGPLv3.
 
+Map pins: [CC-BY-SA user Mono on Wikimedia
+Commons](https://commons.wikimedia.org/wiki/File:Map_pin_icon.svg)
+
 
