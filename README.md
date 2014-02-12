@@ -32,9 +32,9 @@ set up as follows:
     * If you want to set up a "title" field for each page, make your
       layout's content read something like:
 
-    <h1>
+    &lt;h1&gt;
     {{ cms:page:title:string }}
-    </h1>
+    &lt;/h1&gt;
 
     {{ cms:page:content:text }}
 
