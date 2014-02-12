@@ -38,6 +38,8 @@ set up as follows:
 
           {{ cms:page:content:text }}
 
+    * Now when you create/edit a page, you'll see a field where you can
+      enter the page title.
     * This title will then be included in the HTML title (used by the browser
       etc)
 
