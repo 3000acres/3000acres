@@ -30,7 +30,40 @@ function showMap(map) {
 }
 
 function addMarker(site, map) {
-  marker = new L.Marker(new L.LatLng(site.latitude, site.longitude));
+  switch(site.status) {
+    case 'unknown':
+      pin = '/assets/pin-grey.png';
+      break;
+    case 'unsuitable':
+      pin = '/assets/pin-black.png';
+      break;
+    case 'potential':
+      pin = '/assets/pin-orange.png';
+      break;
+    case 'proposed':
+      pin = '/assets/pin-yellow.png';
+      break;
+    case 'active':
+      pin = '/assets/pin-green.png';
+      break;
+    default:
+      pin = '/assets/pin-grey.png';
+      break;
+  }
+  var icon = L.icon({
+    iconUrl: pin,
+    iconSize: [31, 42],
+    iconAnchor: [15, 42],
+    popupAnchor: [0, -20]
+  })
+  marker = new L.Marker(new L.LatLng(site.latitude, site.longitude), {
+    icon: L.icon({
+      iconUrl: pin,
+      iconSize: [31, 42],
+      iconAnchor: [15, 42],
+      popupAnchor: [0, -20]
+    })
+  });
   link = "<p><a href='/sites/" + site.slug + "'>" + site.display_name + "</a></p>";
   marker.bindPopup(link).openPopup();
   map.addLayer(marker);

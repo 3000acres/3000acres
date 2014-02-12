@@ -1,10 +1,16 @@
 class User < ActiveRecord::Base
   rolify
 
+  extend FriendlyId
+  friendly_id :name, :use => [:slugged, :finders]
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  has_many :watches
+  has_many :sites_added, :class_name => 'Site', :foreign_key => :added_by_user_id
 
   validates :name,
     :length => {

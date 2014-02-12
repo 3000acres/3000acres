@@ -52,7 +52,7 @@ describe Site do
       end
 
       it 'all valid status values should work' do
-        ['unknown', 'suitable', 'unsuitable', 'in-progress', 'active'].each do |s|
+        ['unknown', 'unsuitable', 'potential', 'proposed', 'active'].each do |s|
           @site = FactoryGirl.build(:site, :status => s)
           @site.should be_valid
         end
@@ -64,6 +64,46 @@ describe Site do
         @site.errors[:status].should include("not valid is not a valid status")
       end
     end
-
   end
+
+  context "website" do
+    it 'validates website' do
+      @site = FactoryGirl.build(:site, :website => 'http://example.com')
+      @site.should be_valid
+      @site = FactoryGirl.build(:site, :website => 'example.com')
+      @site.should_not be_valid
+    end
+    it 'allows blank and nil website' do
+      @site = FactoryGirl.build(:site, :website => '')
+      @site.should be_valid
+      @site = FactoryGirl.build(:site, :website => nil)
+      @site.should be_valid
+    end
+  end
+
+  context 'watches' do
+    before(:each) do
+      @site = FactoryGirl.create(:site)
+    end
+
+    it "can watch a site" do
+      expect {
+        FactoryGirl.create(:watch, :site => @site)
+      }.to change { @site.watches.count}.by(1)
+    end
+
+    it "auto-watches site when added by a non-admin" do
+      @user = FactoryGirl.create(:user)
+      @this_site = FactoryGirl.create(:site, :added_by_user => @user)
+      @this_site.watches.count.should == 1
+      @this_site.watches.last.user.should eq @user
+    end
+
+    it "doesn't auto-watch for admins" do
+      @admin_user = FactoryGirl.create(:admin_user)
+      @this_site = FactoryGirl.create(:site, :added_by_user => @admin_user)
+      @this_site.watches.count.should == 0
+    end
+  end
+
 end

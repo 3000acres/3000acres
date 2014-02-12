@@ -13,6 +13,9 @@ class SitesController < ApplicationController
   # GET /sites/1
   # GET /sites/1.json
   def show
+    if current_user
+      @watch = Watch.where(:site_id => @site.id, :user_id => current_user.id).first || nil
+    end
   end
 
   # GET /sites/new
@@ -28,6 +31,10 @@ class SitesController < ApplicationController
   # POST /sites.json
   def create
     @site = Site.new(site_params)
+    @site.added_by_user = current_user
+    unless can? :set_status, Site
+      @site.status = "unknown"
+    end
 
     respond_to do |format|
       if @site.save
@@ -73,7 +80,9 @@ class SitesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def site_params
-      params.require(:site).permit(:name, :description, :address, :suburb, :latitude, :longitude, :size, :water, :available_until, :status)
+      params.require(:site).permit(:name, :description, :address,
+          :suburb, :latitude, :longitude, :size, :water,
+          :available_until, :status, :local_government_area_id, :website)
     end
 
     # the following is needed to make CanCan work under Rails 4; see

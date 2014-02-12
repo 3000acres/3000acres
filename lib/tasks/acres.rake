@@ -50,5 +50,36 @@ namespace :acres do
       end
     end
 
+    desc "Create friendly_id slugs for existing users"
+    task :initialize_user_slugs => :environment do
+      User.find_each do |m|
+        m.slug = nil
+        m.save!
+      end
+    end
+
+    desc "Set added_by_user for sites"
+    task :initialize_added_by => :environment do
+      Site.find_each do |m|
+        unless m.added_by_user
+          u = User.first
+          m.added_by_user = u
+          m.save!
+        end
+      end
+    end
+
+    desc "Rename statuses for sites"
+    task :rename_statuses => :environment do
+      Site.find_each do |s|
+        if s.status == 'suitable'
+          s.status = 'potential'
+        elsif s.status == 'in-progress'
+          s.status = 'proposed'
+        end
+        s.save!
+      end
+    end
+
   end
 end

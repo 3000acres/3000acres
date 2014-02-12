@@ -4,18 +4,45 @@
   .col-md-8
     %div#map{:style => 'height: 400px'}
   .col-md-4
-    %p
-      %b Name:
-      = @site.name
-    %p
-      %b Description:
-      = @site.description
+    - if can? :create, Watch
+      %p
+        - if @watch
+          You're watching this site.
+          = form_for :watch, :url => watch_path(@watch), :method => :delete do |f|
+            .form-inputs
+              = f.hidden_field :site_id, :value => @site.id
+            .form-actions
+              = f.submit "Stop watching", :class => 'btn btn-primary'
+        - else
+          = form_for :watch, :as => :post, :url => watches_path, :method => :post do |f|
+            .form-inputs
+              = f.hidden_field :site_id, :value => @site.id
+            .form-actions
+              = f.submit "Watch this site", :class => 'btn btn-primary'
+    - else
+      %p= render :partial => "shared/signin_signup", :locals => { :to => 'watch this site' }
+
+    - if ! @site.name.blank?
+      %p
+        %b Name:
+        = @site.name
+    - if ! @site.description.blank?
+      %p
+        %b Description:
+        = @site.description
+
     %p
       %b Address:
       = @site.address
     %p
       %b Suburb:
       = @site.suburb
+
+    - if @site.local_government_area
+      %p
+        %b Local Government Area:
+        = @site.local_government_area.name
+
     %p
       %b Latitude:
       = @site.latitude
@@ -24,8 +51,11 @@
       = @site.longitude
     %p
       %b Size:
-      = @site.size
-      square metres
+      - if @site.size
+        = @site.size
+        square metres
+      - else
+        unknown
     %p
       %b Water available?
       = @site.water ? "Yes" : "No"
@@ -36,6 +66,30 @@
       %b Status:
       = @site.status
 
+    - if ! @site.website.blank?
+      %p
+        %b Website:
+        = link_to @site.website, @site.website
+
+    - if @site.added_by_user
+      %p
+        %b Added by:
+        = link_to @site.added_by_user.name, user_path(@site.added_by_user)
+
     - if can? :update, @site
       %p= link_to 'Edit', edit_site_path(@site), :class => 'btn btn-default'
 
+
+.row
+  .col-md-12
+    %h2 Who watches this site?
+    - if @site.watches.count > 0
+      %p
+        = pluralize @site.watches.count, "person"
+        = @site.watches.count == 1 ? "is" : "are"
+        watching this site.
+      %ul
+        - @site.watches.each do |w|
+          %li= link_to w.user.name, user_path(w.user)
+    - else
+      %p Nobody, yet. You could be the first!

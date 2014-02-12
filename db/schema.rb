@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131218052257) do
+ActiveRecord::Schema.define(version: 20140123094751) do
 
   create_table "cms_blocks", force: true do |t|
     t.integer  "page_id",                     null: false
@@ -162,6 +162,8 @@ ActiveRecord::Schema.define(version: 20131218052257) do
     t.datetime "updated_at"
     t.integer  "local_government_area_id"
     t.string   "slug"
+    t.integer  "added_by_user_id"
+    t.string   "website"
   end
 
   add_index "sites", ["slug"], name: "index_sites_on_slug", unique: true
@@ -185,10 +187,12 @@ ActiveRecord::Schema.define(version: 20131218052257) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.boolean  "newsletter"
+    t.string   "slug"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["slug"], name: "index_users_on_slug", unique: true
 
   create_table "users_roles", id: false, force: true do |t|
     t.integer "user_id"
@@ -196,5 +200,10 @@ ActiveRecord::Schema.define(version: 20131218052257) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+
+  create_table "watches", force: true do |t|
+    t.integer "user_id"
+    t.integer "site_id"
+  end
 
 end
