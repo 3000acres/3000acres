@@ -69,5 +69,17 @@ namespace :acres do
       end
     end
 
+    desc "Rename statuses for sites"
+    task :rename_statuses => :environment do
+      Site.find_each do |s|
+        if s.status == 'suitable'
+          s.status = 'potential'
+        elsif s.status == 'in-progress'
+          s.status = 'proposed'
+        end
+        s.save!
+      end
+    end
+
   end
 end

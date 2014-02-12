@@ -52,7 +52,7 @@ describe Site do
       end
 
       it 'all valid status values should work' do
-        ['unknown', 'suitable', 'unsuitable', 'in-progress', 'active'].each do |s|
+        ['unknown', 'unsuitable', 'potential', 'proposed', 'active'].each do |s|
           @site = FactoryGirl.build(:site, :status => s)
           @site.should be_valid
         end
