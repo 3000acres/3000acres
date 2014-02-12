@@ -30,14 +30,19 @@
           We believe everyone should have access to great local food.  At
           3000 Acres, we're trying to bridge the gap between people who want
           to grow food, and local councils and other organisations who hold
-          the keys to vacant land.  Find out more about what we're doing by
-          watching our video or keep up with what's new by liking us on Facebook.
-    .row
-      .col-md-8
-        %div.video-outer(data-video-id="y-udidk7yivi4")
-          %div.video-inner
-      .col-md-4
-        = render :partial => 'facebook'
+          the keys to vacant land.
+        %p
+          Find out more by
+          = succeed "," do
+            = link_to "watching our video", "http://www.youtube.com/watch?v=udidk7yivi4"
+          = succeed "," do
+            = link_to "following us on Twitter", "http://twitter.com/3000acres"
+          or 
+          = succeed "." do
+            = link_to "liking us on Facebook", "https://www.facebook.com/3000acres"
+
+        .visible-md.visible-lg
+          = render :partial => 'facebook'
 
   = render :partial => 'partners'
 
