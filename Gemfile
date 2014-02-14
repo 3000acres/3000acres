@@ -38,6 +38,7 @@ end
 
 group :staging, :production do
   gem 'rails_12factor' # supresses heroku messages
+  gem 'newrelic_rpm'
 end
 
 group :development do

@@ -32,12 +32,14 @@ set up as follows:
     * If you want to set up a "title" field for each page, make your
       layout's content read something like:
 
-    <h1>
-    {{ cms:page:title:string }}
-    </h1>
+          <h1>
+          {{ cms:page:title:string }}
+          </h1>
 
-    {{ cms:page:content:text }}
+          {{ cms:page:content:text }}
 
+    * Now when you create/edit a page, you'll see a field where you can
+      enter the page title.
     * This title will then be included in the HTML title (used by the browser
       etc)
 
