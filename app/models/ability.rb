@@ -14,6 +14,9 @@ class Ability
       can :update, User, :id => user.id
 
       can :create, Site # but can't set the status
+      can :update, Site do |s|
+        s.added_by_user_id == user.id && s.status == 'unknown'
+      end
 
       can :create, Watch
       can :manage, Watch, :user_id => user.id
