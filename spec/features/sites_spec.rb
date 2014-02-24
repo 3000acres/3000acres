@@ -43,7 +43,7 @@ feature "add site" do
 
     scenario "can add site" do
       visit root_path
-      click_link "Add it here."
+      click_link "Add a site"
       fill_in 'Address', :with => '1 Smith St'
       fill_in 'Suburb', :with => 'Smithville'
       click_button 'Create Site'
@@ -52,7 +52,7 @@ feature "add site" do
 
     scenario "can edit site if status is still unknown" do
       visit root_path
-      click_link "Add it here."
+      click_link "Add a site"
       fill_in 'Address', :with => '1 Smith St'
       fill_in 'Suburb', :with => 'Smithville'
       click_button 'Create Site'

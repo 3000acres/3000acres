@@ -58,15 +58,13 @@
             and mark it as either suitable or unsuitable.
     .col-md-4
       .row
-        .col-md-2
-          &nbsp;
-        .col-md-10
-          %strong
-            Do you know of a community garden or a potential site that's not on the map?
+        .col-md-12.text-center
+          - if can? :create, Site
+            = link_to "Add a site", new_site_path, :class => 'btn btn-primary btn-lg'
+          - else
+            = link_to "Add a site", new_user_session_path, :class => 'btn btn-primary btn-lg'
             %br/
-            - if can? :create, Site
-              = link_to "Add it here.", new_site_path
-            - else
-              = render :partial => "shared/signin_signup", :locals => { :to => "add a site" }
+            %small
+              = render :partial => 'shared/signin_signup', :locals => { :to => 'add a site' }
 
     .col-md-8
