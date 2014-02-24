@@ -58,7 +58,12 @@
         unknown
     %p
       %b Water available?
-      = @site.water ? "Yes" : "No"
+      - if @site.water
+        Yes
+      - elsif @site.water == nil
+        Unknown
+      - else
+        No
     %p
       %b Available until:
       = @site.available_until.blank? ? "indefinitely" : @site.available_until

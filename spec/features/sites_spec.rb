@@ -92,5 +92,11 @@ feature "add site" do
       current_path.should match /1-smith-st-jonestown/
     end
 
+    scenario "water shows as unknown if nil" do
+      @site = FactoryGirl.create(:site, :water => nil)
+      visit site_path(@site)
+      page.should have_content "Water available? Unknown"
+    end
+
   end
 end
