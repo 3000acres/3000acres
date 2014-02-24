@@ -78,7 +78,10 @@
 
     - if can? :update, @site
       %p= link_to 'Edit', edit_site_path(@site), :class => 'btn btn-default'
-
+      %p
+        %small
+          Note: as the person who added this site, you can edit the
+          details up until we've reviewed it.
 
 .row
   .col-md-12

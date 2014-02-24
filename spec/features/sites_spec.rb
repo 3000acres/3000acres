@@ -49,6 +49,27 @@ feature "add site" do
       click_button 'Create Site'
       current_path.should eq site_path(Site.last)
     end
+
+    scenario "can edit site if status is still unknown" do
+      visit root_path
+      click_link "Add it here."
+      fill_in 'Address', :with => '1 Smith St'
+      fill_in 'Suburb', :with => 'Smithville'
+      click_button 'Create Site'
+      current_path.should eq site_path(Site.last)
+      page.should have_content "you can edit the details"
+      click_link 'Edit'
+      current_path.should eq edit_site_path(Site.last)
+      click_button 'Update Site'
+      current_path.should eq site_path(Site.last)
+    end
+
+    scenario "can't edit site once approved" do
+      @site = FactoryGirl.create(:site, :status => 'potential', :added_by_user => @user)
+      visit site_path(@site)
+      expect { find_button("Edit") }.to raise_error
+      page.should_not have_content "you can edit the details"
+    end
   end
 
   context "any visitor" do
