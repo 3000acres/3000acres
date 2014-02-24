@@ -70,6 +70,17 @@ feature "add site" do
       expect { find_button("Edit") }.to raise_error
       page.should_not have_content "you can edit the details"
     end
+
+    scenario "can add website without leading http://" do
+      visit root_path
+      click_link "Add a site"
+      fill_in 'Address', :with => '1 Smith St'
+      fill_in 'Suburb', :with => 'Smithville'
+      fill_in 'Website', :with => 'example.com'
+      click_button 'Create Site'
+      current_path.should eq site_path(Site.last)
+      page.should have_content 'Website: http://example.com'
+    end
   end
 
   context "any visitor" do
