@@ -71,13 +71,38 @@ describe Site do
       @site = FactoryGirl.build(:site, :website => 'http://example.com')
       @site.should be_valid
       @site = FactoryGirl.build(:site, :website => 'example.com')
-      @site.should_not be_valid
+      @site.should be_valid
     end
     it 'allows blank and nil website' do
       @site = FactoryGirl.build(:site, :website => '')
       @site.should be_valid
       @site = FactoryGirl.build(:site, :website => nil)
       @site.should be_valid
+    end
+    it 'normalises website if http is missing' do
+      @site = FactoryGirl.build(:site, :website => 'example.com')
+      @site.should be_valid
+      @site.website.should eq 'http://example.com'
+    end
+    it "doesn't normalise websites starting with http" do
+      @site = FactoryGirl.build(:site, :website => 'http://example.com')
+      @site.should be_valid
+      @site.website.should eq 'http://example.com'
+    end
+    it "doesn't normalise websites starting with https" do
+      @site = FactoryGirl.build(:site, :website => 'https://example.com')
+      @site.should be_valid
+      @site.website.should eq 'https://example.com'
+    end
+    it "doesn't normalise blank website" do
+      @site = FactoryGirl.build(:site, :website => '')
+      @site.should be_valid
+      @site.website.should eq ''
+    end
+    it "doesn't normalise nil website" do
+      @site = FactoryGirl.build(:site, :website => nil)
+      @site.should be_valid
+      @site.website.should eq nil
     end
   end
 
