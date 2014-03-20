@@ -15,17 +15,23 @@
             %li= link_to page.label, page.full_path
 
         - if user_signed_in?
-          %li= link_to 'Your sites', user_path(current_user)
+          %li.dropdown
+            %a.dropdown-toggle{'data-toggle' => 'dropdown'}
+              = current_user.name
+              %b.caret
+            %ul.dropdown-menu
+              %li= link_to 'Your sites', user_path(current_user)
+              %li= link_to 'Edit account', edit_user_registration_path
+              %li= link_to 'Sign out', destroy_user_session_path, :method=>'delete', :id => 'navbar-signout'
+
           - if current_user.has_role? :admin
-            %li= link_to 'Sites Admin', sites_path
-            %li{ :data => { :no_turbolink => true }}= link_to 'CMS Admin', cms_admin_path
-          %li= link_to 'Edit account', edit_user_registration_path
-          %li= link_to 'Sign out', destroy_user_session_path, :method=>'delete', :id => 'navbar-signout'
+            %li.dropdown
+              %a.dropdown-toggle{'data-toggle' => 'dropdown'}
+                Admin
+                %b.caret
+              %ul.dropdown-menu
+                %li= link_to 'Sites Admin', sites_path
+                %li{ :data => { :no_turbolink => true }}= link_to 'CMS Admin', cms_admin_path
         - else
           %li= link_to 'Sign in', new_user_session_path, :id => 'navbar-signin'
           %li= link_to 'Sign up', new_user_registration_path, :id => 'navbar-signup'
-
-      - if user_signed_in?
-        %p.navbar-text.navbar-right
-          You are signed in as
-          = current_user.name
