@@ -7,7 +7,7 @@
     it.
 
   .form-inputs
-    = f.input :address, :placeholder => '99 Bourke St'
+    = f.input :address, :placeholder => '99 Bourke St', :hint => "Don't know the address, or the site doesn't have one? Just pick something as close as possible for now."
     = f.input :suburb, :placeholder => 'Melbourne'
     = f.input :local_government_area_id, :as => 'select', :collection => LocalGovernmentArea.all
 
