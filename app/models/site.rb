@@ -18,6 +18,7 @@ class Site < ActiveRecord::Base
           :allow_blank => false
   validates :website, :url => { :allow_blank => true, :allow_nil => true }
 
+  before_validation :normalise_website
   geocoded_by :full_address
   after_validation :geocode
   after_create :autowatch
@@ -53,6 +54,12 @@ class Site < ActiveRecord::Base
 
   def to_s
     return name.blank? ? "#{address}, #{suburb}" : name
+  end
+
+  def normalise_website
+    if (!self.website.blank?) && (!/https?:\/\//.match(self.website))
+      self.website = "http://#{self.website}"
+    end
   end
 
 end

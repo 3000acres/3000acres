@@ -43,11 +43,43 @@ feature "add site" do
 
     scenario "can add site" do
       visit root_path
-      click_link "Add it here."
+      click_link "Add a site"
       fill_in 'Address', :with => '1 Smith St'
       fill_in 'Suburb', :with => 'Smithville'
       click_button 'Create Site'
       current_path.should eq site_path(Site.last)
+    end
+
+    scenario "can edit site if status is still unknown" do
+      visit root_path
+      click_link "Add a site"
+      fill_in 'Address', :with => '1 Smith St'
+      fill_in 'Suburb', :with => 'Smithville'
+      click_button 'Create Site'
+      current_path.should eq site_path(Site.last)
+      page.should have_content "you can edit the details"
+      click_link 'Edit'
+      current_path.should eq edit_site_path(Site.last)
+      click_button 'Update Site'
+      current_path.should eq site_path(Site.last)
+    end
+
+    scenario "can't edit site once approved" do
+      @site = FactoryGirl.create(:site, :status => 'potential', :added_by_user => @user)
+      visit site_path(@site)
+      expect { find_button("Edit") }.to raise_error
+      page.should_not have_content "you can edit the details"
+    end
+
+    scenario "can add website without leading http://" do
+      visit root_path
+      click_link "Add a site"
+      fill_in 'Address', :with => '1 Smith St'
+      fill_in 'Suburb', :with => 'Smithville'
+      fill_in 'Website', :with => 'example.com'
+      click_button 'Create Site'
+      current_path.should eq site_path(Site.last)
+      page.should have_content 'Website: http://example.com'
     end
   end
 
@@ -69,6 +101,12 @@ feature "add site" do
       @site = FactoryGirl.create(:site, :address => '1 smith st', :suburb => 'jonestown')
       visit site_path(@site)
       current_path.should match /1-smith-st-jonestown/
+    end
+
+    scenario "water shows as unknown if nil" do
+      @site = FactoryGirl.create(:site, :water => nil)
+      visit site_path(@site)
+      page.should have_content "Water available? Unknown"
     end
 
   end

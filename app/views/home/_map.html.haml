@@ -35,8 +35,8 @@
         .col-md-10
           %p
             %strong Potential:
-            Our staff have reviewed this site and it could become a
-            community garden. Interested? Let us know by "watching" it.
+            This site could become a community garden! Sign in to start
+            watching it and organizing your new community garden.
   .row
     .col-md-4
       .row
@@ -46,7 +46,8 @@
           %p
             %strong Unsuitable:
             Someone identified this as a potential community garden
-            site, but unfortunately it's not suitable.
+            site, but unfortunately it's not suitable. Click the marker to find out
+            why.
     .col-md-4
       .row
         .col-md-2
@@ -54,19 +55,17 @@
         .col-md-10
           %p
             %strong Unknown:
-            We don't know much about this site. Our staff will review it
-            and mark it as either suitable or unsuitable.
+            We don't know much about this site but are working hard to
+            find out more.
     .col-md-4
       .row
-        .col-md-2
-          &nbsp;
-        .col-md-10
-          %strong
-            Do you know of a community garden or a potential site that's not on the map?
+        .col-md-12.text-center
+          - if can? :create, Site
+            = link_to "Add a site", new_site_path, :class => 'btn btn-primary btn-lg'
+          - else
+            = link_to "Add a site", new_user_session_path, :class => 'btn btn-primary btn-lg'
             %br/
-            - if can? :create, Site
-              = link_to "Add it here.", new_site_path
-            - else
-              = render :partial => "shared/signin_signup", :locals => { :to => "add a site" }
+            %small
+              = render :partial => 'shared/signin_signup', :locals => { :to => 'add a site' }
 
     .col-md-8
