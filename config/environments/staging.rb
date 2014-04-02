@@ -88,4 +88,5 @@ Acres::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.site_name = "3000 Acres (staging)"
+  config.mapbox_map_id = 'skud.hm995d16' # 3A should probably get their own ID for this
 end
