@@ -32,11 +32,6 @@ module Acres
     # this region is appended to "address, suburb" when doing geocoding
     config.region = 'Victoria, Australia'
 
-    # config.cloudmade_key
-    # used to display cloudmade tiles on maps
-    # this key is visible in the HTML anyway so no big risk to put it in git
-    config.cloudmade_key = '56299f81f3514c7ca300defbc201af20'
-
     # config.forbidden_usernames
     # usernames which are forbidden when people are signing up
     config.forbidden_usernames = %w(acres 3000acres 3000_acres admin moderator staff)

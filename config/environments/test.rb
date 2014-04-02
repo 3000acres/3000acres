@@ -36,6 +36,7 @@ Acres::Application.configure do
   config.active_support.deprecation = :stderr
 
   config.site_name = "3000 Acres (test)"
+  config.mapbox_map_id = 'skud.hm995d16' # 3A should probably get their own ID for this
 end
 
 Geocoder::Lookup::Test.add_stub(

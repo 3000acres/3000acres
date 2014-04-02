@@ -88,4 +88,5 @@ Acres::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.site_name = "3000 Acres"
+  config.mapbox_map_id = 'NEED TO SET THIS'
 end
