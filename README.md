@@ -1,5 +1,6 @@
 3000acres
 =========
+[![Build Status](https://travis-ci.org/3000acres/3000acres.svg?branch=dev)](https://travis-ci.org/3000acres/3000acres)
 
 [3000 Acres](http://www.3000acres.org) will connect people to land, to
 resources and to each other.
