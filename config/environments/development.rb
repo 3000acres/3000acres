@@ -40,6 +40,6 @@ Acres::Application.configure do
 
   config.site_name = "3000 Acres (dev)"
 
-  config.mapbox_map_id = 'skud.hm98kia3'
+  config.mapbox_map_id = '3000acres.hmh1c6pj'
 
 end
