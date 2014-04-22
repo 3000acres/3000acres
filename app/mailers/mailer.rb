@@ -1,5 +1,5 @@
 class Mailer < ActionMailer::Base
-  default from: ENV['send_email_from']
+  default from: ENV['send_email_from'] || 'noreply@example.com'
 
   def site_added_notification(user, site)
     @user = user
