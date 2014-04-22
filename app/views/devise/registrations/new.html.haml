@@ -6,6 +6,6 @@
   = f.input :email, :required => true
   = f.input :password, :required => true
   = f.input :password_confirmation, :required => true
-  = f.input :newsletter, :as => :boolean, :hint => "Subscribe to the #{Figaro.env.acres_site_name} newsletter. We promise we'll never spam you or sell your email address, and you can unsubscribe any time."
+  = f.input :newsletter, :as => :boolean, :hint => "Subscribe to the #{ENV['acres_site_name']} newsletter. We promise we'll never spam you or sell your email address, and you can unsubscribe any time."
   = f.button :submit, 'Sign up', :class => 'btn btn-default'
 = render "devise/shared/links"

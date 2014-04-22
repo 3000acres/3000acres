@@ -5,6 +5,7 @@ env: RAILS_ENV=travis
 rvm:
   - 2.0.0
 before_script:
+  - figaro set -e production
   - psql -c 'create database acres_test;' -U postgres
 script:
   - bundle exec rake db:migrate --trace

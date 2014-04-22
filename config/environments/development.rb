@@ -31,8 +31,8 @@ Acres::Application.configure do
   config.action_mailer.smtp_settings = {
     :address   => "smtp.mandrillapp.com",
     :port      => 25,
-    :user_name => Figaro.env.mandrill_username,
-    :password  => Figaro.env.mandrill_apikey
+    :user_name => ENV['mandrill_username'],
+    :password  => ENV['mandrill_apikey']
   }
 
   # Send email in development mode.

@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   def newsletter_subscribe
     gb = Gibbon::API.new
     res = gb.lists.subscribe({
-      :id => Figaro.env.mailchimp_newsletter_id,
+      :id => ENV['mailchimp_newsletter_id'],
       :email => { :email => email },
       :merge_vars => { :name => name },
       :double_optin => false # they alredy confirmed their email with us
@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
   def newsletter_unsubscribe
     gb = Gibbon::API.new
     res = gb.lists.unsubscribe({
-      :id => Figaro.env.mailchimp_newsletter_id,
+      :id => ENV['mailchimp_newsletter_id'],
       :email => { :email => email }
     })
   end
