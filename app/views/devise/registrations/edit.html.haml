@@ -3,8 +3,8 @@
   = f.error_notification
   = display_base_errors resource
   = f.input :email, :required => true
-  = f.input :send_email, :label => "Receive email updates", :as => :boolean, :hint => "Receive email updates about sites you're watching on #{Acres::Application.config.site_name}."
-  = f.input :newsletter, :as => :boolean, :hint => "Subscribe to the #{Acres::Application.config.site_name} newsletter. We promise we'll never spam you or sell your email address, and you can unsubscribe any time."
+  = f.input :send_email, :label => "Receive email updates", :as => :boolean, :hint => "Receive email updates about sites you're watching on #{Figaro.env.acres_site_name}."
+  = f.input :newsletter, :as => :boolean, :hint => "Subscribe to the #{Figaro.env.acres_site_name} newsletter. We promise we'll never spam you or sell your email address, and you can unsubscribe any time."
   %h2 Change password
   = f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false
   = f.input :password_confirmation, :required => false

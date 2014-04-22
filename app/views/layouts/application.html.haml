@@ -3,7 +3,7 @@
   %head
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
       = render 'layouts/title'
-      %meta{:content => content_for?(:description) ? yield(:description) : Acres::Application.config.site_name, :name => "description"}
+      %meta{:content => content_for?(:description) ? yield(:description) : Figaro.env.acres_site_name, :name => "description"}
         = stylesheet_link_tag "application", :media => "all"
         = csrf_meta_tags
         = yield(:head)

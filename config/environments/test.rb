@@ -35,9 +35,7 @@ Acres::Application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
-  config.site_name = "3000 Acres (test)"
   config.site_url = "http://localhost:8080"
-  config.mapbox_map_id = '3000acres.hmh1c6pj'
 end
 
 Geocoder::Lookup::Test.add_stub(

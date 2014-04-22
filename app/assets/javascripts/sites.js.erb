@@ -1,6 +1,5 @@
 // Map
-mapbox_map_id = "<%= Acres::Application.config.mapbox_map_id %>";
-base_url = "https://c.tiles.mapbox.com/v3/" + mapbox_map_id + "/{z}/{x}/{y}.png";
+base_url = "https://c.tiles.mapbox.com/v3/" + Figaro.env.mapbox_map_id + "/{z}/{x}/{y}.png";
 
 map = L.map('map', { scrollWheelZoom: false });
 showMap(map);
