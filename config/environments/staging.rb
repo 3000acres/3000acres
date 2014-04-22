@@ -88,5 +88,6 @@ Acres::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.site_name = "3000 Acres (staging)"
+  config.site_url = "http://acres-staging.herokuapp.com/"
   config.mapbox_map_id = '3000acres.hmh1c6pj'
 end

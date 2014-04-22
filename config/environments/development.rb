@@ -39,7 +39,7 @@ Acres::Application.configure do
   config.action_mailer.default_url_options = { :host => "localhost", :port => "8080" }
 
   config.site_name = "3000 Acres (dev)"
-
+  config.site_url = "http://localhost:8080/"
   config.mapbox_map_id = '3000acres.hmh1c6pj'
 
 end
