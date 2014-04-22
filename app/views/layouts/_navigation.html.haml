@@ -6,7 +6,7 @@
         %span.icon-bar
         %span.icon-bar
       %a.navbar-brand(href=root_path)
-        = image_tag("/assets/3000acres_logo.png", :size => "70x70", :alt => Acres::Application.config.site_name)
+        = image_tag("/assets/3000acres_logo.png", :size => "70x70", :alt => ENV['acres_site_name'])
     .navbar-collapse.collapse
       %ul.nav.navbar-nav.navbar-right
 

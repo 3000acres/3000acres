@@ -1,0 +1,21 @@
+%p
+  Hi, #{@user.name}!
+
+%p
+  Thanks for adding #{@site.to_s} to #{ENV['acres_site_name']}.
+
+%p
+  Here's a link to it for your reference:
+  = link_to site_url(@site), site_url(@site)
+
+%p
+  If you don't want to receive these emails, simply hop on over to
+  #{ENV['acres_site_name']} and login to your account to
+  = succeed "." do
+    = link_to "change your email settings", edit_user_registration_url
+
+%p
+  Yours,
+%p
+  The #{ENV['acres_site_name']} team
+  

@@ -72,12 +72,12 @@ Acres::Application.configure do
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify  
 
-    config.action_mailer.smtp_settings = {
-      :address   => "smtp.mandrillapp.com",
-      :port      => 25,
-      :user_name => ENV["MANDRILL_USERNAME"],
-      :password  => ENV["MANDRILL_APIKEY"]
-    }
+  config.action_mailer.smtp_settings = {
+    :address   => "smtp.mandrillapp.com",
+    :port      => 25,
+    :user_name => ENV['mandrill_username'],
+    :password  => ENV['mandrill_apikey']
+  }
 
   config.action_mailer.default_url_options = { :host => "acres-staging.herokuapp.com" }
 
@@ -87,6 +87,5 @@ Acres::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  config.site_name = "3000 Acres (staging)"
-  config.mapbox_map_id = '3000acres.hmh1c6pj'
+  config.site_url = "http://acres-staging.herokuapp.com/"
 end

@@ -28,18 +28,16 @@ Acres::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
-    config.action_mailer.smtp_settings = {
-      :address   => "smtp.mandrillapp.com",
-      :port      => 25,
-      :user_name => ENV["MANDRILL_USERNAME"],
-      :password  => ENV["MANDRILL_APIKEY"]
-    }
+  config.action_mailer.smtp_settings = {
+    :address   => "smtp.mandrillapp.com",
+    :port      => 25,
+    :user_name => ENV['mandrill_username'],
+    :password  => ENV['mandrill_apikey']
+  }
+
   # Send email in development mode.
   config.action_mailer.perform_deliveries = true
   config.action_mailer.default_url_options = { :host => "localhost", :port => "8080" }
-
-  config.site_name = "3000 Acres (dev)"
-
-  config.mapbox_map_id = '3000acres.hmh1c6pj'
+  config.site_url = "http://localhost:8080/"
 
 end
