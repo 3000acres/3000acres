@@ -1,13 +1,13 @@
 // Map
-cloudmade_key = "<%= Acres::Application.config.cloudmade_key %>";
-cloudmade_url = "http://{s}.tile.cloudmade.com/" + cloudmade_key + "/1714/256/{z}/{x}/{y}.png";
+mapbox_map_id = "<%= Acres::Application.config.mapbox_map_id %>";
+base_url = "https://c.tiles.mapbox.com/v3/" + mapbox_map_id + "/{z}/{x}/{y}.png";
 
 map = L.map('map', { scrollWheelZoom: false });
 showMap(map);
 
 function showMap(map) {
-  L.tileLayer(cloudmade_url, {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors under <a href="http://www.openstreetmap.org/copyright">ODbL</a> | Map imagery &copy; <a href="http://cloudmade.com">Cloudmade</a>',
+  L.tileLayer(base_url, {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors under <a href="http://www.openstreetmap.org/copyright">ODbL</a> | Map imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
     maxZoom: 18
   }).addTo(map);
   if (location.pathname === "/") { // homepage
