@@ -84,7 +84,9 @@ namespace :acres do
     desc "Send thank you emails to site adders"
     task :send_added_emails => :environment do
       Site.find_each do |s|
-        s.send_added_email
+        if s.added_by_user
+          s.send_added_email
+        end
       end
     end
   end
