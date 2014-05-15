@@ -1,0 +1,21 @@
+%h1 Admin Info
+
+- if can? :admin, :all
+  %p
+    You are signed in as #{current_user.name}
+    (#{current_user.email}).
+
+  %p
+    Here is a list of admin users:
+
+  %ul
+    - @users.each do |u|
+      - if u.has_role? :admin
+        %li= link_to u.name, u
+
+- else
+  %p
+    You must
+    = link_to "login", new_user_session_path
+    to use the admin tools.
+
