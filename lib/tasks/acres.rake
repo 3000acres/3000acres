@@ -81,5 +81,15 @@ namespace :acres do
       end
     end
 
+    desc "Delete orphaned watches"
+    task :delete_orphaned_watches => :environment do
+      Watch.find_each do |w|
+        if w.user == nil
+          puts "Found a missing user"
+          w.destroy!
+        end
+      end
+    end
+
   end
 end

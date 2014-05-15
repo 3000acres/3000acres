@@ -13,11 +13,5 @@
 # echo "2013-11-13 - set up friendly ID slugs"
 # rake acres:oneoff:initialize_friendlyid_slugs
 
-echo "2014-01-15 - set up friendly ID slugs for users"
-rake acres:oneoff:initialize_user_slugs
-
-echo "2014-01-15 - set up added_by_user for sites"
-rake acres:oneoff:initialize_added_by
-
-echo "2014-02-12 - rename statuses for sites"
-rake acres:oneoff:rename_statuses
+echo "2014-05-15 - delete orphaned watches"
+rake acres:oneoff:delete_orphaned_watches

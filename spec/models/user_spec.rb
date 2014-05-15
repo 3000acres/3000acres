@@ -180,6 +180,13 @@ describe User do
       @user.watches << @watch
       @user.watches.count.should == 1
     end
+
+    it "deletes watches if a user is deleted" do
+      @watch = FactoryGirl.create(:watch, :user => @user)
+      @user_id = @user.id
+      @user.destroy!
+      Watch.find_by_user_id(@user_id).should be nil
+    end
   end
 
 end
