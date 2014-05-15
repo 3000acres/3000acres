@@ -12,7 +12,6 @@ acres_site_name: 3000 Acres
 
 # Base URL of the website
 acres_host: 'http://3000acres.org/'
-acres_port: ~
 
 # Set the region that should be appended to all addresses you use.
 # Eg. if you have "1 Smith St, Smithville" and you want the full
@@ -59,5 +58,4 @@ travis:
 
 development:
   acres_site_name: 3000 Acres (dev)
-  acres_host: 'http://localhost/'
-  acres_port: 8080
+  acres_host: 'http://localhost:8080/'
