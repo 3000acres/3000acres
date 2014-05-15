@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :watches
+  has_many :watches, :dependent => :destroy
   has_many :sites_added, :class_name => 'Site', :foreign_key => :added_by_user_id
 
   validates :name,
