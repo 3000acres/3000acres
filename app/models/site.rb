@@ -22,6 +22,7 @@ class Site < ActiveRecord::Base
   geocoded_by :full_address
   after_validation :geocode
   after_create :autowatch
+  after_create :send_added_email
 
   # autowatch()
   # When a user adds a site, they automatically get to watch it. Unless
@@ -32,6 +33,14 @@ class Site < ActiveRecord::Base
         :site_id => id,
         :user_id => added_by_user_id
       )
+    end
+  end
+
+  # send_added_email()
+  # when a user adds a site, send them a thank you email
+  def send_added_email
+    if added_by_user.send_email # don't spam!
+      Mailer.site_added_notification(self.added_by_user, self).deliver!
     end
   end
 

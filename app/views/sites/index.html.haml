@@ -25,7 +25,11 @@
       %td= site.water
       %td= site.available_until
       %td= site.status
-      %td= link_to site.added_by_user.name, user_path(site.added_by_user)
+      %td
+        - if site.added_by_user
+          = link_to site.added_by_user.name, user_path(site.added_by_user)
+        - else
+          Deleted user
       %td= link_to 'Show', site_path(site)
       %td= link_to 'Edit', edit_site_path(site)
       %td= link_to 'Destroy', site_path(site), :method => :delete, :data => { :confirm => 'Are you sure?' }

@@ -81,5 +81,23 @@ namespace :acres do
       end
     end
 
+    desc "Delete orphaned watches"
+    task :delete_orphaned_watches => :environment do
+      Watch.find_each do |w|
+        if w.user == nil
+          puts "Found a missing user"
+          w.destroy!
+        end
+      end
+    end
+
+    desc "Send thank you emails to site adders"
+    task :send_added_emails => :environment do
+      Site.find_each do |s|
+        if s.added_by_user
+          s.send_added_email
+        end
+      end
+    end
   end
 end

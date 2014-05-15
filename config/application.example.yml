@@ -7,23 +7,55 @@
 # makes 'Your_Gmail_Username' available as ENV["GMAIL_USERNAME"]
 # Add application configuration variables here, as shown below.
 
+# Name of the website (used in titles, etc)
+acres_site_name: 3000 Acres
+
+# Base URL of the website
+acres_host: 'http://3000acres.org/'
+
 # Set the region that should be appended to all addresses you use.
 # Eg. if you have "1 Smith St, Smithville" and you want the full
 # address to be "1 Smith St, Smithville, Smithlandia" you'd set it to
 # "Smithlandia".  This is appended to the full address when using the
 # geocoding service.
-ACRES_REGION: Victoria, Australia
 
-ADMIN_NAME: 3000 Acres
-ADMIN_EMAIL: admin@3000acres.org
-ROLES: [admin, user]
-MANDRILL_USERNAME: admin@3000acres.org
-MANDRILL_APIKEY: your key here
+acres_region: Victoria, Australia
+
+# General "From:" address for all emails from the system
+send_email_from: noreply@3000acres.org
+
+# Mandrill is used for sending transactional emails such as signup
+# confirmations, notifications when people add new sites, etc.
+mandrill_username: your username here
+mandrill_apikey: your api key here
 
 # Mailchimp is used to subscribe people to the newsletter
 # Fetch list IDs using Gibbon:
 #   Gibbon::API.api_key = '...'
 #   gb = Gibbon::API.new
 #   puts gb.lists.list.to_yaml
-MAILCHIMP_APIKEY: your key here
-MAILCHIMP_NEWSLETTER_ID: list id here
+mailchimp_apikey: your key here
+mailchimp_newsletter_id: list id here
+
+# Mapbox is used to display map tiles
+# Sign up for an account at http://mapbox.com/ and create a project to
+# get an id
+mapbox_map_id: 'yourname.mapidhere'
+
+# Now we can override some of the above as needed for each environment
+
+staging:
+  acres_site_name: 3000 Acres (staging)
+  acres_host: 'acres-staging.herokuapp.com'
+
+test:
+  acres_site_name: 3000 Acres (test)
+  acres_host: 'localhost'
+
+travis:
+  acres_site_name: 3000 Acres (test)
+  acres_host: 'http://localhost:8080/'
+
+development:
+  acres_site_name: 3000 Acres (dev)
+  acres_host: 'http://localhost:8080/'

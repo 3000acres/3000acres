@@ -2,8 +2,8 @@
 %html
   %head
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
-      %title= content_for?(:title) ? yield(:title) : Acres::Application.config.site_name
-      %meta{:content => content_for?(:description) ? yield(:description) : Acres::Application.config.site_name, :name => "description"}
+      %title= content_for?(:title) ? yield(:title) : ENV['acres_site_name']
+      %meta{:content => content_for?(:description) ? yield(:description) : ENV['acres_site_name'], :name => "description"}
         = stylesheet_link_tag "application", :media => "all"
         = csrf_meta_tags
         = yield(:head)

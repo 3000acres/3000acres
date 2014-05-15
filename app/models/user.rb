@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :watches
+  has_many :watches, :dependent => :destroy
   has_many :sites_added, :class_name => 'Site', :foreign_key => :added_by_user_id
 
   validates :name,
@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   def newsletter_subscribe
     gb = Gibbon::API.new
     res = gb.lists.subscribe({
-      :id => ENV['MAILCHIMP_NEWSLETTER_ID'],
+      :id => ENV['mailchimp_newsletter_id'],
       :email => { :email => email },
       :merge_vars => { :name => name },
       :double_optin => false # they alredy confirmed their email with us
@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
   def newsletter_unsubscribe
     gb = Gibbon::API.new
     res = gb.lists.unsubscribe({
-      :id => ENV['MAILCHIMP_NEWSLETTER_ID'],
+      :id => ENV['mailchimp_newsletter_id'],
       :email => { :email => email }
     })
   end
