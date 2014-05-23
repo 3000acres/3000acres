@@ -41,5 +41,7 @@ module Acres
     Gibbon::API.throws_exceptions = false
     config.newsletter_list_id = ENV['mailchimp_newsletter_id']
 
+    config.mapbox_map_id = '3000acres.hmh1c6pj'
+
   end
 end
