@@ -88,4 +88,12 @@ Acres::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.site_url = "http://acres-staging.herokuapp.com/"
+
+  config.analytics_code = <<eos
+<script src="//static.getclicky.com/js" type="text/javascript"></script> 
+<script type="text/javascript">try{ clicky.init(100739195);
+  }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1"
+src="//in.getclicky.com/100739195ns.gif" /></p></noscript>
+eos
 end
