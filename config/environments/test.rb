@@ -35,6 +35,10 @@ Acres::Application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
   config.site_url = "http://localhost:8080"
+
+  config.analytics_code = <<eos
+  <script>console.log("this is fake analytics code")</script>
+eos
 end
 
 Geocoder::Lookup::Test.add_stub(
