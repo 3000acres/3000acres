@@ -1,0 +1,30 @@
+%p
+  Hi, #{@recipient.name}!
+
+%p
+  Just thought you might like to know that
+  = link_to @new_watcher.name, user_url(@new_watcher)
+  is now watching
+  = link_to @site.to_s, site_url(@site)
+  on #{ENV['acres_site_name']}, which means there are now
+  = pluralize(@site.watches.count, "person")
+  in total who are interested in helping to grow food there!
+
+%p
+  We are working hard to create a toolkit which should help you gain
+  access to this land and start growing fruit and veg. This will be
+  available soon on our website.
+
+%p
+  If you don't want to receive these emails, simply hop on over to
+  #{ENV['acres_site_name']} and login to your account to
+  = succeed "." do
+    = link_to "change your email settings", edit_user_registration_url
+
+%p
+  Yours,
+%p
+  The #{ENV['acres_site_name']} team
+  %br/
+  = link_to ENV['acres_host'], ENV['acres_host']
+  

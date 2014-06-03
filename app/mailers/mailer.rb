@@ -10,13 +10,13 @@ class Mailer < ActionMailer::Base
     )
   end
 
-  def new_watcher_notification(new_watcher, recipient)
+  def new_watcher_notification(new_watcher, site, recipient)
     @new_watcher = new_watcher
-    @site = new_watcher.site
+    @site = site
     @recipient = recipient
     mail(
       :to => @recipient.email,
-      :subject => "Someone new is watching #{site.to_s} on #{ENV['acres_site_name']}"
+      :subject => "Someone new is watching #{@site.to_s} on #{ENV['acres_site_name']}"
     )
   end
 end
