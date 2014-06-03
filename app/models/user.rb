@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :watches, :dependent => :destroy
+  has_many :posts
   has_many :sites_added, :class_name => 'Site', :foreign_key => :added_by_user_id
 
   validates :name,
@@ -35,7 +36,6 @@ class User < ActiveRecord::Base
   attr_accessor :login
 
   after_save :update_newsletter_subscription
-
 
   def update_newsletter_subscription
     if confirmed_at_changed? and newsletter # just signed up/confirmed email
