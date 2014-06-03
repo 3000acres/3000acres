@@ -101,3 +101,13 @@
           %li= link_to w.user.name, user_path(w.user)
     - else
       %p Nobody, yet. You could be the first!
+
+.row
+  .col-md-12
+    %h2 Community discussion
+
+    %p
+      - if can? :post_to_site, @site
+        You can post!
+      - else
+        You can't post :(
