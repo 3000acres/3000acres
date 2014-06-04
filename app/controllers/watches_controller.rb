@@ -27,7 +27,7 @@ class WatchesController < ApplicationController
   # POST /watches
   # POST /watches.json
   def create
-    @watch = Watch.new(watch_params.merge(:user_id => current_user.id))
+    @watch = Watch.create(watch_params.merge(:user_id => current_user.id))
 
     respond_to do |format|
       if @watch.save
