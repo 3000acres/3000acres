@@ -17,18 +17,34 @@ feature "post" do
       @site = Site.last
     end
 
-    scenario "post an update about a site" do
+    scenario "post form appears on site page" do
       visit site_path(@site)
       page.should have_content "Post an update"
       page.should have_content "Your message"
-      fill_in "Subject", :with => "Test post"
-      fill_in "Your message", :with => "Here is some news about the garden"
-      click_button "Create Post"
-      current_path.should eq site_path(@site)
-      page.should have_content "Test post"
-      page.should have_content "Posted by #{@user.name}"
-      page.should have_content "less than a minute ago"
-      page.should have_content "Here is some news about the garden"
+    end
+
+    context "posting an update about a site" do
+      before :each do
+        visit site_path(@site)
+        fill_in "Subject", :with => "Test post"
+        fill_in "Your message", :with => "Here is some news about the garden"
+        click_button "Create Post"
+        @post = Post.last
+      end
+
+      scenario "post appears on site page" do
+        current_path.should eq site_path(@site)
+        page.should have_content "Test post"
+        page.should have_content "Posted by #{@user.name}"
+        page.should have_content "less than a minute ago"
+        page.should have_content "Here is some news about the garden"
+      end
+
+      scenario "posts listed on user profile" do
+        visit user_path(@user)
+        page.should have_content "Discussion posts"
+        page.should have_content @post.subject
+      end
     end
 
   end

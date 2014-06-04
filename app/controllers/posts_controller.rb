@@ -28,7 +28,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to site_path(@post.site), notice: 'Post was successfully created.' }
+        format.html { redirect_to site_path( @post.site), notice: 'Post was successfully created.' }
         format.json { render action: 'show', status: :created, location: @post }
       else
         format.html { render action: 'new' }

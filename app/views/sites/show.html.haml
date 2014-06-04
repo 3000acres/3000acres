@@ -126,9 +126,11 @@
         .form-actions
           = f.button :submit
 
-    %h3 Previous posts
+    %a{:name => "posts"}
+      %h3 Previous posts
     - @site.posts.each do |p|
-      %h4= p.subject
+      %a{:name => "post-#{p.id}"}
+        %h4= p.subject
 
       %div.postmeta
         Posted by

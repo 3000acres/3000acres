@@ -1,32 +1,13 @@
 - content_for :title, @user.name
 
-- if @user.watches.count == 0
-  %p
-    = @user.name
-    is not watching any sites.
-- else
-  %p
-    = @user.name
-    is watching
-    = succeed "." do
-      = pluralize @user.watches.count, "site"
-
-  %table.table.table-striped
-    - @user.watches.each do |w|
-      %tr
-        %td= link_to w.site, site_path(w.site)
-        - if can? :manage, w
-          %td= link_to "Stop watching", watch_path(w), :method => :delete, :class => 'btn btn-default'
-
 
 - if @user.sites_added.count > 0
-
   %h2 Sites added
   %p
     = @user.name
     has added
-    = succeed "." do
-      = pluralize @user.sites_added.count, "site"
+    = pluralize @user.sites_added.count, "site"
+    for growing food.
 
   %table.table.table-striped
     %tr
@@ -40,4 +21,37 @@
         %td= link_to s, site_path(s)
         %td= s.status
         %td= s.created_at
+
+- if @user.watches.count > 0
+  %h2 Watching
+  %p
+    = @user.name
+    is watching
+    = succeed "." do
+      = pluralize @user.watches.count, "site"
+
+  %table.table.table-striped
+    - @user.watches.each do |w|
+      %tr
+        %td= link_to w.site, site_path(w.site)
+        - if can? :manage, w
+          %td= link_to "Stop watching", watch_path(w), :method => :delete, :class => 'btn btn-default'
+
+- if @user.posts.count > 0
+
+  %h2 Discussion posts
+  %p
+    = @user.name
+    has posted
+    = pluralize @user.posts.count, "time"
+    to our community discussions.
+
+  %ul
+    - @user.posts.each do |p|
+      %li
+        = link_to p.subject, site_path(p.site, :anchor => "post=#{p.id}")
+        posted to
+        = link_to p.site.to_s, site_path(p.site)
+        on
+        = p.created_at
 
