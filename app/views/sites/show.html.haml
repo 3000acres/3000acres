@@ -114,7 +114,7 @@
           = render :partial => "shared/signin_signup", :locals => { :to => 'post an update about this site.' }
     - else
       %h3 Post an update
-      %p This message will be sent to everyone who's watching this site.
+      %p This message will be displayed on this page, and sent to everyone who's watching this site.
 
       = simple_form_for(@post) do |f|
         = f.error_notification
@@ -125,3 +125,19 @@
           = f.hidden_field :site_id, :value => @site.id
         .form-actions
           = f.button :submit
+
+    %h3 Previous posts
+    - @site.posts.each do |p|
+      %h4= p.subject
+
+      %div.postmeta
+        Posted by
+        - if p.user
+          = link_to p.user.name, user_path(p.user)
+        - else
+          Deleted User
+        at
+        = p.created_at
+        = "(" + distance_of_time_in_words(p.created_at, Time.zone.now) + " ago)"
+
+      %div.postbody= p.body
