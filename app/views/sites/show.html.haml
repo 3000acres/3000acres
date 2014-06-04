@@ -106,8 +106,22 @@
   .col-md-12
     %h2 Community discussion
 
-    %p
-      - if can? :post_to_site, @site
-        You can post!
-      - else
-        You can't post :(
+    - unless can? :post_to_site, @site
+      %p.alert
+        - if can? :create, Watch
+          You must be watching this site to post an update about it.
+        - else
+          = render :partial => "shared/signin_signup", :locals => { :to => 'post an update about this site.' }
+    - else
+      %h3 Post an update
+      %p This message will be sent to everyone who's watching this site.
+
+      = simple_form_for(@post) do |f|
+        = f.error_notification
+
+        .form-inputs
+          = f.input :subject
+          =f.input :body , :label => "Your message", :as => :text, :input_html => { :rows => 7 , :style => 'width: 100%'}
+          = f.hidden_field :site_id, :value => @site.id
+        .form-actions
+          = f.button :submit
