@@ -19,4 +19,13 @@ class Mailer < ActionMailer::Base
       :subject => "Someone new is watching #{@site.to_s} on #{ENV['acres_site_name']}"
     )
   end
+
+  def post_notification(post, recipient)
+    @post = post
+    @recipient = recipient
+    mail(
+      :to => @recipient.email,
+      :subject => "#{@post.user.name} posted #{@post.subject} on #{@post.site.to_s}"
+    )
+  end
 end

@@ -6,6 +6,7 @@ class Site < ActiveRecord::Base
   belongs_to :local_government_area
   belongs_to :added_by_user, :class_name => 'User'
   has_many :watches
+  has_many :posts
 
   validates :address, :presence => true
   validates :suburb, :presence => true

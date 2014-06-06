@@ -1,0 +1,21 @@
+%h1 Listing posts
+
+%table
+  %tr
+    %th Subject
+    %th Body
+    %th User
+    %th
+    %th
+    %th
+
+  - @posts.each do |post|
+    %tr
+      %td= post.subject
+      %td= post.body
+      %td= post.user_id
+      %td= link_to 'Show', post
+      %td= link_to 'Edit', edit_post_path(post)
+      %td= link_to 'Destroy', post, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
