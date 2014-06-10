@@ -1,0 +1,35 @@
+%p
+  Hi, #{@recipient.name}!
+
+%p
+  =link_to @post.user.name, user_url(@post.user)
+  just posted a new discussion post on
+  = link_to @post.site.to_s, site_url(@post.site)
+  on #{ENV['acres_site_name']}.
+
+%p
+  Here's what they wrote:
+
+%blockquote
+  %h3= @post.subject
+
+  %div= @post.body
+
+%p
+  You can
+  = link_to "reply on our website", site_url(@post.site)
+  (you may need to sign in first).
+
+%p
+  If you don't want to receive these emails, simply hop on over to
+  #{ENV['acres_site_name']} and login to your account to
+  = succeed "." do
+    = link_to "change your email settings", edit_user_registration_url
+
+%p
+  Yours,
+%p
+  The #{ENV['acres_site_name']} team
+  %br/
+  = link_to ENV['acres_host'], ENV['acres_host']
+  

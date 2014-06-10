@@ -101,3 +101,45 @@
           %li= link_to w.user.name, user_path(w.user)
     - else
       %p Nobody, yet. You could be the first!
+
+.row
+  .col-md-12
+    %h2 Community discussion
+
+    - unless can? :post_to_site, @site
+      %p.alert
+        - if can? :create, Watch
+          You must be watching this site to post an update about it.
+        - else
+          = render :partial => "shared/signin_signup", :locals => { :to => 'post an update about this site.' }
+    - else
+      %h3 Post an update
+      %p Your message will be displayed on this page, and sent to everyone who's watching this site.
+
+      = simple_form_for(@post) do |f|
+        = f.error_notification
+
+        .form-inputs
+          = f.input :subject
+          =f.input :body , :label => "Your message", :as => :text, :input_html => { :rows => 7 , :style => 'width: 100%'}
+          = f.hidden_field :site_id, :value => @site.id
+        .form-actions
+          = f.button :submit
+
+    %a{:name => "posts"}
+      %h3 Previous posts
+    - @site.posts.each do |p|
+      %a{:name => "post-#{p.id}"}
+        %h4= p.subject
+
+      %div.postmeta
+        Posted by
+        - if p.user
+          = link_to p.user.name, user_path(p.user)
+        - else
+          Deleted User
+        at
+        = p.created_at
+        = "(" + distance_of_time_in_words(p.created_at, Time.zone.now) + " ago)"
+
+      %div.postbody= p.body

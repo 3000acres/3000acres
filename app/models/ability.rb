@@ -17,6 +17,9 @@ class Ability
       can :update, Site do |s|
         s.added_by_user_id == user.id && s.status == 'unknown'
       end
+      can :post_to_site, Site do |s|
+        s.watches.find_by_user_id(user.id)
+      end
 
       can :create, Watch
       can :manage, Watch, :user_id => user.id
@@ -24,6 +27,7 @@ class Ability
       if user.has_role? :admin
         can :manage, :all
         can :set_status, Site
+        can :post_to_site, Site
       end
 
     end

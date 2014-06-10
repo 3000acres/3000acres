@@ -33,7 +33,7 @@ feature "watches" do
 
     scenario "page shows watched sites" do
       visit user_path(@user)
-      page.should have_content "is not watching any sites"
+      page.should_not have_content "is watching"
       visit site_path(@site)
       click_button 'Watch this site'
       current_path.should eq site_path(@site)
@@ -42,7 +42,7 @@ feature "watches" do
       page.should have_content @site.to_s
       click_link "Stop watching"
       current_path.should eq user_path(@user)
-      page.should have_content "is not watching any sites"
+      page.should_not have_content "is watching"
     end
   end
 

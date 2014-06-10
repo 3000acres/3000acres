@@ -20,7 +20,7 @@
               = current_user.name
               %b.caret
             %ul.dropdown-menu
-              %li= link_to 'Your sites', user_path(current_user)
+              %li= link_to 'Your activity', user_path(current_user)
               %li= link_to 'Edit account', edit_user_registration_path
               %li= link_to 'Sign out', destroy_user_session_path, :method=>'delete', :id => 'navbar-signout'
 

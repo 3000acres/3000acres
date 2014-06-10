@@ -1,5 +1,7 @@
 Acres::Application.routes.draw do
 
+  resources :posts, :only => [:create, :show]
+
   resources :local_government_areas
 
   resources :sites
