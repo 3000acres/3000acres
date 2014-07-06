@@ -47,6 +47,7 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bluecloth (2.2.0)
     builder (3.1.4)
     cancan (1.6.10)
     capybara (2.1.0)
@@ -304,6 +305,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
+  bluecloth
   cancan
   capybara
   coffee-rails (~> 4.0.0)
