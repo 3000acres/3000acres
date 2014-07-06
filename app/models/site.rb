@@ -26,15 +26,12 @@ class Site < ActiveRecord::Base
   after_create :send_added_email
 
   # autowatch()
-  # When a user adds a site, they automatically get to watch it. Unless
-  # they're an admin, in which case that would be overwhelming.
+  # When a user adds a site, they automatically get to watch it.
   def autowatch
-    unless added_by_user.has_role?(:admin)
-      Watch.create(
-        :site_id => id,
-        :user_id => added_by_user_id
-      )
-    end
+    Watch.create(
+      :site_id => id,
+      :user_id => added_by_user_id
+    )
   end
 
   # send_added_email()
