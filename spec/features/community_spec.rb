@@ -40,6 +40,10 @@ feature "post" do
         page.should have_content "Here is some news about the garden"
       end
 
+      scenario "markdown help" do
+        page.should have_content "You can use Markdown"
+      end
+
       scenario "post includes rendered markdown" do
         page.should_not have_content "*awesome*"
         page.should have_selector "em", :text => "awesome"
