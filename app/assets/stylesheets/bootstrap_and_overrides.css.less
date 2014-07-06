@@ -467,3 +467,27 @@ footer ul.partners > li{
   left:0px;
 }
 
+// Simpleform styling
+
+.checkbox input[type=checkbox] {
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+}
+
+@media only screen and (max-width : 768px) {
+  .user_remember_me, .user_newsletter {
+    .control-label {
+      float: left;
+      width: auto;
+    }
+    .checkbox {
+      width: auto;
+      input {
+        margin: 0;
+      }
+    }
+  }
+}
