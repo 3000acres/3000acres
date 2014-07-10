@@ -1,0 +1,44 @@
+%p
+  Hi, #{@recipient.name}!
+
+%p
+  The details for
+  = link_to @site.to_s, site_url(@site)
+  were just changed on
+  on #{ENV['acres_site_name']}.
+
+%p
+  Here are the changes:
+
+%ul
+  - changes = @site.changes
+  - changes.keys.each do |c|
+    - next if c == 'updated_at' # not very useful
+    - key = c
+    - from = changes[c][0]
+    - to = changes[c][1]
+    %li
+      %strong #{c}
+      changed from
+      - if key == 'local_government_area_id' # object needs special handling
+        = from.blank? ? "blank" : "\"#{LocalGovernmentArea.find(from).to_s}\""
+        to
+        = to.blank? ? "blank" : "\"#{LocalGovernmentArea.find(to).to_s}\""
+      - else
+        = from.blank? ? "blank" : "\"#{from}\""
+        to
+        = to.blank? ? "blank" : "\"#{to}\""
+
+%p
+  If you don't want to receive these emails, simply hop on over to
+  #{ENV['acres_site_name']} and login to your account to
+  = succeed "." do
+    = link_to "change your email settings", edit_user_registration_url
+
+%p
+  Yours,
+%p
+  The #{ENV['acres_site_name']} team
+  %br/
+  = link_to ENV['acres_host'], ENV['acres_host']
+  

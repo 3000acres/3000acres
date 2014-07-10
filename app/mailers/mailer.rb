@@ -28,4 +28,13 @@ class Mailer < ActionMailer::Base
       :subject => "#{@post.user.name} posted #{@post.subject} on #{@post.site.to_s}"
     )
   end
+
+  def site_changed_notification(site, recipient)
+    @site = site
+    @recipient = recipient
+    mail(
+      :to => @recipient.email,
+      :subject => "#{@site.to_s}'s details were changed"
+    )
+  end
 end
