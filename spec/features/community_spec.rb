@@ -27,7 +27,7 @@ feature "post" do
       before :each do
         visit site_path(@site)
         fill_in "Subject", :with => "Test post"
-        fill_in "Your message", :with => "Here is some news about the garden"
+        fill_in "Your message", :with => "Here is some news about the garden. It's *awesome*."
         click_button "Create Post"
         @post = Post.last
       end
@@ -40,11 +40,21 @@ feature "post" do
         page.should have_content "Here is some news about the garden"
       end
 
+      scenario "markdown help" do
+        page.should have_content "You can use Markdown"
+      end
+
+      scenario "post includes rendered markdown" do
+        page.should_not have_content "*awesome*"
+        page.should have_selector "em", :text => "awesome"
+      end
+
       scenario "posts listed on user profile" do
         visit user_path(@user)
         page.should have_content "Discussion posts"
         page.should have_content @post.subject
       end
+
     end
 
   end

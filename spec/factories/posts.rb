@@ -7,4 +7,8 @@ FactoryGirl.define do
     user
     site
   end
+
+  factory :markdown_post do
+    body "this is *awesome*"
+  end
 end

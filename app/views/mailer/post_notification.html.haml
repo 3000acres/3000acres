@@ -13,7 +13,9 @@
 %blockquote
   %h3= @post.subject
 
-  %div= @post.body
+  %div
+    :markdown
+      #{ strip_tags @post.body }
 
 %p
   You can
