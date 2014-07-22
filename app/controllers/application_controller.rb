@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   private
   def load_cms_context
-    @cms_topnav = Cms::Site.find_by_identifier('topnav')
+    @cms = Cms::Site.find_by_identifier('3000acres')
   end
 
 
