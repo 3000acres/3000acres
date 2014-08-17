@@ -15,7 +15,8 @@ function showMap(map) {
     $.getJSON('sites.json', function(sites) {
       $.each(sites, function(i, site) {
         if (site.latitude && site.longitude) {
-          addMarker(site, map)
+          console.log("site ", site);
+          addMarker(site, map);
         }
       });
     })
@@ -23,7 +24,7 @@ function showMap(map) {
     $.getJSON(location.pathname + '.json', function(site) {
       if (site.latitude && site.longitude) {
         map.setView([site.latitude, site.longitude], 14); // more zoomed in
-        addMarker(site, map)
+        addMarker(site, map);
       }
     });
   }
@@ -64,7 +65,22 @@ function addMarker(site, map) {
       popupAnchor: [0, -20]
     })
   });
-  link = "<p><a href='/sites/" + site.slug + "'>" + site.display_name + "</a></p>";
+  link = "<p><a class='site-title' href='/sites/" + site.slug + "'>" + site.display_name + "</a></p>"
+          + "<p>" + site.address + ", " + site.suburb + "</p>";
+  if (site.description) {
+    link += "<p class='site-description'>" + site.description.substr(0,110) + "...</p>";
+  }
+  if (site.size) {
+    link += "<p>Size: " + site.size + "m<sup>2</sup></p>";
+  }
+  if (site.available_until) {
+    link += "<p>Available until: " + site.available_until + "</p>";
+  }
+  if (site.watches.length > 0) {
+    link += "<p>" + site.watches.length + " people watching. <%= @currentuser %></p>";
+  }
+  link += "<button class='site-watch btn btn-primary'>Watch</button>";
+  
   marker.bindPopup(link).openPopup();
   map.addLayer(marker);
 }

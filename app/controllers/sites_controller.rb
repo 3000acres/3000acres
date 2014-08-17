@@ -16,6 +16,7 @@ class SitesController < ApplicationController
     if current_user
       @watch = Watch.where(:site_id => @site.id, :user_id => current_user.id).first || nil
       @post = Post.new()
+      @currentuser = "true"
     end
   end
 
