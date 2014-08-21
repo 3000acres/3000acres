@@ -1,8 +1,8 @@
 // Map
-mapbox_key = "<%= Acres::Application.config.mapbox_map_id %>"
-base_url = "https://c.tiles.mapbox.com/v3/" + mapbox_key + "/{z}/{x}/{y}.png";
+var mapbox_key = "<%= Acres::Application.config.mapbox_map_id %>"
+var base_url = "https://c.tiles.mapbox.com/v3/" + mapbox_key + "/{z}/{x}/{y}.png";
 
-map = L.map('map', { scrollWheelZoom: false });
+var map = L.map('map', { scrollWheelZoom: false });
 showMap(map);
 
 function showMap(map) {
@@ -30,6 +30,7 @@ function showMap(map) {
 }
 
 function addMarker(site, map) {
+  var pin;
   switch(site.status) {
     case 'unknown':
       pin = '/assets/pin-grey.png';
@@ -56,7 +57,7 @@ function addMarker(site, map) {
     iconAnchor: [15, 42],
     popupAnchor: [0, -20]
   })
-  marker = new L.Marker(new L.LatLng(site.latitude, site.longitude), {
+  var marker = new L.Marker(new L.LatLng(site.latitude, site.longitude), {
     icon: L.icon({
       iconUrl: pin,
       iconSize: [31, 42],
@@ -64,7 +65,7 @@ function addMarker(site, map) {
       popupAnchor: [0, -20]
     })
   });
-  link = "<p><a class='site-title' href='/sites/" + site.slug + "'>" + site.display_name + "</a></p>"
+  var link = "<p><a class='site-title' href='/sites/" + site.slug + "'>" + site.display_name + "</a></p>"
           + "<p>" + site.address + ", " + site.suburb + "</p>";
   if (site.description) {
     link += "<p class='site-description'>" + site.description.substr(0,110) + "...</p>";
@@ -76,7 +77,8 @@ function addMarker(site, map) {
     link += "<p>Available until: " + site.available_until + "</p>";
   }
   if (site.watches.length > 0) {
-    link += "<p>" + site.watches.length + " people watching.</p>";
+    var p = (site.watches.length == 1) ? "person" : "people";
+    link += "<p>" + site.watches.length + " " + p + " watching.</p>";
   }
   
   marker.bindPopup(link).openPopup();
