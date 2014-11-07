@@ -1,6 +1,6 @@
 %title
-  - if ! cms_page_content(:title).blank?
-    = cms_page_content(:title)
+  - if ! cms_block_content(:title).blank?
+    = cms_block_content(:title)
     \:
     = ENV['acres_site_name']
   - elsif content_for?(:title)

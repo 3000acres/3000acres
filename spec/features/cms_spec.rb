@@ -7,7 +7,7 @@ feature "cms admin" do
   end
 
   scenario "can't view CMS admin if not signed in" do
-    visit cms_admin_path
+    visit comfy_admin_cms_path
     current_path.should == root_path
     page.should have_content("Please sign in as an admin user")
   end
@@ -19,7 +19,7 @@ feature "cms admin" do
     fill_in 'Login', :with => @user.email
     fill_in 'Password', :with => @user.password
     click_button 'Sign in'
-    visit cms_admin_path
+    visit comfy_admin_cms_path
     current_path.should == root_path
     page.should have_content("Please sign in as an admin user")
   end
@@ -31,7 +31,7 @@ feature "cms admin" do
     fill_in 'Login', :with => @admin_user.email
     fill_in 'Password', :with => @admin_user.password
     click_button 'Sign in'
-    visit cms_admin_path
-    current_path.should match /#{cms_admin_path}/ # match any CMS admin page
+    visit comfy_admin_cms_path
+    current_path.should match /#{comfy_admin_cms_path}/ # match any CMS admin page
   end
 end
