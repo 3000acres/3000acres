@@ -12,6 +12,7 @@ def load_data
   # for all 3000 Acres sites, including production ones
   load_roles
   load_local_government_areas
+  load_cms_skeleton
 
   # for development environments only
   if Rails.env.development?
@@ -28,6 +29,10 @@ def load_local_government_areas
     LocalGovernmentArea.create(:name => row[0])
   end
   puts "Finished loading local government areas"
+end
+
+def load_cms_skeleton
+  Comfy::Cms::Site.create!(identifier: '3000acres', hostname: ENV['acres_host'])
 end
 
 def load_roles
