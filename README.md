@@ -23,13 +23,6 @@ Then do:
 
     u.add_role :admin
 
-
-## Set up CMS
-
-As an admin user, you can go into the CMS admin area (via the Admin
-menu) and create pages that will appear in the top navigation menu.
-Simply create these as subpages of the "topnav" page.
-
 ## For coders
 
 3000 Acres is a Ruby on Rails 4 app.  Feel free to fork it and play with
