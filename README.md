@@ -23,34 +23,12 @@ Then do:
 
     u.add_role :admin
 
-### Set up CMS
 
-Sign in as an admin user, then go to the CMS admin page (/cms-admin) and
-set up as follows:
+## Set up CMS
 
-* A site called "topnav", identifier "topnav", path "/"
-* A layout called "default", using the application layout
-    * If you want to set up a "title" field for each page, make your
-      layout's content read something like:
-
-          <h1>
-          {{ cms:page:title:string }}
-          </h1>
-
-          {{ cms:page:content:text }}
-
-    * Now when you create/edit a page, you'll see a field where you can
-      enter the page title.
-    * This title will then be included in the HTML title (used by the browser
-      etc)
-
-* Under pages, set up:
-    * A top-level page called "topnav"
-    * Under that, any pages that you want to appear in the top navbar,
-      eg. "About", "Donate", etc.
-
-All this "topnav" guff is required to get the pages to show up
-automatically in the top navigation bar.
+As an admin user, you can go into the CMS admin area (via the Admin
+menu) and create pages that will appear in the top navigation menu.
+Simply create these as subpages of the "topnav" page.
 
 ## For coders
 
