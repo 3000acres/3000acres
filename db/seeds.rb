@@ -32,7 +32,35 @@ def load_local_government_areas
 end
 
 def load_cms_skeleton
-  Comfy::Cms::Site.create!(identifier: '3000acres', hostname: ENV['acres_host'])
+  puts "Loading CMS skeleton..."
+  site = Comfy::Cms::Site.create!(
+    identifier: '3000acres',
+    hostname: ENV['acres_host']
+  )
+
+  layout_content = <<END
+<h1>
+{{ cms:page:title:string }}
+</h1>
+
+{{ cms:page:content:text }}
+END
+
+  layout = Comfy::Cms::Layout.create!(
+    identifier: 'default',
+    site: site,
+    app_layout: 'application',
+    content: layout_content
+  )
+
+  topnav = Comfy::Cms::Page.create!(
+    label: 'topnav',
+    site: site,
+    layout: layout,
+    slug: 'topnav'
+  )
+
+  puts "Finished loading CMS skeleton."
 end
 
 def load_roles
