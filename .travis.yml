@@ -3,7 +3,7 @@ language: ruby
 bundler_args: --without development assets
 env: RAILS_ENV=travis acres_site_name="3000 Acres (travis)" acres_host="http://localhost:8080/"
 rvm:
-  - 2.0.0
+  - 2.1.2
 before_script:
   - psql -c 'create database acres_test;' -U postgres
 script:
