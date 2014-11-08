@@ -13,6 +13,7 @@ def load_data
   load_roles
   load_local_government_areas
   load_cms_skeleton
+  load_cms_content
 
   # for development environments only
   if Rails.env.development?
@@ -37,6 +38,7 @@ def load_cms_skeleton
     identifier: '3000acres',
     hostname: ENV['acres_host']
   )
+  puts "  Created CMS site."
 
   layout_content = <<END
 <h1>
@@ -52,6 +54,7 @@ END
     app_layout: 'application',
     content: layout_content
   )
+  puts "  Created default layout."
 
   topnav = Comfy::Cms::Page.create!(
     label: 'topnav',
@@ -59,8 +62,13 @@ END
     layout: layout,
     slug: 'topnav'
   )
+  puts "  Created top navigation menu."
 
   puts "Finished loading CMS skeleton."
+end
+
+def load_cms_content
+  system('rake acres:load_cms')
 end
 
 def load_roles

@@ -35,15 +35,17 @@ namespace :acres do
 
   task :load_cms => :environment do
     puts "Loading CMS content..."
+
+    site = Comfy::Cms::Site.find_by(:identifier => '3000acres')
+
     source_path = Rails.root.join('db', 'seeds', 'cms', 'snippets')
     Dir.glob("#{source_path}/*.snippet").each do |snippet_file|
       snippet_name = File.basename(snippet_file, ".snippet")
       snippet = Comfy::Cms::Snippet.find_by(:identifier => snippet_name)
       if snippet
-        puts "  #{snippet_name} -- EXISTS"
+        puts "  #{snippet_name} snippet -- EXISTS"
       else
         snippet_content = open(snippet_file).read
-        site = Comfy::Cms::Site.find_by(:identifier => '3000acres')
         snippet = Comfy::Cms::Snippet.create!(
           identifier: snippet_name,
           label: snippet_name,
@@ -51,7 +53,25 @@ namespace :acres do
           content: snippet_content
         )
         snippet.save
-        puts "  #{snippet_name} -- CREATED"
+        puts "  #{snippet_name} snippet -- CREATED"
+      end
+    end
+
+    ['About', 'Media', 'Resources'].each do |page|
+      existing = Comfy::Cms::Page.find_by(:label => page.titleize)
+      if existing
+        puts "  #{page} page -- EXISTS"
+      else
+        layout = Comfy::Cms::Layout.find_by(:identifier => 'default')
+        topnav = Comfy::Cms::Page.find_by(:label => 'topnav')
+        Comfy::Cms::Page.create!(
+          label: page.titleize,
+          site: site,
+          layout: layout,
+          parent_id: topnav.id,
+          slug: page
+        )
+        puts "  #{page} page -- CREATED"
       end
     end
   end
