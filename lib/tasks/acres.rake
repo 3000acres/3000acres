@@ -30,7 +30,10 @@ namespace :acres do
   desc "Load CMS content"
   # this loads CMS snippets and pages from db/seeds.
   # note that it won't overwrite any stuff that has previously been
-  # loaded.
+  # loaded. Also, you might think we could use Comfy Mexican Sofa's
+  # fixtures feature for this, but it's a broken mess and I couldn't get
+  # it to work, so I did my own thing instead (which at least is readable
+  # and you can see what it's doing) -- Skud
   # usage: rake acres:load_cms
 
   task :load_cms => :environment do
