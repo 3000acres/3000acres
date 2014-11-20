@@ -1,12 +1,6 @@
 require 'spec_helper'
 
 feature "newsletter" do
-  scenario "footer includes newsletter signup" do
-    visit root_path
-    find('#newsletter-footer').should have_content "Subscribe to our newsletter"
-    find('#newsletter-footer').should have_field "EMAIL"
-  end
-
   scenario "sign up form includes newsletter checkbox" do
     visit root_path
     click_link 'navbar-signup'

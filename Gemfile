@@ -1,9 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.1.1'
-gem 'rails', '4.1.0'
-gem 'sass-rails', '~> 4.0.0'
+ruby '2.1.2'
+gem 'rails', '4.1.7'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
@@ -31,8 +29,8 @@ gem 'bluecloth' # markdown formatting
 # more info.
 gem 'non-stupid-digest-assets'
 
-gem 'comfortable_mexican_sofa', '~> 1.9.0'
-gem 'jquery-ui-rails', '~> 4.0.5'
+# CMS
+gem 'comfortable_mexican_sofa', '~> 1.12.0'
 
 group :travis, :staging, :production do
   gem 'pg'
@@ -63,7 +61,7 @@ end
 
 group :development, :test, :travis do
   gem 'factory_girl_rails'
-  gem 'rspec-rails', '~> 2.14.0'
+  gem 'rspec-rails'
   gem 'capybara'
   gem 'selenium-webdriver'
 end

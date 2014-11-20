@@ -14,8 +14,8 @@ Acres::Application.routes.draw do
 
   get '/admin', :to => "admin#index", :as => 'admin'
 
-  ComfortableMexicanSofa::Routing.admin(:path => '/cms-admin')
-  ComfortableMexicanSofa::Routing.content(:path => '/', :sitemap => false)
+  comfy_route :cms_admin, :path => '/cms-admin'
+  comfy_route :cms, :path => '/', :sitemap => false
 
 
 end
