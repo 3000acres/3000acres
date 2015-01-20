@@ -1,9 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
-gem 'rails', '4.0.0'
-gem 'sass-rails', '~> 4.0.0'
+ruby '2.1.2'
+gem 'rails', '4.1.7'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
@@ -20,17 +18,19 @@ gem 'unicorn'
 gem 'mandrill-api'
 gem 'gibbon' # for mailchimp newsletter subscriptions
 gem 'geocoder'
-gem 'leaflet-rails'
-gem 'leaflet-markercluster-rails'
+gem 'leaflet-rails', '~> 0.6.4'
+gem 'leaflet-markercluster-rails', '~> 0.6.0'
 gem 'friendly_id'
 gem 'validate_url'
+gem 'bluecloth' # markdown formatting
 
 # the following gem is needed to work around a really annoying change in
 # Rails 4. See https://github.com/rails/sprockets-rails/issues/49 for
 # more info.
 gem 'non-stupid-digest-assets'
 
-gem 'comfortable_mexican_sofa', '~> 1.9.0'
+# CMS
+gem 'comfortable_mexican_sofa', '~> 1.12.0'
 
 group :travis, :staging, :production do
   gem 'pg'

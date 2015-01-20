@@ -27,6 +27,58 @@ namespace :acres do
 
   end
 
+  desc "Load CMS content"
+  # this loads CMS snippets and pages from db/seeds.
+  # note that it won't overwrite any stuff that has previously been
+  # loaded. Also, you might think we could use Comfy Mexican Sofa's
+  # fixtures feature for this, but it's a broken mess and I couldn't get
+  # it to work, so I did my own thing instead (which at least is readable
+  # and you can see what it's doing) -- Skud
+  # usage: rake acres:load_cms
+
+  task :load_cms => :environment do
+    puts "Loading CMS content..."
+
+    site = Comfy::Cms::Site.find_by(:identifier => '3000acres')
+
+    source_path = Rails.root.join('db', 'seeds', 'cms', 'snippets')
+    Dir.glob("#{source_path}/*.snippet").each do |snippet_file|
+      snippet_name = File.basename(snippet_file, ".snippet")
+      snippet = Comfy::Cms::Snippet.find_by(:identifier => snippet_name)
+      if snippet
+        puts "  #{snippet_name} snippet -- EXISTS"
+      else
+        snippet_content = open(snippet_file).read
+        snippet = Comfy::Cms::Snippet.create!(
+          identifier: snippet_name,
+          label: snippet_name,
+          site: site,
+          content: snippet_content
+        )
+        snippet.save
+        puts "  #{snippet_name} snippet -- CREATED"
+      end
+    end
+
+    ['About', 'Media', 'Resources'].each do |page|
+      existing = Comfy::Cms::Page.find_by(:label => page.titleize)
+      if existing
+        puts "  #{page} page -- EXISTS"
+      else
+        layout = Comfy::Cms::Layout.find_by(:identifier => 'default')
+        topnav = Comfy::Cms::Page.find_by(:label => 'topnav')
+        Comfy::Cms::Page.create!(
+          label: page.titleize,
+          site: site,
+          layout: layout,
+          parent_id: topnav.id,
+          slug: page
+        )
+        puts "  #{page} page -- CREATED"
+      end
+    end
+  end
+
   desc "Depopulate Null Island"
   # this fixes up any sites who has erroneously wound up with a 0,0 lat/long
   # this code is inherited from Growstuff, and is untested (and 

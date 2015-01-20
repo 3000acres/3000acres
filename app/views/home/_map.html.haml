@@ -1,10 +1,7 @@
 %section
   .row
     .col-md-12
-      %h1.heading_main Get Involved
-      %p.text-center
-        Each pin on this map represents a site for a community garden.
-        Watch and get involved in community garden projects near you!
+      != cms_snippet_content(:homepage_map_intro)
   .row
     .col-md-12
       %div#map{:style => 'height: 500px'}
@@ -17,26 +14,21 @@
           = image_tag "/assets/pin-green.png", :size => '31x42', :alt => "grey map pin"
         .col-md-10
           %p
-            %strong Active:
-            There is an active community garden at this site. Get involved!
+            != cms_snippet_content(:homepage_map_pin1)
     .col-md-4
       .row
         .col-md-2
           = image_tag "/assets/pin-yellow.png", :size => '31x42', :alt => "grey map pin"
         .col-md-10
           %p
-            %strong Proposed:
-            People are working to start a community garden at this site.
-            You can keep an eye on its progress by "watching" it.
+            != cms_snippet_content(:homepage_map_pin2)
     .col-md-4
       .row
         .col-md-2
           = image_tag "/assets/pin-orange.png", :size => '31x42', :alt => "grey map pin"
         .col-md-10
           %p
-            %strong Potential:
-            This site could become a community garden! Sign in to start
-            watching it and organizing your new community garden.
+            != cms_snippet_content(:homepage_map_pin3)
   .row
     .col-md-4
       .row
@@ -44,19 +36,14 @@
           = image_tag "/assets/pin-black.png", :size => '31x42', :alt => "grey map pin"
         .col-md-10
           %p
-            %strong Unsuitable:
-            Someone identified this as a potential community garden
-            site, but unfortunately it's not suitable. Click the marker to find out
-            why.
+            != cms_snippet_content(:homepage_map_pin4)
     .col-md-4
       .row
         .col-md-2
           = image_tag "/assets/pin-grey.png", :size => '31x42', :alt => "grey map pin"
         .col-md-10
           %p
-            %strong Unknown:
-            We don't know much about this site but are working hard to
-            find out more.
+            != cms_snippet_content(:homepage_map_pin5)
     .col-md-4
       .row
         .col-md-12.text-center

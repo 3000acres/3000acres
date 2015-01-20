@@ -124,10 +124,11 @@ describe Site do
       @this_site.watches.last.user.should eq @user
     end
 
-    it "doesn't auto-watch for admins" do
+    it "auto-watches site when added by an admin" do
       @admin_user = FactoryGirl.create(:admin_user)
-      @this_site = FactoryGirl.create(:site, :added_by_user => @admin_user)
-      @this_site.watches.count.should == 0
+      @new_site = FactoryGirl.create(:site, :added_by_user => @admin_user)
+      @new_site.watches.count.should == 1
+      @new_site.watches.last.user.should eq @admin_user
     end
   end
 

@@ -121,7 +121,8 @@
 
         .form-inputs
           = f.input :subject
-          =f.input :body , :label => "Your message", :as => :text, :input_html => { :rows => 7 , :style => 'width: 100%'}
+          - markdown_help = render :partial => 'shared/markdown_help'
+          = f.input :body , :label => "Your message", :as => :text, :input_html => { :rows => 7 , :style => 'width: 100%'}, :hint => markdown_help
           = f.hidden_field :site_id, :value => @site.id
         .form-actions
           = f.button :submit
@@ -142,4 +143,6 @@
         = p.created_at
         = "(" + distance_of_time_in_words(p.created_at, Time.zone.now) + " ago)"
 
-      %div.postbody= p.body
+      %div.postbody
+        :markdown
+          #{ strip_tags p.body }

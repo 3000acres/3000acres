@@ -24,17 +24,15 @@ class Site < ActiveRecord::Base
   after_validation :geocode
   after_create :autowatch
   after_create :send_added_email
+  after_update :send_changed_email
 
   # autowatch()
-  # When a user adds a site, they automatically get to watch it. Unless
-  # they're an admin, in which case that would be overwhelming.
+  # When a user adds a site, they automatically get to watch it.
   def autowatch
-    unless added_by_user.has_role?(:admin)
-      Watch.create(
-        :site_id => id,
-        :user_id => added_by_user_id
-      )
-    end
+    Watch.create(
+      :site_id => id,
+      :user_id => added_by_user_id
+    )
   end
 
   # send_added_email()
@@ -42,6 +40,19 @@ class Site < ActiveRecord::Base
   def send_added_email
     if added_by_user.send_email # don't spam!
       Mailer.site_added_notification(self.added_by_user, self).deliver!
+    end
+  end
+
+  # send_changed_email()
+  # when a site's details are changed, send an email to watchers
+  def send_changed_email
+    if changed?
+      watches.each do |watch|
+        recipient = watch.user
+        if recipient.send_email # don't spam
+          Mailer.site_changed_notification(self, recipient).deliver!
+        end
+      end
     end
   end
 

@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :site do
     name "Awesome Community Garden"
-    description "This is a great community garden..."
+    description "This is a great food garden..."
     address "99 Bourke St"
     suburb "Melbourne"
     size "9.99"

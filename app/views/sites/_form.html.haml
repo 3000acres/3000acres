@@ -2,16 +2,14 @@
   = f.error_notification
 
   %p
-    Are we missing a potential community garden site?  Tell us about it!
-    Fill in as much detail as possible, and then our staff will review
-    it.
+    != cms_snippet_content(:site_add_intro)
 
   .form-inputs
     = f.input :address, :placeholder => '99 Bourke St', :hint => "Don't know the address, or the site doesn't have one? Just pick something as close as possible for now."
     = f.input :suburb, :placeholder => 'Melbourne'
     = f.input :local_government_area_id, :as => 'select', :collection => LocalGovernmentArea.all
 
-    = f.input :name, :placeholder => "Our fantastic community garden", :hint => "Optional (we'll use the address if you don't give us one)."
+    = f.input :name, :placeholder => "Our fantastic food garden", :hint => "Optional (we'll use the address if you don't give us one)."
 
     = f.input :description
     = f.input :website, :placeholder => "http://fantasticgarden..."
