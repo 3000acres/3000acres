@@ -369,6 +369,7 @@ DEPENDENCIES
   mandrill-api
   newrelic_rpm
   non-stupid-digest-assets
+  paperclip (~> 4.2)
   pg
   quiet_assets
   rails (= 4.1.7)

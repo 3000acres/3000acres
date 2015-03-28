@@ -26,6 +26,9 @@ class Site < ActiveRecord::Base
   after_create :send_added_email
   after_update :send_changed_email
 
+  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
+
   # autowatch()
   # When a user adds a site, they automatically get to watch it.
   def autowatch
