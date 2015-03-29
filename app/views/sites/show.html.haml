@@ -1,149 +1,133 @@
-- content_for :title, @site.to_s
+.container
+  - if can? :create, Watch
+    %div
+      - if @watch
+        You're following this site.
+        = form_for :watch, :url => watch_path(@watch), :method => :delete do |f|
+          .form-inputs
+            = f.hidden_field :site_id, :value => @site.id
+          .form-actions
+            = f.submit "Stop following", :class => 'btn btn-primary'
+      - else
+        = form_for :watch, :as => :post, :url => watches_path, :method => :post do |f|
+          .form-inputs
+            = f.hidden_field :site_id, :value => @site.id
+          .form-actions
+            = f.submit "Follow this site", :class => 'btn btn-primary'
+  - else
+    %p= render :partial => "shared/signin_signup", :locals => { :to => 'watch this site' }
+  - content_for :title, @site.to_s
+  - if @site.added_by_user
+    %p
+      %b Added by:
+      = link_to @site.added_by_user.name, user_path(@site.added_by_user)
 
-.row
-  .col-md-8
-    %div#map{:style => 'height: 400px'}
-  .col-md-4
-    - if can? :create, Watch
+  .row
+    .col-md-8
+      = image_tag @site.image.url(:medium)
+    .col-md-4
+
+      - if ! @site.description.blank?
+        %p
+          %b Description:
+          = @site.description
+
       %p
-        - if @watch
-          You're watching this site.
-          = form_for :watch, :url => watch_path(@watch), :method => :delete do |f|
-            .form-inputs
-              = f.hidden_field :site_id, :value => @site.id
-            .form-actions
-              = f.submit "Stop watching", :class => 'btn btn-primary'
+        %b Address:
+        = @site.address
+      %p
+        %b Suburb:
+        = @site.suburb
+
+      - if @site.local_government_area
+        %p
+          %b Local Government Area:
+          = @site.local_government_area.name
+      %p
+        %b Size:
+        - if @site.size
+          = @site.size
+          square metres
         - else
-          = form_for :watch, :as => :post, :url => watches_path, :method => :post do |f|
-            .form-inputs
-              = f.hidden_field :site_id, :value => @site.id
-            .form-actions
-              = f.submit "Watch this site", :class => 'btn btn-primary'
-    - else
-      %p= render :partial => "shared/signin_signup", :locals => { :to => 'watch this site' }
-
-    = image_tag @site.image.url(:medium)
-    - if ! @site.name.blank?
+          unknown
       %p
-        %b Name:
-        = @site.name
-    - if ! @site.description.blank?
+        %b Water available?
+        - if @site.water
+          Yes
+        - elsif @site.water == nil
+          Unknown
+        - else
+          No
       %p
-        %b Description:
-        = @site.description
-
-    %p
-      %b Address:
-      = @site.address
-    %p
-      %b Suburb:
-      = @site.suburb
-
-    - if @site.local_government_area
+        %b Available until:
+        = @site.available_until.blank? ? "indefinitely" : @site.available_until
       %p
-        %b Local Government Area:
-        = @site.local_government_area.name
+        %b Status:
+        = @site.status
 
-    %p
-      %b Latitude:
-      = @site.latitude
-    %p
-      %b Longitude:
-      = @site.longitude
-    %p
-      %b Size:
-      - if @site.size
-        = @site.size
-        square metres
-      - else
-        unknown
-    %p
-      %b Water available?
-      - if @site.water
-        Yes
-      - elsif @site.water == nil
-        Unknown
-      - else
-        No
-    %p
-      %b Available until:
-      = @site.available_until.blank? ? "indefinitely" : @site.available_until
-    %p
-      %b Status:
-      = @site.status
+      - if ! @site.website.blank?
+        %p
+          %b Website:
+          = link_to @site.website, @site.website
 
-    - if ! @site.website.blank?
-      %p
-        %b Website:
-        = link_to @site.website, @site.website
+      - if can? :update, @site
+        %p= link_to 'Edit', edit_site_path(@site), :class => 'btn btn-default'
+        %p
+          %small
+            Note: as the person who added this site, you can edit the
+            details up until we've reviewed it.
 
-    - if @site.added_by_user
-      %p
-        %b Added by:
-        = link_to @site.added_by_user.name, user_path(@site.added_by_user)
-
-    - if can? :update, @site
-      %p= link_to 'Edit', edit_site_path(@site), :class => 'btn btn-default'
-      %p
-        %small
-          Note: as the person who added this site, you can edit the
-          details up until we've reviewed it.
-
-.row
-  .col-md-12
-    %h2 Who watches this site?
-    - if @site.watches.count > 0
-      %p
+  .row
+    .col-md-12
+      %b Following:
+      - if @site.watches.count > 0
         = pluralize @site.watches.count, "person"
         = @site.watches.count == 1 ? "is" : "are"
-        watching this site.
-      %ul
-        - @site.watches.each do |w|
-          %li= link_to w.user.name, user_path(w.user)
-    - else
-      %p Nobody, yet. You could be the first!
+        following this site.
+        %ul
+          - @site.watches.each do |w|
+            %li= link_to w.user.name, user_path(w.user)
+      - else
+        %p Nobody, yet. You could be the first!
 
-.row
-  .col-md-12
-    %h2 Community discussion
+  .row
+    .col-md-12
+      %h4 Discuss
 
-    - unless can? :post_to_site, @site
-      %p.alert
-        - if can? :create, Watch
-          You must be watching this site to post an update about it.
-        - else
-          = render :partial => "shared/signin_signup", :locals => { :to => 'post an update about this site.' }
-    - else
-      %h3 Post an update
-      %p Your message will be displayed on this page, and sent to everyone who's watching this site.
+      - unless can? :post_to_site, @site
+        %p.alert
+          - if can? :create, Watch
+            You must be following this site to post an update about it.
+          - else
+            = render :partial => "shared/signin_signup", :locals => { :to => 'post an update about this site.' }
+      - else
+        -# %p Your message will be displayed on this page, and sent to everyone who's following this site.
 
-      = simple_form_for(@post) do |f|
-        = f.error_notification
+        = simple_form_for(@post) do |f|
+          = f.error_notification
 
-        .form-inputs
-          = f.input :subject
-          - markdown_help = render :partial => 'shared/markdown_help'
-          = f.input :body , :label => "Your message", :as => :text, :input_html => { :rows => 7 , :style => 'width: 100%'}, :hint => markdown_help
-          = f.hidden_field :site_id, :value => @site.id
-        .form-actions
-          = f.button :submit
+          .form-inputs
+            = f.input :body , :label => "Your message", :as => :text, :input_html => { :rows => 7 , :style => 'width: 100%'}
+            = f.hidden_field :site_id, :value => @site.id
+          .form-actions
+            = f.button :submit
 
-    %a{:name => "posts"}
-      %h3 Previous posts
-    - @site.posts.each do |p|
-      %a{:name => "post-#{p.id}"}
-        %h4= p.subject
+      %a{:name => "posts"}
+      -if !@site.posts.empty?
+        %h4 Previous posts
+      - @site.posts.each do |p|
+        %a{:name => "post-#{p.id}"}
+        %div.postmeta
+          Posted by
+          - if p.user
+            = link_to p.user.name, user_path(p.user)
+          - else
+            Deleted User
+          at
+          = p.created_at
+          = "(" + distance_of_time_in_words(p.created_at, Time.zone.now) + " ago)"
 
-      %div.postmeta
-        Posted by
-        - if p.user
-          = link_to p.user.name, user_path(p.user)
-        - else
-          Deleted User
-        at
-        = p.created_at
-        = "(" + distance_of_time_in_words(p.created_at, Time.zone.now) + " ago)"
-
-      %div.postbody
-        :markdown
-          #{ strip_tags p.body }
+        %div.postbody
+          :markdown
+            #{ strip_tags p.body }
+%div#map{:style => 'height: 400px'}
