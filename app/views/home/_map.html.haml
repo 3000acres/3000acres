@@ -1,13 +1,8 @@
 %section
   .row
     .col-md-12
-      != cms_snippet_content(:homepage_map_intro)
-  .row
-    .col-md-12
       %div#map{:style => 'height: 500px'}
   .row
-    .col-md-12
-      %h2 What it all means
     .col-md-4
       .row
         .col-md-2
@@ -29,30 +24,3 @@
         .col-md-10
           %p
             != cms_snippet_content(:homepage_map_pin3)
-  .row
-    .col-md-4
-      .row
-        .col-md-2
-          = image_tag "/assets/pin-black.png", :size => '31x42', :alt => "grey map pin"
-        .col-md-10
-          %p
-            != cms_snippet_content(:homepage_map_pin4)
-    .col-md-4
-      .row
-        .col-md-2
-          = image_tag "/assets/pin-grey.png", :size => '31x42', :alt => "grey map pin"
-        .col-md-10
-          %p
-            != cms_snippet_content(:homepage_map_pin5)
-    .col-md-4
-      .row
-        .col-md-12.text-center
-          - if can? :create, Site
-            = link_to "Add a site", new_site_path, :class => 'btn btn-primary btn-lg'
-          - else
-            = link_to "Add a site", new_user_session_path, :class => 'btn btn-primary btn-lg'
-            %br/
-            %small
-              = render :partial => 'shared/signin_signup', :locals => { :to => 'add a site' }
-
-    .col-md-8

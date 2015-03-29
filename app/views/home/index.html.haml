@@ -1,13 +1,39 @@
 - content_for :banner do
   .jumbotron
-    != cms_snippet_content(:homepage_banner)
+    %h1
+      3000 Acres
+    %br
+    %span.subhead
+      Connecting People to Land
+
+  -# %form accept-charset="UTF-8" action="http://3000acres.us3.list-manage.com/subscribe/post?u=3d6770001275929f73950dfc2&amp;amp;id=2011150da6" class="form-inline hidden-xs" method="post" target="_blank"><div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="qSNJaDRqQiJeVMN0gefkHafTkes/nwefco3l2Ryefdc=" /></div>
+  -#   .form-group
+  -#     %label class="sr-only" for="EMAIL"
+  -#       Email address
+  -#     %input class="col-xs-12 input-lg font-control" id="EMAIL" name="EMAIL" placeholder="you@example.com" type="email"
+  -#   %div style='position: absolute; left: -5000px;'
+  -#     <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+  -#     <input id="b_3d6770001275929f73950dfc2_2011150da6" name="b_3d6770001275929f73950dfc2_2011150da6" type="text" />
+  -#   <input class="btn btn-primary input-lg" name="commit" type="submit" value="Newsletter subscribe" />
 
 #homepage
-  = render :partial => 'map'
+  %h2
+    We're unlocking vacant land across Melbourne to grow food and build strong communities.
+  %h3
+    At 3000 Acres, we're trying to bridge the gap between people who want
+    to grow food, and local councils and other organisations who hold
+    the keys to vacant land.
+  %p
+    Find out more by
+    %a{ :href => "http://www.youtube.com/watch?v=udidk7yivi4" }
+      watching our video
+    ,
+    %a{ :href => "http://twitter.com/3000acres" }
+      following us on Twitter
+    or
+    %a{ :href => "https://www.facebook.com/3000acres"}
+      liking us on Facebook
+    \.
 
-  %section
-    .row
-      .col-md-12
-        != cms_snippet_content(:homepage_findoutmore)
-
+  = render :partial => 'shared/add_site'
   != cms_snippet_content(:homepage_partners)
