@@ -1,4 +1,7 @@
 class SitesController < ApplicationController
+
+  layout "home", :only => [:index, :show]
+
   before_action :load_site, only: :create
   load_and_authorize_resource
 
