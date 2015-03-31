@@ -40,7 +40,7 @@ class SitesController < ApplicationController
     @site = Site.new(site_params)
     @site.added_by_user = current_user
     unless can? :set_status, Site
-      @site.status = "unknown"
+      @site.status = "potential"
     end
 
     respond_to do |format|
