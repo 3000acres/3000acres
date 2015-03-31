@@ -1,42 +1,22 @@
 .container
-  - if can? :create, Watch
-    %div
-      - if @watch
-        You're following this site.
-        = form_for :watch, :url => watch_path(@watch), :method => :delete do |f|
-          .form-inputs
-            = f.hidden_field :site_id, :value => @site.id
-          .form-actions
-            = f.submit "Stop following", :class => 'btn btn-primary'
-      - else
-        = form_for :watch, :as => :post, :url => watches_path, :method => :post do |f|
-          .form-inputs
-            = f.hidden_field :site_id, :value => @site.id
-          .form-actions
-            = f.submit "Follow this site", :class => 'btn btn-primary'
-  - else
-    %p= render :partial => "shared/signin_signup", :locals => { :to => 'watch this site' }
   - content_for :title, @site.to_s
   - if @site.added_by_user
     %p
-      %b Added by:
+      Added by:
       = link_to @site.added_by_user.name, user_path(@site.added_by_user)
 
   .row
     .col-md-8
-      = image_tag @site.image.url(:medium)
-    .col-md-4
-
+      = image_tag @site.image.url(:large)
       - if ! @site.description.blank?
-        %p
-          %b Description:
+        %p.description
           = @site.description
+
+    .col-md-4
 
       %p
         %b Address:
         = @site.address
-      %p
-        %b Suburb:
         = @site.suburb
 
       - if @site.local_government_area
@@ -44,20 +24,17 @@
           %b Local Government Area:
           = @site.local_government_area.name
       %p
-        %b Size:
         - if @site.size
+          %b Size:
           = @site.size
           square metres
-        - else
-          unknown
       %p
-        %b Water available?
-        - if @site.water
-          Yes
-        - elsif @site.water == nil
-          Unknown
-        - else
-          No
+        - if !@site.water == nil
+          %b Water available?
+          - if @site.water
+            Yes
+          - else
+            No
       %p
         %b Available until:
         = @site.available_until.blank? ? "indefinitely" : @site.available_until
@@ -72,14 +49,10 @@
 
       - if can? :update, @site
         %p= link_to 'Edit', edit_site_path(@site), :class => 'btn btn-default'
-        %p
-          %small
-            Note: as the person who added this site, you can edit the
-            details up until we've reviewed it.
 
   .row
-    .col-md-12
-      %b Following:
+    .col-md-8
+      %h4 Following
       - if @site.watches.count > 0
         = pluralize @site.watches.count, "person"
         = @site.watches.count == 1 ? "is" : "are"
@@ -89,10 +62,42 @@
             %li= link_to w.user.name, user_path(w.user)
       - else
         %p Nobody, yet. You could be the first!
-
+    .col-md-4
+      - if can? :create, Watch
+        %div
+          - if @watch
+            You're following this site.
+            = form_for :watch, :url => watch_path(@watch), :method => :delete do |f|
+              .form-inputs
+                = f.hidden_field :site_id, :value => @site.id
+              .form-actions
+                = f.submit "Stop following", :class => 'btn btn-primary'
+          - else
+            = form_for :watch, :as => :post, :url => watches_path, :method => :post do |f|
+              .form-inputs
+                = f.hidden_field :site_id, :value => @site.id
+              .form-actions
+                = f.submit "Follow this site", :class => 'btn btn-primary'
+      - else
+        %p= render :partial => "shared/signin_signup", :locals => { :to => 'watch this site' }
   .row
     .col-md-12
-      %h4 Discuss
+      %h4 Comments
+
+      %a{:name => "posts"}
+      - @site.posts.each do |p|
+        %div.postbody
+          :markdown
+            #{ strip_tags p.body }
+        %a{:name => "post-#{p.id}"}
+        %div.postmeta
+          - if p.user
+            = link_to p.user.name, user_path(p.user)
+          - else
+            Deleted User
+          on
+          = p.created_at
+          -# = "(" + distance_of_time_in_words(p.created_at, Time.zone.now) + " ago)"
 
       - unless can? :post_to_site, @site
         %p.alert
@@ -102,32 +107,47 @@
             = render :partial => "shared/signin_signup", :locals => { :to => 'post an update about this site.' }
       - else
         -# %p Your message will be displayed on this page, and sent to everyone who's following this site.
-
         = simple_form_for(@post) do |f|
           = f.error_notification
 
           .form-inputs
-            = f.input :body , :label => "Your message", :as => :text, :input_html => { :rows => 7 , :style => 'width: 100%'}
+            = f.input  :body, :placeholder => 'Add Your Message', :label => false, :as => :text, :input_html => { :rows => 7 , :style => 'width: 100%'}
             = f.hidden_field :site_id, :value => @site.id
           .form-actions
             = f.button :submit
 
-      %a{:name => "posts"}
-      -if !@site.posts.empty?
-        %h4 Previous posts
-      - @site.posts.each do |p|
-        %a{:name => "post-#{p.id}"}
-        %div.postmeta
-          Posted by
-          - if p.user
-            = link_to p.user.name, user_path(p.user)
-          - else
-            Deleted User
-          at
-          = p.created_at
-          = "(" + distance_of_time_in_words(p.created_at, Time.zone.now) + " ago)"
 
-        %div.postbody
-          :markdown
-            #{ strip_tags p.body }
 %div#map{:style => 'height: 400px'}
+
+
+-# - @nearby_sites.each do |nearby|
+-#   = nearby.name
+-#   = image_tag nearby.image.url(:medium)
+.row
+  .col-md-12
+    %h2
+      Nearby Sites
+    = render :partial => 'shared/featured_sites'
+      
+.container
+  .row
+    .col-md-12
+      .panel.panel-default
+        - if current_user.has_role? :admin
+          .panel-heading 
+            %h3 
+              Admin
+          .panel-body
+            .row
+              .col-md-6
+                %h4 
+                  Watching
+                - @users.each do |user|
+                  = user.name
+                  = user.email
+              .col-md-6
+                %h4 
+                  Watching nearby
+                - @nearby_users.each do |user|
+                  = user.name
+                  = user.email
