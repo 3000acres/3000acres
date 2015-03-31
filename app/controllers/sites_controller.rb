@@ -17,6 +17,12 @@ class SitesController < ApplicationController
       @watch = Watch.where(:site_id => @site.id, :user_id => current_user.id).first || nil
       @post = Post.new()
     end
+    @featured_sites = Site.within(4, origin: @site)
+    @users = @site.users
+    @nearby_users = [] 
+    @featured_sites.each do |site|
+      @nearby_users = @nearby_users | site.users
+    end
   end
 
   # GET /sites/new

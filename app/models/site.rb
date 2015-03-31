@@ -6,6 +6,7 @@ class Site < ActiveRecord::Base
   belongs_to :local_government_area
   belongs_to :added_by_user, :class_name => 'User'
   has_many :watches
+  has_many :users, through: :watches
   has_many :posts
 
   validates :address, :presence => true
@@ -26,8 +27,12 @@ class Site < ActiveRecord::Base
   after_create :send_added_email
   after_update :send_changed_email
 
-  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  has_attached_file :image, :styles => { :large => "720x720", :medium => "360x360#", :small => "180x180#" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
+  acts_as_mappable :default_units => :kms,
+                   :default_formula => :sphere,
+                   :lat_column_name => :latitude,
+                   :lng_column_name => :longitude
 
   # autowatch()
   # When a user adds a site, they automatically get to watch it.
