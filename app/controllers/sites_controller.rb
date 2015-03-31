@@ -8,6 +8,7 @@ class SitesController < ApplicationController
   # GET /sites.json
   def index
     @sites = Site.all
+    @featured_sites = Site.where("image_file_name > ''")
   end
 
   # GET /sites/1
