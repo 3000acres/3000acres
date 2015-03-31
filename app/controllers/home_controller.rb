@@ -4,6 +4,6 @@ class HomeController < ApplicationController
 
   def index
     @users = User.all
-    @sites = Site.all
+    @featured_sites = Site.where("image_file_name > ''")
   end
 end
