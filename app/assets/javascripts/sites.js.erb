@@ -67,6 +67,9 @@ function addMarker(site, map) {
   });
   var link = "<p><a class='site-title' href='/sites/" + site.slug + "'>" + site.display_name + "</a></p>"
           + "<p>" + site.address + ", " + site.suburb + "</p>";
+  if (site.image) {
+    link = "<img width='180' src='" + site.image + "'>" + link
+  }
   if (site.description) {
     link += "<p class='site-description'>" + site.description.substr(0,110) + "...</p>";
   }
