@@ -10,7 +10,7 @@ function showMap(map) {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors under <a href="http://www.openstreetmap.org/copyright">ODbL</a> | Map imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
     maxZoom: 18
   }).addTo(map);
-  if (location.pathname === "/") { // homepage
+  if (location.pathname === "/sites") { // homepage
     map.setView([-37.85, 145.06], 10); // Melbourne
     $.getJSON('sites.json', function(sites) {
       $.each(sites, function(i, site) {
