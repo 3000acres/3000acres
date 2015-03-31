@@ -16,7 +16,7 @@
     = f.input :website, :placeholder => "http://fantasticgarden..."
 
     - if can? :set_status, Site
-      = f.input :status, :as => 'select', :collection => Site::STATUSES, :default => 'unknown'
+      = f.input :status, :as => 'select', :collection => Site::STATUSES, :default => 'potential'
 
     = f.input :size, :label=> "Size (square metres)"
     = f.input :water, :label => 'Water available?', :as => 'select'

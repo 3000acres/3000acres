@@ -14,15 +14,14 @@
         = yield(:banner)
       %section#main-content
         .container
-          .content
-            .row
-              .col-md-12
-                = render 'layouts/messages'
-                = yield
-      / ! end of .container
-    / ! end of #main
-    %footer
-      = render 'layouts/footer'
+          - if content_for?(:title)
+            %h1.title= yield(:title)
+          = render 'layouts/messages'
+        // Yield outside container for home pages.
+        = yield
+      %section#banner_lower
+        = yield(:banner_lower)
+    = render 'layouts/footer'
 
     = javascript_include_tag "application"
     <!-- Analytics code -->

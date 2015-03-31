@@ -30,6 +30,8 @@
 @yellow: #b2935c;
 @white:  #ffffff;
 @black:  #000000;
+@gray-darkish: lighten(@gray-dark, 10%);
+
 
 @brand-primary:         @green;
 @brand-success:         @green;
@@ -157,7 +159,7 @@
 
 // Basics of a navbar
 @navbar-height:                    80px;
-@navbar-margin-bottom:             @line-height-computed;
+@navbar-margin-bottom:             0; //@line-height-computed;
 @navbar-border-radius:             @border-radius-base;
 @navbar-padding-horizontal:        floor(@grid-gutter-width / 2);
 @navbar-padding-vertical:          ((@navbar-height - @line-height-computed) / 2);
@@ -285,8 +287,11 @@
 
 html,body { width:100%;height:100%;margin:0;padding:0; }
 
+a {
+  text-decoration:none !important;
+}
+
 body {
-  padding-top: @navbar-height;
 }
 
 section {
@@ -298,17 +303,162 @@ h1, h2, h3, h4 {
   color: @brand-primary;
 }
 
-#homepage h1 {
-  text-transform: uppercase;
-  text-align: center;
+h1.title {
+  margin: 50px inherit;
 }
 
-#homepage h2 {
+
+#homepage {
+  h1,h2 {
+    text-align: center;
+    color: @gray-darkish;
+  }
+
+  .stripe {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    h1,h2,h3 {
+      padding-bottom: 30px;
+    }
+  }
+
+  .about {
+    text-align: center;
+    h4 {
+      padding-bottom: 30px;
+    }
+  }
+
+  .connect {
+    background-color: #eee;
+
+    h1,h2,h3,a {
+      text-align: left;
+    }
+
+    .twitter, .facebook {
+    }
+  }
+
+  .sites {
+    text-align: center;
+
+    .featured-sites {
+      padding-bottom: 30px;
+    }
+
+    .browse {
+      margin-top: 30px;
+    }
+    .sm-icon {
+      float: left;
+    }
+  }
+}
+
+#homepage-banner {
+  padding: 80px 30px;
+  position: relative;
+  width: auto;
+  height: auto;
+  text-align:left;
+  background:url('/assets/wheelbarrow-cropped.jpg') no-repeat scroll center top rgba(0, 0, 0, 0);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  p {
+    color: @white;
+  }
+
+  h1 {
+    color: @brand-primary;
+    font-size: 70px;
+  }
+
+  h1 span.subhead {
+    color: @white;
+  }
+}
+
+#site {
+  .following, .comments {
+    margin: 30px inherit;
+  } 
+
+  .comments form {
+    margin-top: 20px;
+  }
+
+  .description {
+    margin-top: 20px;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .sites {
+    margin: 50px inherit;
+  } 
+}
+
+// Browse all button is in the site title to float at the top.
+.title .browse {
+  float: right;
+}
+
+#sites {
+  .about, .sites {
+    margin-bottom: 50px;
+  }
+  .about .add {
+    margin-top: 30px;
+  }
+  #map-key {
+    padding: 40px inherit;
+  }
+}
+
+// custom CMS edit icons
+.cms-edit{
+  float: right;
+  width: 40px;
+  height: 40px;
+}
+
+// For some reason comfy is not loading css after linking. We can live with it for now, its actually simpler to use.
+#comfy {
+  .body-wrapper:extend(.container) {}
+  .left-column, .right-column {
+    display: none;
+  }
+}
+
+// Featured sites block.
+.featured-sites {
   text-align: center;
+
+  img {
+    width: 100%
+  }
+    
+  .site {
+    padding: 10px;
+  }
+  .site:hover {
+    background-color: #f6f6f6;
+  }
+}
+
+form.subscribe {
+  input {
+    display: inline;
+  }
 }
 
 // Navbar Styling
-
 .navbar-header {
   position:relative;
 }
@@ -319,39 +469,7 @@ h1, h2, h3, h4 {
 }
 
 .navbar-nav > li > a {
-  padding-top:30px;
-  padding-bottom:30px;
   font-size:18px;
-}
-
-.jumbotron {
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  position: relative;
-  width: auto;
-  height: auto;
-  text-align:left;
-  text-shadow: 4px 4px 8px @black;
-  border-bottom:5px solid @brand-primary;
-  background:url('/assets/wheelbarrow-cropped.jpg') no-repeat scroll center top rgba(0, 0, 0, 0);
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-.jumbotron p {
-  color: @white;
-}
-
-.jumbotron h1 {
-  color: @brand-primary
-}
-
-.jumbotron h1 span.subhead {
-  color: @white;
 }
 
 .banner_inner{
@@ -375,61 +493,67 @@ h1, h2, h3, h4 {
 }
 
 // Footer styling
-footer{
-  background: @black;
+footer {
+  background: @gray-darkish;
   margin-top:40px;
   color:@white;
   padding:40px 0px;
+
+  ul.sm_icons{
+    list-style:none;
+    padding:0px;
+    display:block;
+    overflow:auto;
+  }
+
+  ul.sm_icons > li {
+    float:left;
+    display:block;
+    position:relative;
+    margin:10px 10px 10px 0px;
+  }
+  
+  ul.partners{
+    list-style:none;
+    padding:0px;
+    display:block;
+    overflow:auto;
+  }
+
+  ul.partners > li{
+    margin:10px 0px;
+  }
 }
 
-footer ul.sm_icons{
-  list-style:none;
-  padding:0px;
-  display:block;
-  overflow:auto;
-}
 
-footer ul.sm_icons > li {
-  float:left;
-  display:block;
-  position:relative;
-  margin:10px 10px 10px 0px;
-}
-
-footer .sm_icon{
+// Facebook and Twitter icons
+.sm_icon{
   width:46px;
   height:46px;
 }
 
-footer .sm_icon.twitter{
+li.sm_icons a {
+  padding: 18px 8px;
+}
+
+.sm_icon.twitter{
   background:url('/assets/sm_twitter.png') no-repeat 0px 0px rgba(0, 0, 0, 0);
 }
 
-footer .sm_icon.twitter:hover{
+.sm_icon.twitter:hover{
   background:url('/assets/sm_twitter.png') no-repeat 0px -51px rgba(0, 0, 0, 0);
 }
 
-footer .sm_icon.facebook{
+.sm_icon.facebook{
   background:url('/assets/sm_facebook.png') no-repeat 0px 0px rgba(0, 0, 0, 0);
 }
 
-footer .sm_icon.facebook:hover{
+.sm_icon.facebook:hover{
   background:url('/assets/sm_facebook.png') no-repeat 0px -51px rgba(0, 0, 0, 0);
 }
 
-footer ul.partners{
-  list-style:none;
-  padding:0px;
-  display:block;
-  overflow:auto;
-}
-
-footer ul.partners > li{
-  margin:10px 0px;
-}
-
 // Homepage styling
-.stats_home{
+.stats_home {
   width:100%;
   text-align:center;
 }

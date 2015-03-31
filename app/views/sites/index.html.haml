@@ -1,38 +1,60 @@
-- content_for :title, "All sites"
+- content_for :title, "Sites"
 
-%table.table.table-striped
-  %tr
-    %th Name
-    %th Address
-    %th Suburb
-    %th Local Government Area
-    %th Size
-    %th Water
-    %th Available until
-    %th Status
-    %th Added by
-    %th
-    %th
-    %th
+#sites
+  .about.stripe
+    .container
+      %h3
+        != cms_editable_snippet(:sites_about_body)
+      .add
+        = render :partial => 'shared/add_site'
 
-  - @sites.each do |site|
-    %tr
-      %td= site.name
-      %td= site.address
-      %td= site.suburb
-      %td= site.local_government_area ? site.local_government_area.name : ''
-      %td= site.size
-      %td= site.water
-      %td= site.available_until
-      %td= site.status
-      %td
-        - if site.added_by_user
-          = link_to site.added_by_user.name, user_path(site.added_by_user)
-        - else
-          Deleted user
-      %td= link_to 'Show', site_path(site)
-      %td= link_to 'Edit', edit_site_path(site)
-      %td= link_to 'Destroy', site_path(site), :method => :delete, :data => { :confirm => 'Are you sure?' }
+  .sites.stripe
+    .container
+      = render :partial => 'shared/featured_sites'
 
-- if can? :create, Site
-  %p= link_to 'New Site', new_site_path, :class => 'btn btn-default'
+  .map.stripe
+    = render :partial => 'shared/map'
+
+  - if user_signed_in? && current_user.has_role?(:admin)
+    .container
+      .panel.panel-default
+        .panel-heading
+          %h3 
+            Admin
+        .panel-body
+          %table.table.table-striped
+            %tr
+              %th Name
+              %th Address
+              %th Suburb
+              %th Local Government Area
+              %th Size
+              %th Water
+              %th Available until
+              %th Status
+              %th Added by
+              %th
+              %th
+              %th
+
+            - @sites.each do |site|
+              %tr
+                %td= site.name
+                %td= site.address
+                %td= site.suburb
+                %td= site.local_government_area ? site.local_government_area.name : ''
+                %td= site.size
+                %td= site.water
+                %td= site.available_until
+                %td= site.status
+                %td
+                  - if site.added_by_user
+                    = link_to site.added_by_user.name, user_path(site.added_by_user)
+                  - else
+                    Deleted user
+                %td= link_to 'Show', site_path(site)
+                %td= link_to 'Edit', edit_site_path(site)
+                %td= link_to 'Destroy', site_path(site), :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+          - if can? :create, Site
+            %p= link_to 'New Site', new_site_path, :class => 'btn btn-default'
