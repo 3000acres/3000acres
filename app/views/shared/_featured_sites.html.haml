@@ -1,3 +1,11 @@
-- @sites.each do |site|
-  .col-md-3
-    = image_tag @site.image.url(:small)
+.featured_sites
+  - @sites.limit(4).each do |site|
+    .site.col-md-3
+      %a{ href: "#{site_url(site)}" }
+        .image.medium
+          = image_tag site.image.url(:medium)
+        %h4.name
+          = site.name
+        .address
+          = site.address
+          = site.suburb
