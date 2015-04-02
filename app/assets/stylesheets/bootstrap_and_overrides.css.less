@@ -294,10 +294,6 @@ a {
 body {
 }
 
-section {
-  margin-bottom: 20px;
-}
-
 h1, h2, h3, h4 {
   // I have no idea why @headings-color doesn't work :-/
   color: @brand-primary;
@@ -315,8 +311,7 @@ h1.title {
   }
 
   .stripe {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding: 80px inherit;
     h1,h2,h3 {
       padding-bottom: 30px;
     }
@@ -330,7 +325,7 @@ h1.title {
   }
 
   .connect {
-    background-color: #eee;
+    background-color: @gray-lighter;
 
     h1,h2,h3,a {
       text-align: left;
@@ -353,6 +348,9 @@ h1.title {
     .sm-icon {
       float: left;
     }
+  }
+  .partners {
+    background-color: @gray-lighter;
   }
 }
 
@@ -495,7 +493,6 @@ form.subscribe {
 // Footer styling
 footer {
   background: @gray-darkish;
-  margin-top:40px;
   color:@white;
   padding:40px 0px;
 
