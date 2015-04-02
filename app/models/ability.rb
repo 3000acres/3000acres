@@ -15,7 +15,7 @@ class Ability
 
       can :create, Site # but can't set the status
       can :update, Site do |s|
-        s.added_by_user_id == user.id && s.status == 'unknown'
+        s.added_by_user_id == user.id && s.status == 'potential'
       end
       can :post_to_site, Site do |s|
         s.watches.find_by_user_id(user.id)

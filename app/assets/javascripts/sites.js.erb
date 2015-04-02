@@ -32,12 +32,6 @@ function showMap(map) {
 function addMarker(site, map) {
   var pin;
   switch(site.status) {
-    case 'unknown':
-      pin = '/assets/pin-grey.png';
-      break;
-    case 'unsuitable':
-      pin = '/assets/pin-black.png';
-      break;
     case 'potential':
       pin = '/assets/pin-orange.png';
       break;

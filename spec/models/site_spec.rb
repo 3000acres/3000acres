@@ -48,11 +48,11 @@ describe Site do
       end
 
       it 'should have a status' do
-        @site.status.should eq 'unknown'
+        @site.status.should eq 'potential'
       end
 
       it 'all valid status values should work' do
-        ['unknown', 'unsuitable', 'potential', 'proposed', 'active'].each do |s|
+        ['potential', 'proposed', 'active'].each do |s|
           @site = FactoryGirl.build(:site, :status => s)
           @site.should be_valid
         end

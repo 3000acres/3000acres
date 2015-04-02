@@ -9,7 +9,7 @@ FactoryGirl.define do
     size "9.99"
     water false
     available_until "2013-11-08"
-    status "unknown"
+    status "potential"
     local_government_area
     added_by_user
     website 'http://example.com'

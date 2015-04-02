@@ -11,7 +11,7 @@ feature "site changed notification" do
     fill_in 'Password', :with => @user.password
     click_button 'Sign in'
 
-    @site = FactoryGirl.create(:site, :added_by_user => @user, :status => 'unknown')
+    @site = FactoryGirl.create(:site, :added_by_user => @user, :status => 'potential')
     # user will automatically be watching the site
   end
 
