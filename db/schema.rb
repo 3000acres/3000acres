@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150328031321) do
+ActiveRecord::Schema.define(version: 20150402014645) do
 
   create_table "comfy_cms_blocks", force: true do |t|
     t.integer  "blockable_id",                    null: false
