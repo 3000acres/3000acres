@@ -42,7 +42,7 @@ feature "add site" do
     end
 
     scenario "can add site" do
-      visit root_path
+      visit sites_path
       click_link "Add a site"
       fill_in 'Address', :with => '1 Smith St'
       fill_in 'Suburb', :with => 'Smithville'
@@ -50,14 +50,13 @@ feature "add site" do
       current_path.should eq site_path(Site.last)
     end
 
-    scenario "can edit site if status is still unknown" do
-      visit root_path
+    scenario "can edit site if status is still potential" do
+      visit sites_path
       click_link "Add a site"
       fill_in 'Address', :with => '1 Smith St'
       fill_in 'Suburb', :with => 'Smithville'
       click_button 'Create Site'
       current_path.should eq site_path(Site.last)
-      page.should have_content "you can edit the details"
       click_link 'Edit'
       current_path.should eq edit_site_path(Site.last)
       click_button 'Update Site'
@@ -72,7 +71,7 @@ feature "add site" do
     end
 
     scenario "can add website without leading http://" do
-      visit root_path
+      visit sites_path
       click_link "Add a site"
       fill_in 'Address', :with => '1 Smith St'
       fill_in 'Suburb', :with => 'Smithville'
@@ -103,10 +102,10 @@ feature "add site" do
       current_path.should match /1-smith-st-jonestown/
     end
 
-    scenario "water shows as unknown if nil" do
+    scenario "water does not show if nil" do
       @site = FactoryGirl.create(:site, :water => nil)
       visit site_path(@site)
-      page.should have_content "Water available? Unknown"
+      page.should_not have_content "Water available?"
     end
 
   end
