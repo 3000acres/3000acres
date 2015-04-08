@@ -56,6 +56,7 @@ group :development do
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
   gem 'letter_opener'
+  gem 'zeus'
 end
 
 group :development, :test do
