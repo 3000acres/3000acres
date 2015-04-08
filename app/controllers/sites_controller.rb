@@ -93,7 +93,7 @@ class SitesController < ApplicationController
     def site_params
       params.require(:site).permit(:image, :name, :description, :address,
           :suburb, :latitude, :longitude, :size, :water, :available_until, 
-          :status, :local_government_area_id, :website, :facebook, :featured)
+          :status, :local_government_area_id, :website, :facebook, :featured, :contact)
     end
 
     # the following is needed to make CanCan work under Rails 4; see
