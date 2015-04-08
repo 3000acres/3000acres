@@ -10,8 +10,9 @@
   %body{:class => "#{controller_name} #{action_name}"}
     = render 'layouts/navigation'
     #main{:role => "main"}
-      %section#banner
-        = yield(:banner)
+      - if content_for?(:banner)
+        %section#banner
+          = yield(:banner)
       %section#main-content
         .container
           - if content_for?(:title)
@@ -19,8 +20,9 @@
           = render 'layouts/messages'
           // Yield inside container for normal pages.
           = yield
-      %section#banner_lower
-        = yield(:banner_lower)
+      - if content_for?(:banner_lower)
+        %section#banner_lower
+          = yield(:banner_lower)
     = render 'layouts/footer'
 
     = javascript_include_tag "application"

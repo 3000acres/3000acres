@@ -1,60 +1,23 @@
-- content_for :title, "Sites"
+- content_for :title do
+  !=cms_snippet_content(:sites_title)
+
+- content_for :title_wrapper do
+  !=cms_snippet_edit_link(:sites_title)
 
 #sites
   .about.stripe
     .container
       %h3
         != cms_editable_snippet(:sites_about_body)
-      .add
-        = render :partial => 'shared/add_site'
 
-  .sites.stripe
-    .container
-      = render :partial => 'shared/featured_sites'
+      != cms_snippet_edit_link(:get_started_button)
+      %a{ :href => "/get_involved", role: "button", :class => "btn btn-default btn-lg"}
+        != cms_snippet_content(:get_started_button)
+      = render :partial => 'shared/add_site'
 
   .map.stripe
     = render :partial => 'shared/map'
 
   - if user_signed_in? && current_user.has_role?(:admin)
     .container
-      .panel.panel-default
-        .panel-heading
-          %h3 
-            Admin
-        .panel-body
-          %table.table.table-striped
-            %tr
-              %th Name
-              %th Address
-              %th Suburb
-              %th Local Government Area
-              %th Size
-              %th Water
-              %th Available until
-              %th Status
-              %th Added by
-              %th
-              %th
-              %th
-
-            - @sites.each do |site|
-              %tr
-                %td= site.name
-                %td= site.address
-                %td= site.suburb
-                %td= site.local_government_area ? site.local_government_area.name : ''
-                %td= site.size
-                %td= site.water
-                %td= site.available_until
-                %td= site.status
-                %td
-                  - if site.added_by_user
-                    = link_to site.added_by_user.name, user_path(site.added_by_user)
-                  - else
-                    Deleted user
-                %td= link_to 'Show', site_path(site)
-                %td= link_to 'Edit', edit_site_path(site)
-                %td= link_to 'Destroy', site_path(site), :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-          - if can? :create, Site
-            %p= link_to 'New Site', new_site_path, :class => 'btn btn-default'
+      = render :partial => 'sites/admin'

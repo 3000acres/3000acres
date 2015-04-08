@@ -13,6 +13,7 @@
     = f.input :name, :placeholder => "Our fantastic food garden", :hint => "Optional (we'll use the address if you don't give us one)."
 
     = f.input :description
+    = f.input :facebook, :placeholder => "http://www.facebook.com/3000acres"
     = f.input :website, :placeholder => "http://fantasticgarden..."
 
     - if can? :set_status, Site
@@ -21,6 +22,9 @@
     = f.input :size, :label=> "Size (square metres)"
     = f.input :water, :label => 'Water available?', :as => 'select'
     = f.input :available_until, :as => 'string', :placeholder => '2015-01-01', :hint => "YYYY-MM-DD format; leave blank if it's available indefinitely."
+    = f.input :contact, :label=> "Contact details"
+    - if can? :set_featured, Site
+      = f.input :featured, :label => 'Feature this site?' 
 
   .form-actions
     = f.button :submit

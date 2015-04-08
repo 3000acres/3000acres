@@ -17,22 +17,21 @@
         != cms_editable_snippet(:homepage_about_header)
       %h4
         != cms_editable_snippet(:homepage_about_body)
+      != cms_snippet_edit_link(:homepage_video_button)
       %a{ :href => "http://www.youtube.com/watch?v=udidk7yivi4", role: "button", :class => "btn btn-default btn-lg"}
-        Watch Our Video
+        != cms_snippet_content(:homepage_video_button)
       - if !user_signed_in?
-        %a{ :href => "/users/sign_up", role: "button", :class => "btn btn-info btn-lg"}
+        %a{ :href => "/users/sign_up", role: "button", :class => "btn btn-primary btn-lg"}
           Sign up
   .connect.stripe
     .container
       %h1
         != cms_editable_snippet(:homepage_connect_header)
-      .twitter.row
-        .snippet-wrapper.col-xs-12
-          != cms_snippet_edit_link(:homepage_connect_twitter)
-          %a{ :href => "http://twitter.com/3000acres", target: "_blank"}
-            %h3
-              != cms_snippet_content(:homepage_connect_twitter)
-              -# %span.sm_icon.twitter
+      .subscribe.row    
+        %h3.col-xs-6
+          != cms_editable_snippet(:subscribe)
+        .col-xs-6
+          = render :partial => 'shared/subscribe'
       .facebook.row
         .snippet-wrapper.col-xs-12
           != cms_snippet_edit_link(:homepage_connect_facebook)
@@ -40,24 +39,25 @@
             %h3
               != cms_snippet_content(:homepage_connect_facebook)
               -# %span.sm_icon.facebook
-      .subscribe.row    
-        %h3.col-xs-6
-          != cms_editable_snippet(:subscribe)
-        .col-xs-6
-          = render :partial => 'shared/subscribe'
+      .twitter.row
+        .snippet-wrapper.col-xs-12
+          != cms_snippet_edit_link(:homepage_connect_twitter)
+          %a{ :href => "http://twitter.com/3000acres", target: "_blank"}
+            %h3
+              != cms_snippet_content(:homepage_connect_twitter)
+              -# %span.sm_icon.twitter
   .sites.stripe
     .container
       %h1 
         .snippet-wrapper 
-          != cms_snippet_edit_link(:homepage_sites_header)
-          %a{ href: "sites"}
-            != cms_snippet_content(:homepage_sites_header)
+          != cms_editable_snippet(:homepage_sites_header)
       = render :partial => 'shared/featured_sites'
       .row
         .col-xs-12
-          .browse
-            %a{ :href => "/sites", role: "button", :class => "btn btn-info btn-lg"}
-              Browse Our Sites
-  .partners
+          = render :partial => 'shared/find_sites_button'
+  .partners.stripe
     .container
-      != cms_editable_snippet(:homepage_partners)
+      %h1
+        != cms_editable_snippet(:homepage_partners_title)
+      %a{ href: 'http://www.vichealth.vic.gov.au/', target: '_blank'}
+        %img{ alt: "VicHealth", height: "50", src: "/assets/logo_vichealth_bw_50.png", width: "273"}

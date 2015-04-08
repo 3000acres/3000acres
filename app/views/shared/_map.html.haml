@@ -1,24 +1,25 @@
 #map{:style => 'height: 500px'}
 .container
-  .row#map-key
-    .col-md-4
-      .row
-        .col-md-2
-          = image_tag "/assets/pin-green.png", :size => '31x42', :alt => "grey map pin"
-        .col-md-10
-          %p
-            != cms_snippet_content(:homepage_map_pin1)
-    .col-md-4
-      .row
-        .col-md-2
-          = image_tag "/assets/pin-yellow.png", :size => '31x42', :alt => "grey map pin"
-        .col-md-10
-          %p
-            != cms_snippet_content(:homepage_map_pin2)
-    .col-md-4
-      .row
-        .col-md-2
-          = image_tag "/assets/pin-orange.png", :size => '31x42', :alt => "grey map pin"
-        .col-md-10
-          %p
-            != cms_snippet_content(:homepage_map_pin3)
+  #map-key
+    .row
+      .col-md-4
+        .row
+          .col-md-2
+            = image_tag "/assets/pin-green.png", :size => '31x42', :alt => "grey map pin"
+          .col-md-10
+            %p
+              != cms_editable_snippet(:homepage_map_pin1)
+      .col-md-4
+        .row
+          .col-md-2
+            = image_tag "/assets/pin-yellow.png", :size => '31x42', :alt => "grey map pin"
+          .col-md-10
+            %p
+              != cms_editable_snippet(:homepage_map_pin2)
+      .col-md-4
+        .row
+          .col-md-2
+            = image_tag "/assets/pin-orange.png", :size => '31x42', :alt => "grey map pin"
+          .col-md-10
+            %p
+              != cms_editable_snippet(:homepage_map_pin3)

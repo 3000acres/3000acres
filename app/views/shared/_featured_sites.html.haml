@@ -1,11 +1,12 @@
-.featured-sites
-  - @featured_sites.limit(4).each do |site|
-    .site.col-md-3.col-sm-4.col-xs-6
-      %a{ href: "#{site_url(site)}" }
-        .image.medium
-          = image_tag site.image.url(:medium)
-        %h4.name
-          = site.name
-        .address
-          = site.address
-          = site.suburb
+- if ! @featured_sites.nil? 
+  .featured-sites
+    - @featured_sites.limit(4).each do |site|
+      .site.col-md-3.col-sm-4.col-xs-6
+        %a{ href: "#{site_url(site)}" }
+          .image.medium
+            = image_tag site.image.url(:medium)
+          %h4.name
+            = site.name
+          .address
+            = site.address
+            = site.suburb

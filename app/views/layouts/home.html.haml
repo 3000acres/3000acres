@@ -10,17 +10,24 @@
   %body{:class => "#{controller_name} #{action_name}"}
     = render 'layouts/navigation'
     #main{:role => "main"}
-      %section#banner
-        = yield(:banner)
-      %section#main-content
+      - if content_for?(:banner)
+        %section#banner
+          = yield(:banner)
+      %section#main-content.home
         .container
           - if content_for?(:title)
-            %h1.title= yield(:title)
+            - if content_for?(:title_wrapper)
+              %h1.title
+                = yield(:title_wrapper)
+                %h1.title= yield(:title)
+            - else
+              %h1.title= yield(:title)
           = render 'layouts/messages'
         // Yield outside container for home pages.
         = yield
-      %section#banner_lower
-        = yield(:banner_lower)
+      - if content_for?(:banner_lower)
+        %section#banner_lower
+          = yield(:banner_lower)
     = render 'layouts/footer'
 
     = javascript_include_tag "application"
