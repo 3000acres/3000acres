@@ -4,6 +4,6 @@ class HomeController < ApplicationController
 
   def index
     @users = User.all
-    @featured_sites = Site.where("image_file_name > ''")
+    @featured_sites = Site.where(:featured => true)
   end
 end

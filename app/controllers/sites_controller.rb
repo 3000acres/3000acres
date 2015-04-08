@@ -11,7 +11,6 @@ class SitesController < ApplicationController
   # GET /sites.json
   def index
     @sites = Site.all
-    @featured_sites = Site.where("image_file_name > ''")
   end
 
   # GET /sites/1
@@ -24,6 +23,7 @@ class SitesController < ApplicationController
     @featured_sites = Site.within(4, origin: @site)
     @users = @site.users
     @nearby_users = [] 
+    # In this context featured_sites are just nearby, not actually featured.
     @featured_sites.each do |site|
       @nearby_users = @nearby_users | site.users
     end
@@ -92,8 +92,8 @@ class SitesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def site_params
       params.require(:site).permit(:image, :name, :description, :address,
-          :suburb, :latitude, :longitude, :size, :water,
-          :available_until, :status, :local_government_area_id, :website)
+          :suburb, :latitude, :longitude, :size, :water, :available_until, 
+          :status, :local_government_area_id, :website, :facebook, :featured)
     end
 
     # the following is needed to make CanCan work under Rails 4; see

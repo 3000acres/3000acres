@@ -27,6 +27,7 @@ class Ability
       if user.has_role? :admin
         can :manage, :all
         can :set_status, Site
+        can :set_featured, Site
         can :post_to_site, Site
       end
 
