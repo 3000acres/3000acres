@@ -29,6 +29,29 @@ feature "add site" do
       click_button 'Create Site'
       page.should have_content "Add another"
     end
+
+    scenario "featured sites show on front page" do
+      visit new_site_path
+      expect(page).to have_css "input#site_featured"
+      fill_in 'Address', :with => '1 Smith St'
+      fill_in 'Suburb', :with => 'Smithville'
+      fill_in 'Name', :with => 'Foos garden'
+      check "site_featured"
+      click_button 'Create Site'
+      visit root_path
+      expect(page).to have_content "Foos garden"
+    end
+    
+    scenario "can see admin panel and watching emails" do
+      visit sites_path
+      expect(page).to have_content "Admin"
+      click_link "add-site"
+      fill_in 'Address', :with => '1 Smith St'
+      fill_in 'Suburb', :with => 'Smithville'
+      click_button 'Create Site'
+      expect(page).to have_content "Admin"
+      expect(page).to have_content @admin_user.email
+    end
   end
 
   context "signed in user" do
@@ -43,7 +66,7 @@ feature "add site" do
 
     scenario "can add site" do
       visit sites_path
-      click_link "Add a site"
+      click_link "add-site"
       fill_in 'Address', :with => '1 Smith St'
       fill_in 'Suburb', :with => 'Smithville'
       click_button 'Create Site'
@@ -51,8 +74,7 @@ feature "add site" do
     end
 
     scenario "can edit site if status is still potential" do
-      visit sites_path
-      click_link "Add a site"
+      visit new_site_path
       fill_in 'Address', :with => '1 Smith St'
       fill_in 'Suburb', :with => 'Smithville'
       click_button 'Create Site'
@@ -71,14 +93,30 @@ feature "add site" do
     end
 
     scenario "can add website without leading http://" do
-      visit sites_path
-      click_link "Add a site"
+      visit new_site_path
       fill_in 'Address', :with => '1 Smith St'
       fill_in 'Suburb', :with => 'Smithville'
       fill_in 'Website', :with => 'example.com'
       click_button 'Create Site'
       current_path.should eq site_path(Site.last)
       page.should have_content 'Website: http://example.com'
+    end
+
+    scenario "can't set featured check" do
+      visit sites_path
+      click_link "add-site"
+      expect(page).not_to have_css "input#site_featured"
+    end
+
+    scenario "can't see admin panels and watching emails" do
+      visit sites_path
+      expect(page).not_to have_content "Admin"
+      click_link "add-site"
+      fill_in 'Address', :with => '1 Smith St'
+      fill_in 'Suburb', :with => 'Smithville'
+      click_button 'Create Site'
+      expect(page).not_to have_content "Admin"
+      expect(page).not_to have_content @user.email
     end
   end
 
