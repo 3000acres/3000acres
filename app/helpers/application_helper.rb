@@ -24,7 +24,7 @@ module ApplicationHelper
       if !snippet.nil?
         content = <<-HTML
         <div class="snippet-wrapper">
-          <a href='#{request.base_url}/cms-admin/sites/#{cms_site.id}/snippets/#{snippet.id}/edit' class='cms-edit'>
+          <a href='#{request.base_url}/cms-admin/sites/#{cms_site.id}/snippets/#{snippet.id}/edit' class='snippet-edit'>
             <span class="glyphicon glyphicon-cog"></span>
           </a>
           #{content}
@@ -47,9 +47,9 @@ module ApplicationHelper
       snippet = cms_site.snippets.find_by_identifier(identifier)
       if !snippet.nil?
         html = <<-HTML
-        <a href='#{request.base_url}/cms-admin/sites/#{cms_site.id}/snippets/#{snippet.id}/edit' class='cms-edit'>
-          <span class="glyphicon glyphicon-cog"></span>
-        </a>
+          <a href='#{request.base_url}/cms-admin/sites/#{cms_site.id}/snippets/#{snippet.id}/edit' class='snippet-edit'>
+            <span class="glyphicon glyphicon-cog"></span>
+          </a>
         HTML
         html
       end
