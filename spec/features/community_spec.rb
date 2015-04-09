@@ -10,7 +10,7 @@ feature "post" do
       fill_in 'Password', :with => @user.password
       click_button 'Sign in'
       visit sites_path
-      click_link "Add a site"
+      click_link "add-site"
       fill_in 'Address', :with => '1 Smith St'
       fill_in 'Suburb', :with => 'Smithville'
       click_button 'Create Site'
