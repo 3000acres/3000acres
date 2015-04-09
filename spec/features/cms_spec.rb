@@ -12,20 +12,22 @@ feature "cms admin" do
     page.should have_content("Please sign in as an admin user")
   end
 
-  scenario "can't view CMS admin if not an admin user" do
+  scenario "can't view CMS admin or edit links if not an admin user" do
     # sign in as an ordinary user
     visit root_path
+    expect(page).not_to have_css "a.cms-edit"
     click_link 'navbar-signin'
     fill_in 'Login', :with => @user.email
     fill_in 'Password', :with => @user.password
     click_button 'Sign in'
     visit comfy_admin_cms_path
     current_path.should == root_path
-    page.should have_content("Please sign in as an admin user")
+    expect(page).to have_content("Please sign in as an admin user")
   end
 
   scenario "admin users can view CMS admin area" do
     visit root_path
+    expect(page).to have_css "div.snippet-wrapper"
     # now we sign in as an admin user
     click_link 'navbar-signin'
     fill_in 'Login', :with => @admin_user.email
