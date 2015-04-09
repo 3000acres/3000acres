@@ -18,8 +18,9 @@
             = @site.description
 
         .watch
-          .col-sm-6
+          .col-sm-8
             %h3 Watching
+            != cms_editable_snippet(:site_watching_about)
             - if @site.watches.count > 0
               = pluralize @site.watches.count, "person"
               = @site.watches.count == 1 ? "is" : "are"
@@ -29,8 +30,8 @@
                   %li= link_to w.user.name, user_path(w.user)
             - else
               %p 
-                != cms_editable_snippet(:sites_watching_nobody)
-          .col-sm-6
+                != cms_editable_snippet(:site_watching_nobody)
+          .col-sm-4
             - if can? :create, Watch
               %div
                 - if @watch
@@ -38,19 +39,19 @@
                     .form-inputs
                       = f.hidden_field :site_id, :value => @site.id
                     .form-actions
-                      = f.submit "Stop watching", :class => 'btn btn-primary'
+                      = f.submit "Stop watching", :id => 'unwatch-site', :class => 'btn btn-primary'
                 - else
                   = form_for :watch, :as => :post, :url => watches_path, :method => :post do |f|
                     .form-inputs
                       = f.hidden_field :site_id, :value => @site.id
                     .form-actions
-                      = f.submit "Watch this site", :class => 'btn btn-primary'
+                      = f.submit "Watch this site", :id => 'watch-site', :class => 'btn btn-primary'
             - else
               %p= render :partial => "shared/signin_signup", :locals => { :to => 'watch this site' }
 
         .col-md-12
           .comments
-            %h4 Comments
+            %h3 Comments
             %a{:name => "posts"}
             - @site.posts.each do |p|
               %div.postbody
@@ -135,13 +136,14 @@
                 Facebook Page
 
         .get-involved
-          %h3 Get Involved
+          %h3 
+            != cms_editable_snippet(:site_get_involved_title)
           - if @site.contact.blank?
             %p
-              != cms_editable_snippet(:sites_get_involved)
-            != cms_snippet_edit_link(:sites_get_involved_button)
+              != cms_editable_snippet(:site_get_involved)
+            != cms_snippet_edit_link(:site_get_involved_button)
             %a{ :href => "/get-involved", role: "button", :class => "btn btn-primary btn-lg"}
-              != cms_snippet_content(:sites_get_involved_button)
+              != cms_snippet_content(:site_get_involved_button)
           - else
             %p
               = @site.contact
@@ -152,7 +154,7 @@
   .sites
     .container
       %h2
-        Nearby Sites
+        != cms_editable_snippet(:site_nearby_title)
       = render :partial => 'shared/featured_sites'
         
   - if user_signed_in? && current_user.has_role?(:admin)

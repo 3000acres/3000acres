@@ -18,11 +18,14 @@
       %h4
         != cms_editable_snippet(:homepage_about_body)
       != cms_snippet_edit_link(:homepage_video_button)
-      %a{ :href => "http://www.youtube.com/watch?v=udidk7yivi4", role: "button", :class => "btn btn-default btn-lg"}
-        != cms_snippet_content(:homepage_video_button)
-      - if !user_signed_in?
-        %a{ :href => "/users/sign_up", role: "button", :class => "btn btn-primary btn-lg"}
-          Sign up
+
+      .action-buttons
+        %a{ :href => "http://www.youtube.com/watch?v=udidk7yivi4", role: "button", :class => "btn btn-default btn-lg"}
+          != cms_snippet_content(:homepage_video_button)
+        - if !user_signed_in?
+          %a{ :href => "/users/sign_up", role: "button", :class => "btn btn-primary btn-lg"}
+            Sign up
+
   .connect.stripe
     .container
       %h1

@@ -442,10 +442,25 @@ section#main-content.home {
 }
 
 // custom CMS edit icons
-.cms-edit{
-  float: right;
+.snippet-wrapper {
+  position: relative;
+  .snippet-edit {
+    position: absolute;
+  }
+}
+
+.snippet-edit {
   width: 40px;
   height: 40px;
+  display: block;
+  float: right;  
+  z-index: 3;
+  right: 0;
+  top: 0;
+}
+
+.action-buttons {
+  text-align: center;
 }
 
 // For some reason comfy is not loading css after linking. We can live with it for now. 

@@ -10,10 +10,11 @@
       %h3
         != cms_editable_snippet(:sites_about_body)
 
-      != cms_snippet_edit_link(:get_started_button)
-      %a{ :href => "/get_involved", role: "button", :class => "btn btn-default btn-lg"}
-        != cms_snippet_content(:get_started_button)
-      = render :partial => 'shared/add_site'
+      .action-buttons
+        != cms_snippet_edit_link(:get_started_button)
+        %a{ :href => "/get_involved", role: "button", :class => "btn btn-default btn-lg"}
+          != cms_snippet_content(:get_started_button)
+        = render :partial => 'shared/add_site'
 
   .map.stripe
     = render :partial => 'shared/map'
