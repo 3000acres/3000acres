@@ -3,7 +3,7 @@
     .container
       .row
         .col-sm-3
-          = image_tag("/assets/3000acres_logo.png", :alt => ENV['acres_site_name'], :class => "logo")
+          = image_tag("3000acres_logo.png", :alt => ENV['acres_site_name'], :class => "logo")
         .col-sm-9
           %h1
             %span.subhead
@@ -65,4 +65,4 @@
       %h1
         != cms_editable_snippet(:homepage_partners_title)
       %a{ href: 'http://www.vichealth.vic.gov.au/', target: '_blank'}
-        %img{ alt: "VicHealth", height: "50", src: "/assets/logo_vichealth_bw_50.png", width: "273"}
+        = image_tag("logo_vichealth_bw_50.png", alt: "VicHealth", height: "50", width: "273")
