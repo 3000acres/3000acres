@@ -33,16 +33,16 @@ function addMarker(site, map) {
   var pin;
   switch(site.status) {
     case 'potential':
-      pin = '/assets/pin-orange.png';
+      pin = "<%= image_url('pin-orange.png') %>";
       break;
     case 'proposed':
-      pin = '/assets/pin-yellow.png';
+      pin = "<%= image_url('pin-yellow.png') %>";
       break;
     case 'active':
-      pin = '/assets/pin-green.png';
+      pin = "<%= image_url('pin-green.png') %>";
       break;
     default:
-      pin = '/assets/pin-grey.png';
+      pin = "<%= image_url('pin-grey.png') %>";
       break;
   }
   var icon = L.icon({
