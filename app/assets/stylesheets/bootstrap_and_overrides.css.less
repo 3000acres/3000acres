@@ -568,16 +568,14 @@ footer {
 
   ul.sm_icons{
     list-style:none;
-    padding:0px;
+    padding: 0px;
     display:block;
     overflow:auto;
   }
 
   ul.sm_icons > li {
     float:left;
-    display:block;
-    position:relative;
-    margin:10px 10px 10px 0px;
+    margin: 0 2px;
   }
   
   ul.partners{
@@ -590,6 +588,13 @@ footer {
   ul.partners > li{
     margin:10px 0px;
   }
+
+  #newsletter-footer {
+    .btn-lg:extend(.btn-sm) {
+    }
+    .input-lg:extend(.input-sm) {
+    }
+  }
 }
 
 
@@ -599,7 +604,7 @@ footer {
   height:46px;
 }
 
-li.sm_icons a {
+nav li.sm_icons a {
   padding: 18px 8px;
 }
 
