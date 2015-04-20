@@ -30,25 +30,27 @@
     .container
       %h1
         != cms_editable_snippet(:homepage_connect_header)
-      .subscribe.row    
-        %h3.col-xs-6
-          != cms_editable_snippet(:subscribe)
-        .col-xs-6
+      .subscribe-row
+        .row    
+          %h2
+            != cms_editable_snippet(:subscribe)
           = render :partial => 'shared/subscribe'
-      .facebook.row
-        .snippet-wrapper.col-xs-12
-          != cms_snippet_edit_link(:homepage_connect_facebook)
-          %a{ href: "http://facebook.com/3000acres", target: "_blank"}
-            %h3
-              != cms_snippet_content(:homepage_connect_facebook)
-              -# %span.sm_icon.facebook
-      .twitter.row
-        .snippet-wrapper.col-xs-12
-          != cms_snippet_edit_link(:homepage_connect_twitter)
-          %a{ :href => "http://twitter.com/3000acres", target: "_blank"}
-            %h3
-              != cms_snippet_content(:homepage_connect_twitter)
-              -# %span.sm_icon.twitter
+      .facebook-row
+        .row
+          .snippet-wrapper
+            != cms_snippet_edit_link(:homepage_connect_facebook)
+            %a.main-link{ href: "http://facebook.com/3000acres", target: "_blank"}
+              .sm_icon.facebook
+              %h2
+                != cms_snippet_content(:homepage_connect_facebook)
+      .twitter-row
+        .row
+          .snippet-wrapper
+            != cms_snippet_edit_link(:homepage_connect_twitter)
+            %a.main-link{ :href => "http://twitter.com/3000acres", target: "_blank"}
+              .sm_icon.twitter
+              %h2
+                != cms_snippet_content(:homepage_connect_twitter)
   .sites.stripe
     .container
       %h1 

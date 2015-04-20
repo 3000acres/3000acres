@@ -312,7 +312,7 @@ section#main-content.home {
 
 
 #homepage {
-  h1,h2 {
+  h1 {
     text-align: center;
     color: @gray-darkish;
   }
@@ -336,6 +336,7 @@ section#main-content.home {
   }
 
   .connect {
+    text-align: center;
     background:url('/assets/people-banner.jpg') no-repeat scroll center top rgba(0, 0, 0, 0);
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -346,15 +347,25 @@ section#main-content.home {
       color: @white;
     }
 
-    h2,h3 {
-      text-align: left;
+    .subscribe-row {
+      margin-bottom: 40px;
+      h2 {
+        color: @white;
+      }
     }
 
-    .subscribe h3 {
-      color: @white;
+    .twitter-row, .facebook-row, .subscribe-row {
+      .main-link > div, h2 { 
+        vertical-align: middle;
+        display: inline-block;
+        clear: none;
+      }
     }
-
-    .twitter, .facebook {
+    .facebook-row, .twitter-row {
+      margin-top: 15px;
+      .main-link > h2 { 
+        margin-left: 20px;
+      }
     }
   }
 
@@ -373,6 +384,9 @@ section#main-content.home {
     }
   }
   .partners {
+    h1 {
+      text-align: left;
+    }
     background-color: @gray-lighter;
   }
 }
