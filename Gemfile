@@ -30,7 +30,7 @@ gem "paperclip", "~> 4.2"
 # the following gem is needed to work around a really annoying change in
 # Rails 4. See https://github.com/rails/sprockets-rails/issues/49 for
 # more info.
-gem 'non-stupid-digest-assets'
+# gem 'non-stupid-digest-assets'
 
 # CMS
 gem 'comfortable_mexican_sofa', '~> 1.12.0'
