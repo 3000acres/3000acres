@@ -40,6 +40,15 @@ Acres::Application.configure do
   config.action_mailer.default_url_options = { :host => "localhost", :port => "8080" }
   config.site_url = "http://localhost:8080/"
 
+  #S3 storage for paperclip
+  config.paperclip_defaults = {
+    :storage => :s3,
+    # :s3_host_name => 'REMOVE_THIS_LINE_IF_UNNECESSARY',
+    :s3_credentials => {
+      :bucket => ENV['S3_BUCKET']
+    }
+  }
+
   config.analytics_code = <<eos
   <script>console.log("this is fake analytics code")</script>
 eos
