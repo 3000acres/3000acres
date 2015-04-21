@@ -43,7 +43,7 @@ Acres::Application.configure do
   #S3 storage for paperclip
   config.paperclip_defaults = {
     :storage => :s3,
-    # :s3_host_name => 'REMOVE_THIS_LINE_IF_UNNECESSARY',
+    :s3_host_name => ENV['S3_HOST'],
     :s3_credentials => {
       :bucket => ENV['S3_BUCKET']
     }

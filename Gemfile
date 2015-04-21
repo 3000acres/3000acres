@@ -26,7 +26,7 @@ gem 'friendly_id'
 gem 'validate_url'
 gem 'bluecloth' # markdown formatting
 gem 'paperclip', '~> 4.2'
-gem 'aws-sdk'
+gem 'aws-sdk-v1'
 
 # the following gem is needed to work around a really annoying change in
 # Rails 4. See https://github.com/rails/sprockets-rails/issues/49 for
