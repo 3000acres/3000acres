@@ -59,11 +59,13 @@ function addMarker(site, map) {
       popupAnchor: [0, -20]
     })
   });
-  var link = "<p><a class='site-title' href='/sites/" + site.slug + "'>" + site.display_name + "</a></p>"
-          + "<p>" + site.address + ", " + site.suburb + "</p>";
+  var link = "<p><a class='site-title' href='/sites/" + site.slug + "'>"
   if (site.image) {
-    link = "<img width='180' src='" + site.image + "'>" + link
+    link += "<img width='180' src='" + site.image + "'><div>" + site.display_name + "</div></a></p>"
+  } else {
+    link += site.display_name + "</a></p>"
   }
+  link += "<p>" + site.address + ", " + site.suburb + "</p>";
   if (site.description) {
     link += "<p class='site-description'>" + site.description.substr(0,110) + "...</p>";
   }
