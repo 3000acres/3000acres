@@ -165,5 +165,18 @@ feature "add site" do
       page.should_not have_content "Water available?"
     end
 
+    scenario "get-involved details shows if contact is nil" do
+      @site = FactoryGirl.create(:site, :contact => nil)
+      visit site_path(@site)
+      expect(page).to have_css "div.get-involved-details"
+    end
+
+    scenario "contact details show if not nil, without get-involved details" do
+      @site = FactoryGirl.create(:site, :contact => "Bob Foos contact details")
+      visit site_path(@site)
+      expect(page).to_not have_css "div.get-involved-details"
+      expect(page).to have_content "Bob Foos contact details"
+    end
+
   end
 end

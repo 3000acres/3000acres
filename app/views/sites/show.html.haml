@@ -139,11 +139,11 @@
           %h3 
             != cms_editable_snippet(:site_get_involved_title)
           - if @site.contact.blank?
-            %p
+            .get-involved-details
               != cms_editable_snippet(:site_get_involved)
-            != cms_snippet_edit_link(:site_get_involved_button)
-            %a{ :href => "/get_started", role: "button", :class => "btn btn-primary btn-lg"}
-              != cms_snippet_content(:site_get_involved_button)
+              != cms_snippet_edit_link(:site_get_involved_button)
+              %a{ :href => "/get_started", role: "button", :class => "btn btn-primary btn-lg"}
+                != cms_snippet_content(:site_get_involved_button)
           - else
             %p
               = @site.contact
