@@ -30,7 +30,7 @@ feature "add site" do
       page.should have_content "Add another"
     end
 
-    scenario "featured sites show on front page" do
+    scenario "can set featured sites to show on front page" do
       visit new_site_path
       expect(page).to have_css "input#site_featured"
       fill_in 'Address', :with => '1 Smith St'
@@ -112,8 +112,7 @@ feature "add site" do
     end
 
     scenario "can't set featured check" do
-      visit sites_path
-      click_link "add-site"
+      visit new_site_path
       expect(page).not_to have_css "input#site_featured"
     end
 
