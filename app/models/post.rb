@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
   belongs_to :site
   belongs_to :user
 
-  default_scope { order("created_at ASC") }
+  default_scope { order(created_at: :asc) }
 
   after_create :send_post_email
 
