@@ -170,12 +170,12 @@
                 .col-md-6
                   %h4 
                     Watching
-                  - @users.each do |user|
+                  - @site.users.each do |user|
                     = user.name
                     = user.email
                 .col-md-6
                   %h4 
                     Watching nearby
-                  - @nearby_users.each do |user|
+                  - @site.nearby_users.each do |user|
                     = user.name
                     = user.email

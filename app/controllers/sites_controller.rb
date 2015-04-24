@@ -20,13 +20,8 @@ class SitesController < ApplicationController
       @watch = Watch.where(:site_id => @site.id, :user_id => current_user.id).first || nil
       @post = Post.new()
     end
-    @featured_sites = Site.within(4, origin: @site)
-    @users = @site.users
-    @nearby_users = [] 
-    # In this context featured_sites are just nearby, not actually featured.
-    @featured_sites.each do |site|
-      @nearby_users = @nearby_users | site.users
-    end
+    # In this context featured_sites are just nearby, not actually featured, as we reuse the partial for featured sites.
+    @featured_sites = @site.nearby_sites
   end
 
   # GET /sites/new

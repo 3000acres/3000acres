@@ -21,6 +21,7 @@ class Site < ActiveRecord::Base
   validates :website, :url => { :allow_blank => true, :allow_nil => true }
 
   before_validation :normalise_website
+  before_validation :normalise_facebook
   geocoded_by :full_address
   after_validation :geocode
   after_create :autowatch
@@ -89,6 +90,18 @@ class Site < ActiveRecord::Base
     if (!self.website.blank?) && (!/https?:\/\//.match(self.website))
       self.website = "http://#{self.website}"
     end
+  end
+
+  def nearby_sites
+    Site.where.not(slug: self.slug).within(4, origin: self)
+  end
+
+  def nearby_users
+    users = [] 
+    self.nearby_sites.each do |site|
+      users = users | site.users
+    end
+    users
   end
 
 end
