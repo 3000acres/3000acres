@@ -102,6 +102,15 @@ feature "add site" do
       page.should have_content 'Website: http://example.com'
     end
 
+    scenario "can add facebook without facebook.com/" do
+      visit new_site_path
+      fill_in 'Address', :with => '1 Smith St'
+      fill_in 'Suburb', :with => 'Smithville'
+      fill_in 'Facebook', :with => '3000acres'
+      click_button 'Create Site'
+      expect(page).to have_xpath "//div[@data-href='facebook.com/3000acres']"
+    end
+
     scenario "can't set featured check" do
       visit sites_path
       click_link "add-site"

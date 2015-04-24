@@ -92,6 +92,12 @@ class Site < ActiveRecord::Base
     end
   end
 
+  def normalise_facebook
+    if (!self.facebook.blank?) && (!/facebook\.com/.match(self.facebook))
+      self.facebook = "facebook.com/#{self.facebook}"
+    end
+  end
+
   def nearby_sites
     Site.where.not(slug: self.slug).within(4, origin: self)
   end

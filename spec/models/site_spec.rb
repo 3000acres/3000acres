@@ -106,6 +106,46 @@ describe Site do
     end
   end
 
+  context "facebook" do
+    it 'validates facebook' do
+      @site = FactoryGirl.build(:site, :facebook => 'facebook.com/3000acres')
+      @site.should be_valid
+      @site = FactoryGirl.build(:site, :facebook => '3000acres')
+      @site.should be_valid
+    end
+    it 'allows blank and nil facebook' do
+      @site = FactoryGirl.build(:site, :facebook => '')
+      @site.should be_valid
+      @site = FactoryGirl.build(:site, :facebook => nil)
+      @site.should be_valid
+    end
+    it 'normalises facebook if url is missing' do
+      @site = FactoryGirl.build(:site, :facebook => '3000acres')
+      @site.should be_valid
+      @site.facebook.should eq 'facebook.com/3000acres'
+    end
+    it "doesn't normalise facebook starting with http" do
+      @site = FactoryGirl.build(:site, :facebook => 'http://facebook.com/3000acres')
+      @site.should be_valid
+      @site.facebook.should eq 'http://facebook.com/3000acres'
+    end
+    it "doesn't normalise facebook starting with facebook.com" do
+      @site = FactoryGirl.build(:site, :facebook => 'facebook.com/3000acres')
+      @site.should be_valid
+      @site.facebook.should eq 'facebook.com/3000acres'
+    end
+    it "doesn't normalise blank facebook" do
+      @site = FactoryGirl.build(:site, :facebook => '')
+      @site.should be_valid
+      @site.facebook.should eq ''
+    end
+    it "doesn't normalise nil facebook" do
+      @site = FactoryGirl.build(:site, :facebook => nil)
+      @site.should be_valid
+      @site.facebook.should eq nil
+    end
+  end
+
   context 'watches' do
     before(:each) do
       @site = FactoryGirl.create(:site)
