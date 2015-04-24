@@ -117,6 +117,16 @@ feature "add site" do
       expect(page).not_to have_css "input#site_featured"
     end
 
+    scenario "can add a site image" do
+      visit new_site_path
+      fill_in 'Address', :with => '1 Smith St'
+      fill_in 'Suburb', :with => 'Smithville'
+      fill_in 'Facebook', :with => '3000acres'
+      attach_file "site_image", 'spec/fixtures/images/test.png'  
+      click_button 'Create Site'
+      expect(page).to have_xpath "//img[@alt='Test']"
+    end
+
     scenario "can't see admin panels and watching emails" do
       visit sites_path
       expect(page).not_to have_content "Admin"
