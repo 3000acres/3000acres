@@ -5,6 +5,10 @@ development:
 test:
   access_key_id: ""
   secret_access_key: ""
+    
+travis:
+  access_key_id: ""
+  secret_access_key: ""
 
 staging:
   access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
