@@ -40,8 +40,6 @@ feature "nearby" do
     end
 
     scenario "admin user should see nearby sites and watching users for nearby sites" do
-      pp @far_site
-      pp @near_site
       visit root_path
       click_link 'navbar-signin'
       fill_in 'Login', :with => @admin_user.email
