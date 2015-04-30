@@ -153,9 +153,12 @@
 
   .sites
     .container
-      %h2
-        != cms_editable_snippet(:site_nearby_title)
-      = render :partial => 'shared/featured_sites'
+      -# Nearby sites, using featured sites partial.
+      - if !@featured_sites.blank?
+        #nearby_sites
+          %h2
+            != cms_editable_snippet(:site_nearby_title)
+          = render :partial => 'shared/featured_sites'
         
   - if user_signed_in? && current_user.has_role?(:admin)
     .admin.container
