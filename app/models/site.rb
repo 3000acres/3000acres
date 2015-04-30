@@ -30,10 +30,6 @@ class Site < ActiveRecord::Base
 
   has_attached_file :image, :styles => { :large => "720x720", :medium => "360x360#", :small => "180x180#" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
-  acts_as_mappable :default_units => :kms,
-                   :default_formula => :sphere,
-                   :lat_column_name => :latitude,
-                   :lng_column_name => :longitude
 
   # autowatch()
   # When a user adds a site, they automatically get to watch it.
@@ -99,7 +95,8 @@ class Site < ActiveRecord::Base
   end
 
   def nearby_sites
-    Site.where.not(slug: self.slug).within(4, origin: self)
+    # Return nearby sites excluding self.
+    Site.where.not(slug: self.slug).near([self.latitude, self.longitude], 4, units: :km)
   end
 
   def nearby_users

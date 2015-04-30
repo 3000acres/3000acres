@@ -18,8 +18,6 @@ gem 'unicorn'
 gem 'mandrill-api'
 gem 'gibbon' # for mailchimp newsletter subscriptions
 gem 'geocoder'
-gem 'geokit'
-gem 'geokit-rails'
 gem 'leaflet-rails', '~> 0.6.4'
 gem 'leaflet-markercluster-rails', '~> 0.6.0'
 gem 'friendly_id'
