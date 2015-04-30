@@ -184,12 +184,16 @@ describe Site do
         name: "Admins site",
         address: "99 Burke st", 
         added_by_user: @admin_user, 
+        latitude: "-37.7732084", 
+        longitude: "144.84887760000004"
       )
       @near_site = FactoryGirl.create(
         :site, 
         name: "Users nearby site",
         address: "109 Burke st", 
         added_by_user: @user1, 
+        latitude: "-37.7732084", 
+        longitude: "144.84887760000004"
       )
       @far_site = FactoryGirl.create(
         :site, 
@@ -197,6 +201,8 @@ describe Site do
         address: "80 High st", 
         suburb: "Thornbury", 
         added_by_user: @user2, 
+        latitude: "-37.7802946",
+        longitude: "144.99694739999995"
       )
       @watch_near = FactoryGirl.create(:watch, user: @user3, site:@near_site)
       @watch_far = FactoryGirl.create(:watch, user: @user4, site:@far_site)
