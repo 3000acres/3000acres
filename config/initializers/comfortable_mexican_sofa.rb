@@ -101,3 +101,20 @@ module CmsDeviseAuth
     end
   end
 end
+
+Comfy::Admin::Cms::SnippetsController.class_eval do
+  # def edit
+    # session[:previous_url] = request.referer
+    # @snippet.attributes = snippet_params
+  # end
+
+  def update
+    @snippet.update_attributes!(snippet_params)
+    flash[:success] = I18n.t('comfy.admin.cms.snippets.updated')
+    redirect_to root_path # session.delete(:previous_url) || root_path
+    rescue ActiveRecord::RecordInvalid
+    flash.now[:danger] = I18n.t('comfy.admin.cms.snippets.update_failure')
+    render :action => :edit
+  end
+end
+

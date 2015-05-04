@@ -1,0 +1,9 @@
+- text = cms_snippet_content(:add_site_button)
+- if can? :create, Site
+  != cms_snippet_edit_link(:add_site_button)
+  = link_to "#{text}", new_site_path, :id => 'add-site', :class => 'btn btn-primary btn-lg'
+- else
+  = link_to "#{text}", new_user_session_path, :class => 'btn btn-primary btn-lg'
+  %br/
+  %small
+    = render :partial => 'shared/signin_signup', :locals => { :to => 'add a site' }

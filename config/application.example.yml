@@ -42,6 +42,13 @@ mailchimp_newsletter_id: list id here
 # get an id
 mapbox_map_id: 'yourname.mapidhere'
 
+# Amazon S3 for paperclip images
+AWS_ACCESS_KEY_ID: ''
+AWS_SECRET_KEY_ID: ''
+S3_BUCKET: ''
+S3_HOST: ''
+
+
 # Now we can override some of the above as needed for each environment
 
 staging:

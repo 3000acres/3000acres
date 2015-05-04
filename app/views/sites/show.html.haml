@@ -1,148 +1,184 @@
 - content_for :title, @site.to_s
+- content_for :banner do 
+  .status{ class: @site.status.downcase }
+    .container
+      %h4 
+        = @site.status.titleize
+#site
+  .container
+    .row
+      .col-md-8
+        = image_tag @site.image.url(:large)
+        - if @site.added_by_user
+          %p
+            Added by:
+            = link_to @site.added_by_user.name, user_path(@site.added_by_user)
+        - if ! @site.description.blank?
+          %p.description
+            = @site.description
 
-.row
-  .col-md-8
-    %div#map{:style => 'height: 400px'}
-  .col-md-4
-    - if can? :create, Watch
-      %p
-        - if @watch
-          You're watching this site.
-          = form_for :watch, :url => watch_path(@watch), :method => :delete do |f|
-            .form-inputs
-              = f.hidden_field :site_id, :value => @site.id
-            .form-actions
-              = f.submit "Stop watching", :class => 'btn btn-primary'
-        - else
-          = form_for :watch, :as => :post, :url => watches_path, :method => :post do |f|
-            .form-inputs
-              = f.hidden_field :site_id, :value => @site.id
-            .form-actions
-              = f.submit "Watch this site", :class => 'btn btn-primary'
-    - else
-      %p= render :partial => "shared/signin_signup", :locals => { :to => 'watch this site' }
+        .watch
+          .col-sm-8
+            %h3 Watching
+            != cms_editable_snippet(:site_watching_about)
+            - if @site.watches.count > 0
+              = pluralize @site.watches.count, "person"
+              = @site.watches.count == 1 ? "is" : "are"
+              watching this site.
+              %ul
+                - @site.watches.each do |w|
+                  %li= link_to w.user.name, user_path(w.user)
+            - else
+              %p 
+                != cms_editable_snippet(:site_watching_nobody)
+          .col-sm-4
+            - if can? :create, Watch
+              %div
+                - if @watch
+                  = form_for :watch, :url => watch_path(@watch), :method => :delete do |f|
+                    .form-inputs
+                      = f.hidden_field :site_id, :value => @site.id
+                    .form-actions
+                      = f.submit "Stop watching", :id => 'unwatch-site', :class => 'btn btn-primary'
+                - else
+                  = form_for :watch, :as => :post, :url => watches_path, :method => :post do |f|
+                    .form-inputs
+                      = f.hidden_field :site_id, :value => @site.id
+                    .form-actions
+                      = f.submit "Watch this site", :id => 'watch-site', :class => 'btn btn-primary'
+            - else
+              %p= render :partial => "shared/signin_signup", :locals => { :to => 'watch this site' }
 
-    - if ! @site.name.blank?
-      %p
-        %b Name:
-        = @site.name
-    - if ! @site.description.blank?
-      %p
-        %b Description:
-        = @site.description
+        .col-md-12
+          .comments
+            %h3 Comments
+            %a{:name => "posts"}
+            - @site.posts.each do |p|
+              %div.postbody
+                :markdown
+                  #{ strip_tags p.body }
+              %a{:name => "post-#{p.id}"}
+              %div.postmeta
+                - if p.user
+                  = link_to p.user.name, user_path(p.user)
+                - else
+                  Deleted User
+                on
+                = p.created_at
+                -# = "(" + distance_of_time_in_words(p.created_at, Time.zone.now) + " ago)"
 
-    %p
-      %b Address:
-      = @site.address
-    %p
-      %b Suburb:
-      = @site.suburb
+            - unless can? :post_to_site, @site
+              %p.alert
+                - if can? :create, Watch
+                  You must be watching this site to post an update about it.
+                - else
+                  = render :partial => "shared/signin_signup", :locals => { :to => 'post an update about this site.' }
+            - else
+              = simple_form_for(@post) do |f|
+                = f.error_notification
 
-    - if @site.local_government_area
-      %p
-        %b Local Government Area:
-        = @site.local_government_area.name
+                .form-inputs
+                  = f.input :body, :placeholder => 'Add Your Message', :label => false, :as => :text, :input_html => { :rows => 3 }
+                  = f.hidden_field :site_id, :value => @site.id
+                .form-actions
+                  = f.button :submit, "Post"
 
-    %p
-      %b Latitude:
-      = @site.latitude
-    %p
-      %b Longitude:
-      = @site.longitude
-    %p
-      %b Size:
-      - if @site.size
-        = @site.size
-        square metres
-      - else
-        unknown
-    %p
-      %b Water available?
-      - if @site.water
-        Yes
-      - elsif @site.water == nil
-        Unknown
-      - else
-        No
-    %p
-      %b Available until:
-      = @site.available_until.blank? ? "indefinitely" : @site.available_until
-    %p
-      %b Status:
-      = @site.status
+      .col-md-4
 
-    - if ! @site.website.blank?
-      %p
-        %b Website:
-        = link_to @site.website, @site.website
+        %p
+          %b Address:
+          = @site.address
+          = @site.suburb
 
-    - if @site.added_by_user
-      %p
-        %b Added by:
-        = link_to @site.added_by_user.name, user_path(@site.added_by_user)
+        - if @site.local_government_area
+          %p
+            %b Local Government Area:
+            = @site.local_government_area.name
+        %p
+          - if @site.size
+            %b Size:
+            = @site.size
+            square metres
+        %p
+          - if !@site.water == nil
+            %b Water available?
+            - if @site.water
+              Yes
+            - else
+              No
+        %p
+          %b Available until:
+          = @site.available_until.blank? ? "indefinitely" : @site.available_until
 
-    - if can? :update, @site
-      %p= link_to 'Edit', edit_site_path(@site), :class => 'btn btn-default'
-      %p
-        %small
-          Note: as the person who added this site, you can edit the
-          details up until we've reviewed it.
+        - if ! @site.website.blank?
+          %p
+            %b Website:
+            = link_to @site.website, @site.website
+        - if can? :update, @site
+          %p= link_to 'Edit', edit_site_path(@site), :class => 'btn btn-default'
 
-.row
-  .col-md-12
-    %h2 Who watches this site?
-    - if @site.watches.count > 0
-      %p
-        = pluralize @site.watches.count, "person"
-        = @site.watches.count == 1 ? "is" : "are"
-        watching this site.
-      %ul
-        - @site.watches.each do |w|
-          %li= link_to w.user.name, user_path(w.user)
-    - else
-      %p Nobody, yet. You could be the first!
 
-.row
-  .col-md-12
-    %h2 Community discussion
+        - if !@site.facebook.blank?
+          .visible-md.visible-lg
+            .fb-root
+            :javascript
+              (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+                fjs.parentNode.insertBefore(js, fjs);
+              }(document, 'script', 'facebook-jssdk'));
+            .fb-like-box{ :"data-href" => "#{@site.facebook}", :"data-width" => "320", :"data-height" => "400", :"data-colorscheme" => "light", :"data-show-faces" => "true", :"data-header" => "false", :"data-stream" => "true", :"data-show-border" => "false" }
+          .visible-sm.visible-xs
+            %p
+              %a{ :href => "#{@site.facebook}" }
+                Facebook Page
 
-    - unless can? :post_to_site, @site
-      %p.alert
-        - if can? :create, Watch
-          You must be watching this site to post an update about it.
-        - else
-          = render :partial => "shared/signin_signup", :locals => { :to => 'post an update about this site.' }
-    - else
-      %h3 Post an update
-      %p Your message will be displayed on this page, and sent to everyone who's watching this site.
+        .get-involved
+          %h3 
+            != cms_editable_snippet(:site_get_involved_title)
+          - if @site.contact.blank?
+            .get-involved-details
+              != cms_editable_snippet(:site_get_involved)
+              != cms_snippet_edit_link(:site_get_involved_button)
+              %a{ :href => "/get_started", role: "button", :class => "btn btn-primary btn-lg"}
+                != cms_snippet_content(:site_get_involved_button)
+          - else
+            %p
+              = @site.contact
 
-      = simple_form_for(@post) do |f|
-        = f.error_notification
+  %div#map{:style => 'height: 400px'}
 
-        .form-inputs
-          = f.input :subject
-          - markdown_help = render :partial => 'shared/markdown_help'
-          = f.input :body , :label => "Your message", :as => :text, :input_html => { :rows => 7 , :style => 'width: 100%'}, :hint => markdown_help
-          = f.hidden_field :site_id, :value => @site.id
-        .form-actions
-          = f.button :submit
 
-    %a{:name => "posts"}
-      %h3 Previous posts
-    - @site.posts.each do |p|
-      %a{:name => "post-#{p.id}"}
-        %h4= p.subject
-
-      %div.postmeta
-        Posted by
-        - if p.user
-          = link_to p.user.name, user_path(p.user)
-        - else
-          Deleted User
-        at
-        = p.created_at
-        = "(" + distance_of_time_in_words(p.created_at, Time.zone.now) + " ago)"
-
-      %div.postbody
-        :markdown
-          #{ strip_tags p.body }
+  .sites
+    .container
+      -# Nearby sites, using featured sites partial.
+      - if !@featured_sites.blank?
+        #nearby_sites
+          %h2
+            != cms_editable_snippet(:site_nearby_title)
+          = render :partial => 'shared/featured_sites'
+        
+  - if user_signed_in? && current_user.has_role?(:admin)
+    .admin.container
+      .row
+        .col-md-12
+          .panel.panel-default
+            .panel-heading 
+              %h3 
+                Admin
+            .panel-body
+              .row
+                .col-md-6
+                  %h4 
+                    Watching
+                  - @site.users.each do |user|
+                    = user.name
+                    = user.email
+                .col-md-6
+                  %h4 
+                    Watching nearby
+                  - @site.nearby_users.each do |user|
+                    = user.name
+                    = user.email

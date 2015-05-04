@@ -1,4 +1,7 @@
 class SitesController < ApplicationController
+
+  layout "home", :only => [:index, :show]
+
   before_action :load_site, only: :create
   load_and_authorize_resource
 
@@ -17,6 +20,8 @@ class SitesController < ApplicationController
       @watch = Watch.where(:site_id => @site.id, :user_id => current_user.id).first || nil
       @post = Post.new()
     end
+    # In this context featured_sites are just nearby, not actually featured, as we reuse the partial for featured sites.
+    @featured_sites = @site.nearby_sites
   end
 
   # GET /sites/new
@@ -34,7 +39,7 @@ class SitesController < ApplicationController
     @site = Site.new(site_params)
     @site.added_by_user = current_user
     unless can? :set_status, Site
-      @site.status = "unknown"
+      @site.status = "potential"
     end
 
     respond_to do |format|
@@ -81,9 +86,9 @@ class SitesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def site_params
-      params.require(:site).permit(:name, :description, :address,
-          :suburb, :latitude, :longitude, :size, :water,
-          :available_until, :status, :local_government_area_id, :website)
+      params.require(:site).permit(:image, :name, :description, :address,
+          :suburb, :latitude, :longitude, :size, :water, :available_until, 
+          :status, :local_government_area_id, :website, :facebook, :featured, :contact)
     end
 
     # the following is needed to make CanCan work under Rails 4; see

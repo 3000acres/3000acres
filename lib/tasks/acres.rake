@@ -60,7 +60,7 @@ namespace :acres do
       end
     end
 
-    ['About', 'Media', 'Resources'].each do |page|
+    ['Get Started', 'About'].each do |page|
       existing = Comfy::Cms::Page.find_by(:label => page.titleize)
       if existing
         puts "  #{page} page -- EXISTS"
@@ -72,7 +72,7 @@ namespace :acres do
           site: site,
           layout: layout,
           parent_id: topnav.id,
-          slug: page
+          slug: page.squish.downcase.tr(" ","_")
         )
         puts "  #{page} page -- CREATED"
       end

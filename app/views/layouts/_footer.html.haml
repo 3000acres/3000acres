@@ -2,8 +2,39 @@
   .container
     .row
       .col-md-4
-        != cms_snippet_content(:footer1)
+        %h4
+          != cms_editable_snippet(:homepage_connect_header)
+        %ul.sm_icons 
+          %li.sm_icons
+            %a{ href: "http://facebook.com/3000acres", target: "_blank"}
+              .sm_icon.facebook
+                %span.sr-only
+                  facebook
+          %li.sm_icons
+            %a{ href: "http://twitter.com/3000acres", target: "_blank"}
+              .sm_icon.twitter
+                %span.sr-only
+                  twitter
+        #newsletter-footer
+          %p 
+            != cms_editable_snippet(:subscribe)
+          = render :partial => 'shared/subscribe'
       .col-md-4
-        != cms_snippet_content(:footer2)
+        %h4 Partners
+        %ul.partners
+          %li
+            %a{ href: "http://www.vichealth.vic.gov.au/", target: "_blank"}
+              = image_tag("logo_vichealth_bw_50.png", width: "200")
       .col-md-4
-        != cms_snippet_content(:footer3)
+        %h4 Open Source
+        %ul
+          %li
+            Licensed under
+            %a{ href: "https://raw.github.com/3000acres/3000acres/dev/LICENSE.txt"}
+              AGPLv3
+          %li
+            %a{ href: "https://github.com/3000acres/3000acres" }
+              Source code
+          %li
+            %a{ href: "https://groups.google.com/forum/#!forum/3000acres-discuss" }
+              Project mailing list

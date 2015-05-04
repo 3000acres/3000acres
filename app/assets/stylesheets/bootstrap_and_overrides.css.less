@@ -1,8 +1,8 @@
 @import "twitter/bootstrap/bootstrap";
 
 // Set the correct sprite paths
-@iconSpritePath: image-url("/assets/twitter/bootstrap/glyphicons-halflings.png");
-@iconWhiteSpritePath: image-url("/assets/twitter/bootstrap/glyphicons-halflings-white.png");
+@iconSpritePath: image-url("twitter/bootstrap/glyphicons-halflings.png");
+@iconWhiteSpritePath: image-url("twitter/bootstrap/glyphicons-halflings-white.png");
 
 // Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
 @fontAwesomeEotPath: asset-url("fontawesome-webfont.eot");
@@ -26,16 +26,18 @@
 @green:  #9bc83d;
 @blue:   #2f4365;
 @red:    #8e4d43;
-@orange: #b2685c;
-@yellow: #b2935c;
+@orange: #e58d25;
+@yellow: #e6db24;
 @white:  #ffffff;
 @black:  #000000;
+@gray-darkish: lighten(@gray-dark, 10%);
+
 
 @brand-primary:         @green;
 @brand-success:         @green;
 @brand-warning:         @yellow;
 @brand-danger:          @red;
-@brand-info:            @green;
+@brand-info:            @orange;
 
 // Scaffolding
 // -------------------------
@@ -157,7 +159,7 @@
 
 // Basics of a navbar
 @navbar-height:                    80px;
-@navbar-margin-bottom:             @line-height-computed;
+@navbar-margin-bottom:             0; //@line-height-computed;
 @navbar-border-radius:             @border-radius-base;
 @navbar-padding-horizontal:        floor(@grid-gutter-width / 2);
 @navbar-padding-vertical:          ((@navbar-height - @line-height-computed) / 2);
@@ -285,12 +287,11 @@
 
 html,body { width:100%;height:100%;margin:0;padding:0; }
 
-body {
-  padding-top: @navbar-height;
+a {
+  text-decoration:none !important;
 }
 
-section {
-  margin-bottom: 20px;
+body {
 }
 
 h1, h2, h3, h4 {
@@ -298,17 +299,234 @@ h1, h2, h3, h4 {
   color: @brand-primary;
 }
 
-#homepage h1 {
-  text-transform: uppercase;
+h1.title {
+  margin: 60px 0;
+}
+
+section#main-content {
+  padding: 0 0 60px  0;
+}
+section#main-content.home {
+  padding: 0; 
+}
+
+
+#homepage {
+  h1 {
+    text-align: center;
+    color: @gray-darkish;
+  }
+
+  .stripe {
+    padding: 60px 0;
+    h1 {
+      margin-bottom: 50px;
+    }
+    h2,h3 {
+      margin-bottom: 20px;
+    }
+  }
+
+  .about {
+    padding: 80px 0;
+    text-align: center;
+    h4 {
+      margin-bottom: 30px;
+    }
+  }
+
+  .connect {
+    text-align: center;
+    background: image-url('people-banner.jpg') no-repeat scroll center top rgba(0, 0, 0, 0);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    h1 {
+      color: @white;
+      margin-bottom: 20px;
+    }
+
+    .subscribe-row {
+      margin-bottom: 20px;
+      h2 {
+        color: @white;
+      }
+    }
+
+    .twitter-row, .facebook-row, .subscribe-row {
+      .main-link > div, h2 { 
+        vertical-align: middle;
+        display: inline-block;
+        clear: none;
+      }
+    }
+    .facebook-row, .twitter-row {
+      .main-link > h2 { 
+        margin-left: 20px;
+      }
+    }
+  }
+
+  .sites {
+    text-align: center;
+
+    .featured-sites {
+      padding-bottom: 30px;
+    }
+
+    .find-sites {
+      margin-top: 30px;
+    }
+  }
+  .partners {
+    h1 {
+      text-align: left;
+    }
+    background-color: @gray-lighter;
+  }
+}
+
+#homepage-banner {
+  padding: 80px 30px;
+  position: relative;
+  width: auto;
+  height: auto;
+  text-align:left;
+  background: image-url('wheelbarrow-cropped.jpg') no-repeat scroll center top rgba(0, 0, 0, 0);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  p {
+    color: @white;
+  }
+
+  h1 {
+    color: @white;
+    font-size: 70px;
+  }
+}
+
+#site {
+  .watching, .comments {
+    margin: 30px inherit;
+  } 
+
+  .watch form {
+    padding: 20px;
+  }
+
+  .comments form {
+    margin-top: 20px;
+  }
+
+  .get-involved {
+    padding: 30px 0;
+  }
+
+  .description {
+    margin-top: 20px;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .sites {
+    margin: 50px inherit;
+  } 
+}
+
+#sites {
+  .about, .sites {
+    margin-bottom: 50px;
+  }
+  .about .add {
+    margin-top: 30px;
+  }
+  #map-key {
+    padding: 40px 0;
+  }
+}
+
+// custom CMS edit icons
+.snippet-wrapper {
+  position: relative;
+  .snippet-edit {
+    position: absolute;
+  }
+}
+
+.snippet-edit {
+  width: 40px;
+  height: 40px;
+  display: block;
+  float: right;  
+  z-index: 3;
+  right: 0;
+  top: 0;
+}
+
+.action-buttons {
   text-align: center;
 }
 
-#homepage h2 {
-  text-align: center;
+// For some reason comfy is not loading css after linking. We can live with it for now. 
+// Its actually simpler to use if we makd it look usable...
+#comfy {
+  .body-wrapper:extend(.container) {}
+  .left-column, .right-column {
+    display: none;
+  }
+
+  #snippet_content {
+    min-height: 200px;
+  }
 }
+
+// Featured sites block.
+.featured-sites {
+  text-align: center;
+
+  img {
+    width: 100%
+  }
+    
+  .site {
+    padding: 10px;
+  }
+  .site:hover {
+    background-color: #f6f6f6;
+  }
+}
+
+form.subscribe {
+  input {
+    display: inline;
+  }
+}
+
+.status {
+  padding: 5px;
+  h4 { 
+    color: @white;
+  }
+  &.potential {
+    background-color: @orange
+  }
+  &.proposed {
+    background-color: @yellow
+  }
+  &.active {
+    background-color: @green
+  }
+}
+  
 
 // Navbar Styling
-
 .navbar-header {
   position:relative;
 }
@@ -319,39 +537,7 @@ h1, h2, h3, h4 {
 }
 
 .navbar-nav > li > a {
-  padding-top:30px;
-  padding-bottom:30px;
   font-size:18px;
-}
-
-.jumbotron {
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  position: relative;
-  width: auto;
-  height: auto;
-  text-align:left;
-  text-shadow: 4px 4px 8px @black;
-  border-bottom:5px solid @brand-primary;
-  background:url('/assets/wheelbarrow-cropped.jpg') no-repeat scroll center top rgba(0, 0, 0, 0);
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-.jumbotron p {
-  color: @white;
-}
-
-.jumbotron h1 {
-  color: @brand-primary
-}
-
-.jumbotron h1 span.subhead {
-  color: @white;
 }
 
 .banner_inner{
@@ -375,61 +561,71 @@ h1, h2, h3, h4 {
 }
 
 // Footer styling
-footer{
-  background: @black;
-  margin-top:40px;
+footer {
+  background: @gray-darkish;
   color:@white;
   padding:40px 0px;
+
+  ul.sm_icons{
+    list-style:none;
+    padding: 0px;
+    display:block;
+    overflow:auto;
+  }
+
+  ul.sm_icons > li {
+    float:left;
+    margin: 0 2px;
+  }
+  
+  ul.partners{
+    list-style:none;
+    padding:0px;
+    display:block;
+    overflow:auto;
+  }
+
+  ul.partners > li{
+    margin:10px 0px;
+  }
+
+  #newsletter-footer {
+    .btn-lg:extend(.btn-sm) {
+    }
+    .input-lg:extend(.input-sm) {
+    }
+  }
 }
 
-footer ul.sm_icons{
-  list-style:none;
-  padding:0px;
-  display:block;
-  overflow:auto;
-}
 
-footer ul.sm_icons > li {
-  float:left;
-  display:block;
-  position:relative;
-  margin:10px 10px 10px 0px;
-}
-
-footer .sm_icon{
+// Facebook and Twitter icons
+.sm_icon{
   width:46px;
   height:46px;
 }
 
-footer .sm_icon.twitter{
-  background:url('/assets/sm_twitter.png') no-repeat 0px 0px rgba(0, 0, 0, 0);
+.nav li.sm_icons a {
+  padding: 18px 8px;
 }
 
-footer .sm_icon.twitter:hover{
-  background:url('/assets/sm_twitter.png') no-repeat 0px -51px rgba(0, 0, 0, 0);
+.sm_icon.twitter{
+  background: image-url('sm_twitter.png') no-repeat 0px 0px rgba(0, 0, 0, 0);
 }
 
-footer .sm_icon.facebook{
-  background:url('/assets/sm_facebook.png') no-repeat 0px 0px rgba(0, 0, 0, 0);
+.sm_icon.twitter:hover{
+  background: image-url('sm_twitter.png') no-repeat 0px -51px rgba(0, 0, 0, 0);
 }
 
-footer .sm_icon.facebook:hover{
-  background:url('/assets/sm_facebook.png') no-repeat 0px -51px rgba(0, 0, 0, 0);
+.sm_icon.facebook{
+  background: image-url('sm_facebook.png') no-repeat 0px 0px rgba(0, 0, 0, 0);
 }
 
-footer ul.partners{
-  list-style:none;
-  padding:0px;
-  display:block;
-  overflow:auto;
-}
-
-footer ul.partners > li{
-  margin:10px 0px;
+.sm_icon.facebook:hover{
+  background: image-url('sm_facebook.png') no-repeat 0px -51px rgba(0, 0, 0, 0);
 }
 
 // Homepage styling
-.stats_home{
+.stats_home {
   width:100%;
   text-align:center;
 }
@@ -446,7 +642,7 @@ footer ul.partners > li{
 
 // NEWS STYLING
 .video-outer{
-  background:url('/assets/news-video.jpg') no-repeat 0px 0px rgba(0, 0, 0, 0);
+  background: image-url('news-video.jpg') no-repeat 0px 0px rgba(0, 0, 0, 0);
   position:relative;
   width:100%;
   height:420px;
@@ -458,7 +654,7 @@ footer ul.partners > li{
 }
 
 .video-outer .video-inner{
-  background:url('/assets/news-video-hover.jpg') no-repeat 0px 0px rgba(0, 0, 0, 0);
+  background: image-url('news-video-hover.jpg') no-repeat 0px 0px rgba(0, 0, 0, 0);
   width:100%;
   height:420px;
   display:none;

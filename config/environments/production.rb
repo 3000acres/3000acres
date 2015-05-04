@@ -81,6 +81,15 @@ Acres::Application.configure do
 
   config.action_mailer.default_url_options = { :host => "3000acres.org" }
 
+  #S3 storage for paperclip
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_host_name => ENV['S3_HOST'],
+    :s3_credentials => {
+      :bucket => ENV['S3_BUCKET']
+    }
+  }
+
   # Disable automatic flushing of the log to improve performance.
   # config.autoflush_log = false
 

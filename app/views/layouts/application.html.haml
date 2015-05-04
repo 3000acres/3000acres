@@ -10,20 +10,21 @@
   %body{:class => "#{controller_name} #{action_name}"}
     = render 'layouts/navigation'
     #main{:role => "main"}
-      .container
-        .content
-          .row
-            .col-md-12
-              - if content_for?(:title)
-                %h1= yield(:title)
-              = render 'layouts/messages'
-              = yield
-      / ! end of .container
-    / ! end of #main
-
+      - if content_for?(:banner)
+        %section#banner
+          = yield(:banner)
+      %section#main-content
+        .container
+          - if content_for?(:title)
+            %h1.title= yield(:title)
+          = render 'layouts/messages'
+          // Yield inside container for normal pages.
+          = yield
+      - if content_for?(:banner_lower)
+        %section#banner_lower
+          = yield(:banner_lower)
     = render 'layouts/footer'
 
     = javascript_include_tag "application"
-
     <!-- Analytics code -->
     != Acres::Application.config.analytics_code

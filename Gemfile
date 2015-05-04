@@ -23,11 +23,13 @@ gem 'leaflet-markercluster-rails', '~> 0.6.0'
 gem 'friendly_id'
 gem 'validate_url'
 gem 'bluecloth' # markdown formatting
+gem 'paperclip', '~> 4.2'
+gem 'aws-sdk-v1'
 
 # the following gem is needed to work around a really annoying change in
 # Rails 4. See https://github.com/rails/sprockets-rails/issues/49 for
 # more info.
-gem 'non-stupid-digest-assets'
+# gem 'non-stupid-digest-assets'
 
 # CMS
 gem 'comfortable_mexican_sofa', '~> 1.12.0'
@@ -53,6 +55,7 @@ group :development do
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
   gem 'letter_opener'
+  gem 'zeus'
 end
 
 group :development, :test do

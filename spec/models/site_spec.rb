@@ -48,11 +48,11 @@ describe Site do
       end
 
       it 'should have a status' do
-        @site.status.should eq 'unknown'
+        @site.status.should eq 'potential'
       end
 
       it 'all valid status values should work' do
-        ['unknown', 'unsuitable', 'potential', 'proposed', 'active'].each do |s|
+        ['potential', 'proposed', 'active'].each do |s|
           @site = FactoryGirl.build(:site, :status => s)
           @site.should be_valid
         end
@@ -106,6 +106,46 @@ describe Site do
     end
   end
 
+  context "facebook" do
+    it 'validates facebook' do
+      @site = FactoryGirl.build(:site, :facebook => 'facebook.com/3000acres')
+      @site.should be_valid
+      @site = FactoryGirl.build(:site, :facebook => '3000acres')
+      @site.should be_valid
+    end
+    it 'allows blank and nil facebook' do
+      @site = FactoryGirl.build(:site, :facebook => '')
+      @site.should be_valid
+      @site = FactoryGirl.build(:site, :facebook => nil)
+      @site.should be_valid
+    end
+    it 'normalises facebook if url is missing' do
+      @site = FactoryGirl.build(:site, :facebook => '3000acres')
+      @site.should be_valid
+      @site.facebook.should eq 'facebook.com/3000acres'
+    end
+    it "doesn't normalise facebook starting with http" do
+      @site = FactoryGirl.build(:site, :facebook => 'http://facebook.com/3000acres')
+      @site.should be_valid
+      @site.facebook.should eq 'http://facebook.com/3000acres'
+    end
+    it "doesn't normalise facebook starting with facebook.com" do
+      @site = FactoryGirl.build(:site, :facebook => 'facebook.com/3000acres')
+      @site.should be_valid
+      @site.facebook.should eq 'facebook.com/3000acres'
+    end
+    it "doesn't normalise blank facebook" do
+      @site = FactoryGirl.build(:site, :facebook => '')
+      @site.should be_valid
+      @site.facebook.should eq ''
+    end
+    it "doesn't normalise nil facebook" do
+      @site = FactoryGirl.build(:site, :facebook => nil)
+      @site.should be_valid
+      @site.facebook.should eq nil
+    end
+  end
+
   context 'watches' do
     before(:each) do
       @site = FactoryGirl.create(:site)
@@ -131,5 +171,52 @@ describe Site do
       @new_site.watches.last.user.should eq @admin_user
     end
   end
+
+  context "nearby sites" do
+    before(:each) do
+      @admin_user = FactoryGirl.create(:admin_user)
+      @user1 = FactoryGirl.create(:user)
+      @user2 = FactoryGirl.create(:user)
+      @user3 = FactoryGirl.create(:user)
+      @user4 = FactoryGirl.create(:user)
+      @admin_site = FactoryGirl.create(
+        :site, 
+        name: "Admins site",
+        address: "99 Burke st", 
+        added_by_user: @admin_user, 
+        latitude: "-37.7732084", 
+        longitude: "144.84887760000004"
+      )
+      @near_site = FactoryGirl.create(
+        :site, 
+        name: "Users nearby site",
+        address: "109 Burke st", 
+        added_by_user: @user1, 
+        latitude: "-37.7732084", 
+        longitude: "144.84887760000004"
+      )
+      @far_site = FactoryGirl.create(
+        :site, 
+        name: "Users far site",
+        address: "80 High st", 
+        suburb: "Thornbury", 
+        added_by_user: @user2, 
+        latitude: "-37.7802946",
+        longitude: "144.99694739999995"
+      )
+      @watch_near = FactoryGirl.create(:watch, user: @user3, site:@near_site)
+      @watch_far = FactoryGirl.create(:watch, user: @user4, site:@far_site)
+    end
+
+    it "should by in bearby_sites array, far sites should not" do
+      expect(@admin_site.nearby_sites).to eq [@near_site]
+    end
+
+    it "near site watching users should be in nearby_users array, far sites watching users should not" do
+      # User who created the site (user1) watches automatically.
+      expect(@admin_site.nearby_users).to eq [@user1, @user3]
+    end
+  end
+
 
 end
