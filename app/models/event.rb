@@ -1,3 +1,4 @@
+require 'pp'
 # No Active Record here, this is modeling facebook data.
 class Event
 
@@ -15,12 +16,16 @@ class Event
     authorize
     events = []
     # Get acres facebook events.
-    events.concat(build_events(ENV['acres_fb_id'], ENV['acres_site_name'], ENV['acres_host']))
+    events.concat(build_events(Figaro.env.acres_fb_id, Figaro.env.acres_site_name, Figaro.env.acres_host))
     # Gt events for sites with facebook pages.
     Site.where.not(facebook_id: nil).each do |site|
       events.concat(build_events(site.facebook_id, site.to_s, Rails.application.routes.url_helpers.site_url(site, only_path: true)))
     end
     events.sort_by!(&:start_time)
+  end
+
+  def self.get_facebook_events(id)
+    @graph.get_connection(id, "events", { fields: 'id, name, cover, place, description, end_time' })
   end
 
   private 
@@ -33,15 +38,19 @@ class Event
   def self.build_events(id, name, url)
     event_objects = []
     events = get_facebook_events(id)
-    events.each do |event|
-      event['site'] = { 'name' => name, 'url' => url }
-      # Convert hash to an Event object and add to @events array.
-      event_objects << Dish(event, EventObject)
+    # pp events
+    if !events.nil?
+      events.each do |event|
+        event['site'] = { 'name' => name, 'url' => url }
+        # Convert hash to an Event object and add to @events array.
+        event_objects << hash_to_object(event)
+      end
     end
     event_objects
   end
 
-  def self.get_facebook_events(id)
-    @graph.get_connection(id, "events", { fields: 'id, name, cover, place, description, end_time' })
+  def self.hash_to_object(event)
+    Dish(event, EventObject)
   end
+
 end

@@ -38,7 +38,9 @@ FactoryGirl.define do
       site.latitude = evaluator.latitude
       site.longitude = evaluator.longitude
       
-      site.stub(:get_facebook_page){ { 'name' => 'foo page', 'id' => 1234567890 } }
+      site.stub(:get_facebook_page) do |id|  
+        {'name' => 'foo page', 'id' => evaluator.facebook.scan(/\d+$/).first }
+      end
     end
   end
 

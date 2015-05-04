@@ -1,3 +1,5 @@
+require 'pp'
+
 class Site < ActiveRecord::Base
 
   extend FriendlyId
@@ -102,6 +104,7 @@ class Site < ActiveRecord::Base
     if !self.facebook.blank?
       page = get_facebook_page(self.facebook)
       if page['name'].blank?
+        pp 'no name'
         self.errors.add(:facebook, "Facebook page is invalid, try pasting in the full URL" )
       else
         self.facebook_id = page['id']
@@ -109,10 +112,10 @@ class Site < ActiveRecord::Base
     end
   end
 
-  def get_facebook_page(id)
+  def get_facebook_page(url)
     @oauth = Koala::Facebook::OAuth.new
     @graph = Koala::Facebook::API.new(@oauth.get_app_access_token)
-    options = {:params => { id: id }}
+    options = {:params => { id: url }}
     @graph.graph_call('',{},'get',options)
   end
 
