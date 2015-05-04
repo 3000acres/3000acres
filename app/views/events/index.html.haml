@@ -1,0 +1,23 @@
+- content_for :title do
+  Events
+#events
+  .container
+    - @events.sort_by { |e| e.start_time }.each do |event|
+      .row
+        .col-sm-3
+          = image_tag event.cover.source
+        .col-sm-9
+          %h3
+            = link_to event.name, "http://facebook.com/events/#{event.id}", :target => "_blank"
+          %h4
+            = link_to event.site.name, event.site.url
+          %p
+            %em
+              = event.start_time.to_datetime.strftime("%A, %B %d at %I:%M%p") + event.end_time.to_datetime.strftime(" - %I:%M%p")
+          %p 
+            = event.description
+          %p
+            %strong
+              = event.place.name + " - "
+              = event.place.location.street
+              = event.place.location.city

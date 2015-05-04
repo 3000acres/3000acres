@@ -13,6 +13,9 @@ acres_site_name: 3000 Acres
 # Base URL of the website
 acres_host: 'http://3000acres.org/'
 
+acres_fb_url: 'http://facebook.com/3000acres'
+acres_fb_id: '420786954703359'
+
 # Set the region that should be appended to all addresses you use.
 # Eg. if you have "1 Smith St, Smithville" and you want the full
 # address to be "1 Smith St, Smithville, Smithlandia" you'd set it to
@@ -48,6 +51,8 @@ AWS_SECRET_KEY_ID: ''
 S3_BUCKET: ''
 S3_HOST: ''
 
+FB_APP_ID: ''
+FB_SECRET_KEY: ''
 
 # Now we can override some of the above as needed for each environment
 

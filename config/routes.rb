@@ -1,5 +1,7 @@
 Acres::Application.routes.draw do
 
+  get 'events/index'
+
   resources :posts, :only => [:create, :show]
 
   resources :local_government_areas
