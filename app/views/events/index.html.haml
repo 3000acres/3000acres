@@ -3,6 +3,7 @@
 #events
   .container
     - @events.sort_by { |e| e.start_time }.each do |event|
+      -# = event.inspect
       .row
         .col-sm-3
           = image_tag event.cover.source
@@ -10,7 +11,8 @@
           %h3
             = link_to event.name, "http://facebook.com/events/#{event.id}", :target => "_blank"
           %h4
-            = link_to event.site.name, event.site.url
+            %a{ href: event.site.url }
+              = event.site.name 
           %p
             %em
               = event.start_time.to_datetime.strftime("%A, %B %d at %I:%M%p") + event.end_time.to_datetime.strftime(" - %I:%M%p")

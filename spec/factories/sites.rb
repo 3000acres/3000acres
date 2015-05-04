@@ -32,11 +32,13 @@ FactoryGirl.define do
       longitude "144.99694739999995"
     end
 
-    # add association equal to state code
+    # Stub external services.
     after(:build) do |site, evaluator|
       site.stub(:geocode)
       site.latitude = evaluator.latitude
       site.longitude = evaluator.longitude
+      
+      site.stub(:get_facebook_page){ { 'name' => 'foo page', 'id' => 1234567890 } }
     end
   end
 

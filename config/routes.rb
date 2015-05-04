@@ -1,7 +1,5 @@
 Acres::Application.routes.draw do
 
-  get 'events/index'
-
   resources :posts, :only => [:create, :show]
 
   resources :local_government_areas
@@ -15,6 +13,8 @@ Acres::Application.routes.draw do
   resources :watches
 
   get '/admin', :to => "admin#index", :as => 'admin'
+
+  get 'events', to: 'events#index'
 
   comfy_route :cms_admin, :path => '/cms-admin'
   comfy_route :cms, :path => '/', :sitemap => false

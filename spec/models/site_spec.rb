@@ -122,17 +122,22 @@ describe Site do
     it 'normalises facebook if url is missing' do
       @site = FactoryGirl.build(:site, :facebook => '3000acres')
       @site.should be_valid
-      @site.facebook.should eq 'facebook.com/3000acres'
+      @site.facebook.should eq 'http://facebook.com/3000acres'
+    end
+    it 'normalises facebook if first slash is included' do
+      @site = FactoryGirl.build(:site, :facebook => '/3000acres')
+      @site.should be_valid
+      @site.facebook.should eq 'http://facebook.com/3000acres'
     end
     it "doesn't normalise facebook starting with http" do
       @site = FactoryGirl.build(:site, :facebook => 'http://facebook.com/3000acres')
       @site.should be_valid
       @site.facebook.should eq 'http://facebook.com/3000acres'
     end
-    it "doesn't normalise facebook starting with facebook.com" do
+    it "correctly normalises facebook when starting with facebook.com" do
       @site = FactoryGirl.build(:site, :facebook => 'facebook.com/3000acres')
       @site.should be_valid
-      @site.facebook.should eq 'facebook.com/3000acres'
+      @site.facebook.should eq 'http://facebook.com/3000acres'
     end
     it "doesn't normalise blank facebook" do
       @site = FactoryGirl.build(:site, :facebook => '')
