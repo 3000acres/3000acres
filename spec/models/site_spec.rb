@@ -151,6 +151,20 @@ describe Site do
     end
   end
 
+  context 'facebook id' do
+    # We mock id reteival by using a number from the url, see spec/factories/sites.rb.
+    it "is retreived for a valid facebook page" do
+      @site = FactoryGirl.build(:site, :facebook => "http://facebook.com/acres3")
+      expect(@site).to be_valid
+      expect(@site.facebook_id).to eq 3
+    end
+    it "invalidates when retreiving an invalid page" do
+      @site = FactoryGirl.build(:site, :facebook => "http://facebook.com/acres")
+      expect(@site).to_not be_valid
+    end
+  end
+
+
   context 'watches' do
     before(:each) do
       @site = FactoryGirl.create(:site)
