@@ -104,7 +104,6 @@ class Site < ActiveRecord::Base
     if !self.facebook.blank?
       page = get_facebook_page(self.facebook)
       if page['name'].blank?
-        pp 'no name'
         self.errors.add(:facebook, "Facebook page is invalid, try pasting in the full URL" )
       else
         self.facebook_id = page['id']
