@@ -33,4 +33,8 @@ module UIHelper
     fill_in 'Suburb', :with => 'Smithville'
   end
 
+  def events_path
+    root_path + "/events"
+  end
+
 end

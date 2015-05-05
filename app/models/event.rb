@@ -41,7 +41,7 @@ class Event
     # pp events
     if !events.nil?
       events.each do |event|
-        event['site'] = { 'name' => name, 'url' => url }
+        event = add_site_data(event, name, url)
         # Convert hash to an Event object and add to @events array.
         event_objects << hash_to_object(event)
       end
@@ -49,6 +49,11 @@ class Event
     event_objects
   end
 
+  def self.add_site_data(event, name, url)
+    event['site'] = { 'name' => name, 'url' => url }
+    event
+  end
+  
   def self.hash_to_object(event)
     Dish(event, EventObject)
   end

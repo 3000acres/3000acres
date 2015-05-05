@@ -164,7 +164,6 @@ describe Site do
     end
   end
 
-
   context 'watches' do
     before(:each) do
       @site = FactoryGirl.create(:site)

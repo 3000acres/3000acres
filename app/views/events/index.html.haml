@@ -15,7 +15,7 @@
               = event.site.name 
           %p
             %em
-              = event.start_time.to_datetime.strftime("%A, %B %d at %I:%M%p") + event.end_time.to_datetime.strftime(" - %I:%M%p")
+              = event.times
           %p 
             = event.description
           %p
