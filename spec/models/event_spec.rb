@@ -11,10 +11,6 @@ O3  = Event.hash_to_object(EVENT3)
 
 describe Event do
   before(:each) do
-
-    Figaro.env.stub(:acres_fb_id).and_return(99)
-    Figaro.env.stub(:acres_site_name).and_return("acres")
-    Figaro.env.stub(:acres_host).and_return("localhost")
     # Stub the get_facebook_events call and return our prebuilt hashes instead.
     Event.stub(:get_facebook_events) do |id|
       case id

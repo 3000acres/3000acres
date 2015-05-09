@@ -10,6 +10,20 @@ require 'capybara/rspec'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  config.before(:each) do
+    # Stub facebook methods and vars before all tests.
+    Event.stub(:get_facebook_events).and_return []
+    Event.stub(:authorize)
+    Figaro.env.stub(:acres_fb_id).and_return(99)
+    Figaro.env.stub(:acres_site_name).and_return("acres")
+    Figaro.env.stub(:acres_host).and_return("localhost")
+
+    # Return a mock facebook id based on any numbers in the url.
+    Site.any_instance.stub(:get_facebook_page) do |site,url|  
+      id = url.scan(/\d/).first
+      id.nil? ? { 'id' => url } : { 'id' => id, 'name' => 'foo' }
+    end
+  end
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
   # ## Mock Framework
