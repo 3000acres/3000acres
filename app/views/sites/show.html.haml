@@ -8,7 +8,8 @@
   .container
     .row
       .col-md-8
-        = image_tag @site.image.url(:large)
+        - if !@site.image.blank?
+          = image_tag @site.image.url(:large)
         - if @site.added_by_user
           %p
             Added by:
