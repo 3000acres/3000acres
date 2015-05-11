@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141107231811) do
+ActiveRecord::Schema.define(version: 20150504020546) do
 
   create_table "comfy_cms_blocks", force: true do |t|
     t.integer  "blockable_id",                    null: false
@@ -175,6 +175,14 @@ ActiveRecord::Schema.define(version: 20141107231811) do
     t.string   "slug"
     t.integer  "added_by_user_id"
     t.string   "website"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "facebook"
+    t.boolean  "featured"
+    t.text     "contact"
+    t.integer  "facebook_id"
   end
 
   add_index "sites", ["slug"], name: "index_sites_on_slug", unique: true

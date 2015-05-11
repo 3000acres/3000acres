@@ -1,17 +1,11 @@
 require 'spec_helper'
 
 feature "site changed notification" do
+  include UIHelper
+
   before(:each) do
-    @user = FactoryGirl.create(:user)
-
-    # sign in
-    visit root_path
-    click_link 'navbar-signin'
-    fill_in 'Login', :with => @user.email
-    fill_in 'Password', :with => @user.password
-    click_button 'Sign in'
-
-    @site = FactoryGirl.create(:site, :added_by_user => @user, :status => 'unknown')
+    log_in
+    @site = FactoryGirl.create(:site, :added_by_user => @user, :status => 'potential')
     # user will automatically be watching the site
   end
 

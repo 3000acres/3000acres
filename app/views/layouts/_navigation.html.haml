@@ -1,4 +1,4 @@
-.navbar.navbar-default.navbar-fixed-top
+.navbar.navbar-default
   .container
     .navbar-header
       %button.navbar-toggle(type="button" data-target=".navbar-collapse" data-toggle="collapse")
@@ -6,13 +6,26 @@
         %span.icon-bar
         %span.icon-bar
       %a.navbar-brand(href=root_path)
-        = image_tag("/assets/3000acres_logo.png", :size => "70x70", :alt => ENV['acres_site_name'])
+        = image_tag("3000acres_logo.png", :size => "70x70", :alt => ENV['acres_site_name'])
     .navbar-collapse.collapse
-      %ul.nav.navbar-nav.navbar-right
+      %ul.nav.navbar-nav.navbar-right.sm-icons
 
+        %li.sm_icons
+          %a{ href: "http://facebook.com/3000acres", target: "_blank"}
+            .sm_icon.facebook
+              %span.sr-only
+                facebook
+        %li.sm_icons
+          %a{ href: "http://twitter.com/3000acres", target: "_blank"}
+            .sm_icon.twitter
+              %span.sr-only
+                twitter
+        %li= link_to cms_snippet_content(:sites_title), "/sites"
+        %li= link_to "Events", "events"
         - if @cms and @cms.pages and @cms.pages.root
           - @cms.pages.root.children.published.each do |page|
             %li= link_to page.label, page.full_path
+            -# - if !(page.full_path == '/about' || page.full_path == '/get_started')
 
         - if user_signed_in?
           %li.dropdown

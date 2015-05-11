@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 feature "watches" do
+  include UIHelper
 
   context "signed in user" do
     before(:each) do
-      @user = FactoryGirl.create(:user)
       @site = FactoryGirl.create(:site)
 
       # manually zero out watches on the site, for ease of testing,
@@ -15,16 +15,12 @@ feature "watches" do
         w.save
       end
 
-      visit root_path
-      click_link 'navbar-signin'
-      fill_in 'Login', :with => @user.email
-      fill_in 'Password', :with => @user.password
-      click_button 'Sign in'
+      log_in
     end
 
     scenario "can watch site" do
       visit site_path(@site)
-      click_button 'Watch this site'
+      click_button 'watch-site'
       current_path.should eq site_path(@site)
       page.should have_content "You're now watching #{@site}"
       page.should have_content "1 person is watching this site"
@@ -32,24 +28,23 @@ feature "watches" do
 
     scenario "can unwatch site" do
       visit site_path(@site)
-      click_button 'Watch this site'
+      click_button 'watch-site'
       current_path.should eq site_path(@site)
-      click_button 'Stop watching'
+      click_button 'unwatch-site'
       current_path.should eq site_path(@site)
       page.should have_content "You've stopped watching #{@site}"
-      page.should have_content "Nobody, yet. You could be the first!"
     end
 
     scenario "page shows watched sites" do
       visit user_path(@user)
       page.should_not have_content "is watching"
       visit site_path(@site)
-      click_button 'Watch this site'
+      click_button 'watch-site'
       current_path.should eq site_path(@site)
       visit user_path(@user)
       page.should have_content "is watching 1 site"
       page.should have_content @site.to_s
-      click_link "Stop watching"
+      page.find(".unwatch-site").click
       current_path.should eq user_path(@user)
       page.should_not have_content "is watching"
     end

@@ -1,13 +1,68 @@
 - content_for :banner do
-  .jumbotron
-    != cms_snippet_content(:homepage_banner)
+  #homepage-banner
+    .container
+      .row
+        .col-sm-3
+          = image_tag("3000acres_logo.png", :alt => ENV['acres_site_name'], :class => "logo")
+        .col-sm-9
+          %h1
+            %span.subhead
+              != cms_editable_snippet(:homepage_banner_sub)
+
 
 #homepage
-  = render :partial => 'map'
+  .about.stripe
+    .container
+      %h1
+        != cms_editable_snippet(:homepage_about_header)
+      %h4
+        != cms_editable_snippet(:homepage_about_body)
+      != cms_snippet_edit_link(:homepage_video_button)
 
-  %section
-    .row
-      .col-md-12
-        != cms_snippet_content(:homepage_findoutmore)
+      .action-buttons
+        %a{ :href => "http://www.youtube.com/watch?v=udidk7yivi4", role: "button", :class => "btn btn-default btn-lg"}
+          != cms_snippet_content(:homepage_video_button)
+        - if !user_signed_in?
+          %a{ :href => "/users/sign_up", role: "button", :class => "btn btn-primary btn-lg"}
+            Sign up
 
-  != cms_snippet_content(:homepage_partners)
+  .connect.stripe
+    .container
+      %h1
+        != cms_editable_snippet(:homepage_connect_header)
+      .subscribe-row
+        .row    
+          %h2
+            != cms_editable_snippet(:subscribe)
+          = render :partial => 'shared/subscribe'
+      .facebook-row
+        .row
+          .snippet-wrapper
+            != cms_snippet_edit_link(:homepage_connect_facebook)
+            %a.main-link{ href: "http://facebook.com/3000acres", target: "_blank"}
+              .sm_icon.facebook
+              %h2
+                != cms_snippet_content(:homepage_connect_facebook)
+      .twitter-row
+        .row
+          .snippet-wrapper
+            != cms_snippet_edit_link(:homepage_connect_twitter)
+            %a.main-link{ :href => "http://twitter.com/3000acres", target: "_blank"}
+              .sm_icon.twitter
+              %h2
+                != cms_snippet_content(:homepage_connect_twitter)
+  .sites.stripe
+    .container
+      %h1 
+        .snippet-wrapper 
+          != cms_editable_snippet(:homepage_sites_header)
+      = render :partial => 'shared/featured_sites'
+      .row
+        .col-xs-12
+          = render :partial => 'shared/find_sites_button'
+  .partners.stripe
+    .container
+      %h1
+        != cms_editable_snippet(:homepage_partners_title)
+      %a{ href: 'http://www.vichealth.vic.gov.au/', target: '_blank'}
+        = image_tag("logo_vichealth_bw_50.png", alt: "VicHealth", height: "50", width: "273")
