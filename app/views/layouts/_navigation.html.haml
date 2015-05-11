@@ -21,7 +21,7 @@
               %span.sr-only
                 twitter
         %li= link_to cms_snippet_content(:sites_title), "/sites"
-        %li= link_to "Events", "events"
+        %li= link_to "Events", "/events"
         - if @cms and @cms.pages and @cms.pages.root
           - @cms.pages.root.children.published.each do |page|
             %li= link_to page.label, page.full_path
