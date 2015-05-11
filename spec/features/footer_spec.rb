@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 feature "footer" do
+  include UIHelper
+
   scenario "footer shows on front page" do
     visit root_path
     expect(page).to have_css "footer"

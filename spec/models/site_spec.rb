@@ -122,17 +122,22 @@ describe Site do
     it 'normalises facebook if url is missing' do
       @site = FactoryGirl.build(:site, :facebook => '3000acres')
       @site.should be_valid
-      @site.facebook.should eq 'facebook.com/3000acres'
+      @site.facebook.should eq 'http://facebook.com/3000acres'
+    end
+    it 'normalises facebook if first slash is included' do
+      @site = FactoryGirl.build(:site, :facebook => '/3000acres')
+      @site.should be_valid
+      @site.facebook.should eq 'http://facebook.com/3000acres'
     end
     it "doesn't normalise facebook starting with http" do
       @site = FactoryGirl.build(:site, :facebook => 'http://facebook.com/3000acres')
       @site.should be_valid
       @site.facebook.should eq 'http://facebook.com/3000acres'
     end
-    it "doesn't normalise facebook starting with facebook.com" do
+    it "correctly normalises facebook when starting with facebook.com" do
       @site = FactoryGirl.build(:site, :facebook => 'facebook.com/3000acres')
       @site.should be_valid
-      @site.facebook.should eq 'facebook.com/3000acres'
+      @site.facebook.should eq 'http://facebook.com/3000acres'
     end
     it "doesn't normalise blank facebook" do
       @site = FactoryGirl.build(:site, :facebook => '')
@@ -146,6 +151,19 @@ describe Site do
     end
   end
 
+  context 'facebook id' do
+    # We mock id reteival by using a number from the url, see spec/factories/sites.rb.
+    it "is retreived for a valid facebook page" do
+      @site = FactoryGirl.build(:site, :facebook => "http://facebook.com/acres3")
+      expect(@site).to be_valid
+      expect(@site.facebook_id).to eq 3
+    end
+    it "invalidates when retreiving an invalid page" do
+      @site = FactoryGirl.build(:site, :facebook => "http://facebook.com/acres")
+      expect(@site).to_not be_valid
+    end
+  end
+
   context 'watches' do
     before(:each) do
       @site = FactoryGirl.create(:site)
@@ -153,20 +171,20 @@ describe Site do
 
     it "can watch a site" do
       expect {
-        FactoryGirl.create(:watch, :site => @site)
+        FactoryGirl.create(:watch, site: @site)
       }.to change { @site.watches.count}.by(1)
     end
 
     it "auto-watches site when added by a non-admin" do
       @user = FactoryGirl.create(:user)
-      @this_site = FactoryGirl.create(:site, :added_by_user => @user)
+      @this_site = FactoryGirl.create(:site, added_by_user: @user)
       @this_site.watches.count.should == 1
       @this_site.watches.last.user.should eq @user
     end
 
     it "auto-watches site when added by an admin" do
       @admin_user = FactoryGirl.create(:admin_user)
-      @new_site = FactoryGirl.create(:site, :added_by_user => @admin_user)
+      @new_site = FactoryGirl.create(:site, added_by_user: @admin_user)
       @new_site.watches.count.should == 1
       @new_site.watches.last.user.should eq @admin_user
     end
@@ -179,36 +197,14 @@ describe Site do
       @user2 = FactoryGirl.create(:user)
       @user3 = FactoryGirl.create(:user)
       @user4 = FactoryGirl.create(:user)
-      @admin_site = FactoryGirl.create(
-        :site, 
-        name: "Admins site",
-        address: "99 Burke st", 
-        added_by_user: @admin_user, 
-        latitude: "-37.7732084", 
-        longitude: "144.84887760000004"
-      )
-      @near_site = FactoryGirl.create(
-        :site, 
-        name: "Users nearby site",
-        address: "109 Burke st", 
-        added_by_user: @user1, 
-        latitude: "-37.7732084", 
-        longitude: "144.84887760000004"
-      )
-      @far_site = FactoryGirl.create(
-        :site, 
-        name: "Users far site",
-        address: "80 High st", 
-        suburb: "Thornbury", 
-        added_by_user: @user2, 
-        latitude: "-37.7802946",
-        longitude: "144.99694739999995"
-      )
+      @admin_site = FactoryGirl.create(:site, added_by_user: @admin_user)
+      @near_site = FactoryGirl.create(:site, :near, added_by_user: @user1)
+      @far_site = FactoryGirl.create(:site, :far, added_by_user: @user2)
       @watch_near = FactoryGirl.create(:watch, user: @user3, site:@near_site)
       @watch_far = FactoryGirl.create(:watch, user: @user4, site:@far_site)
     end
 
-    it "should by in bearby_sites array, far sites should not" do
+    it "should be in bearby_sites array, far sites should not" do
       expect(@admin_site.nearby_sites).to eq [@near_site]
     end
 

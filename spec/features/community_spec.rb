@@ -1,14 +1,11 @@
 require 'spec_helper'
 
 feature "post" do
+  include UIHelper
+
   context "signed in user" do
     before(:each) do
-      @user = FactoryGirl.create(:user)
-      visit root_path
-      click_link 'navbar-signin'
-      fill_in 'Login', :with => @user.email
-      fill_in 'Password', :with => @user.password
-      click_button 'Sign in'
+      log_in
       visit sites_path
       click_link "add-site"
       fill_in 'Address', :with => '1 Smith St'
@@ -35,15 +32,6 @@ feature "post" do
         page.should have_content "Here is some news"
         page.should have_content "#{@user.name} on"
       end
-
-      # scenario "markdown help" do
-      #   page.should have_content "You can use Markdown"
-      # end
-
-      # scenario "post includes rendered markdown" do
-      #   page.should_not have_content "*awesome*"
-      #   page.should have_selector "em", :text => "awesome"
-      # end
 
       scenario "posts listed on user profile" do
         visit user_path(@user)

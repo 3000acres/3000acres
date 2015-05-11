@@ -25,6 +25,9 @@ gem 'validate_url'
 gem 'bluecloth' # markdown formatting
 gem 'paperclip', '~> 4.2'
 gem 'aws-sdk-v1'
+gem 'koala'
+gem 'dish'
+gem 'actionpack-action_caching'
 
 # the following gem is needed to work around a really annoying change in
 # Rails 4. See https://github.com/rails/sprockets-rails/issues/49 for

@@ -14,6 +14,8 @@ Acres::Application.routes.draw do
 
   get '/admin', :to => "admin#index", :as => 'admin'
 
+  get 'events', to: 'events#index'
+
   comfy_route :cms_admin, :path => '/cms-admin'
   comfy_route :cms, :path => '/', :sitemap => false
 
