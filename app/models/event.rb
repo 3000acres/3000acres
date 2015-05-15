@@ -3,8 +3,8 @@ require 'pp'
 class Event
 
   class EventObject < Dish::Plate
-    coerce :start_time, ->(value) { DateTime.parse(value) }
-    coerce :end_time, ->(value) { DateTime.parse(value) }
+    coerce :start_time, ->(value) { value.blank? ? '' : DateTime.parse(value) }
+    coerce :end_time, ->(value) { value.blank? ? '' : DateTime.parse(value) }
 
     def times
       result = ''
@@ -26,7 +26,7 @@ class Event
   end
 
   def self.get_facebook_events(id)
-    @graph.get_connection(id, "events", { fields: 'id, name, cover, place, description, end_time' })
+    @graph.get_connection(id, "events", { fields: 'id, name, cover, description, end_time' })
   end
 
   private 
@@ -42,6 +42,7 @@ class Event
     # pp events
     if !events.nil?
       events.each do |event|
+        break if event['id'].blank?
         event = add_site_data(event, name, url)
         # Convert hash to an Event object and add to @events array.
         event_objects << hash_to_object(event)
