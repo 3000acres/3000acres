@@ -37,18 +37,24 @@ class Event
   end
 
   def self.build_events(id, name, url)
-    event_objects = []
-    events = get_facebook_events(id)
-    # pp events
-    if !events.nil?
-      events.each do |event|
-        break if event['id'].blank?
-        event = add_site_data(event, name, url)
-        # Convert hash to an Event object and add to @events array.
-        event_objects << hash_to_object(event)
+    begin
+      event_objects = []
+      events = get_facebook_events(id)
+      # pp events
+      if !events.nil?
+        events.each do |event|
+          next if event['id'].blank?
+          event = add_site_data(event, name, url)
+          # Convert hash to an Event object and add to @events array.
+          event_objects << hash_to_object(event)
+        end
       end
+      event_objects
+    rescue
+      # Catch facebook errors, and return an empty array. 
+      # TODO alert bugsnag or something to monitor fb hit failures.
+      []
     end
-    event_objects
   end
 
   def self.add_site_data(event, name, url)
