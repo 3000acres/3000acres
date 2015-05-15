@@ -7,7 +7,8 @@ class Event
     coerce :end_time, ->(value) { DateTime.parse(value) }
 
     def times
-      result = self.start_time.strftime("%A, %B %d at %I:%M%p")
+      result = ''
+      result = self.start_time.strftime("%A, %B %d at %I:%M%p") unless self.start_time.blank?
       result += self.end_time.strftime(" - %I:%M%p") unless self.end_time.blank? 
     end
   end
