@@ -9,11 +9,11 @@
           -if !event.cover.blank?
             = image_tag event.cover.source
         .col-sm-9
-          %h3
-            -if !event.name.blank?
+          -if !event.name.blank?
+            %h3
               = link_to event.name, "http://facebook.com/events/#{event.id}", :target => "_blank"
-          %h4
-            -if !event.site.blank?
+          -if !event.site.blank?
+            %h4
               %a{ href: event.site.url }
                 = event.site.name 
           %p
