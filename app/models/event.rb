@@ -3,11 +3,12 @@ require 'pp'
 class Event
 
   class EventObject < Dish::Plate
-    coerce :start_time, ->(value) { DateTime.parse(value) }
-    coerce :end_time, ->(value) { DateTime.parse(value) }
+    coerce :start_time, ->(value) { value.blank? ? '' : DateTime.parse(value) }
+    coerce :end_time, ->(value) { value.blank? ? '' : DateTime.parse(value) }
 
     def times
-      result = self.start_time.strftime("%A, %B %d at %I:%M%p")
+      result = ''
+      result = self.start_time.strftime("%A, %B %d at %I:%M%p") unless self.start_time.blank?
       result += self.end_time.strftime(" - %I:%M%p") unless self.end_time.blank? 
     end
   end
@@ -25,7 +26,7 @@ class Event
   end
 
   def self.get_facebook_events(id)
-    @graph.get_connection(id, "events", { fields: 'id, name, cover, place, description, end_time' })
+    @graph.get_connection(id, "events", { fields: 'id, name, cover, description, end_time' })
   end
 
   private 
@@ -36,17 +37,24 @@ class Event
   end
 
   def self.build_events(id, name, url)
-    event_objects = []
-    events = get_facebook_events(id)
-    # pp events
-    if !events.nil?
-      events.each do |event|
-        event = add_site_data(event, name, url)
-        # Convert hash to an Event object and add to @events array.
-        event_objects << hash_to_object(event)
+    begin
+      event_objects = []
+      events = get_facebook_events(id)
+      # pp events
+      if !events.nil?
+        events.each do |event|
+          next if event['id'].blank?
+          event = add_site_data(event, name, url)
+          # Convert hash to an Event object and add to @events array.
+          event_objects << hash_to_object(event)
+        end
       end
+      event_objects
+    rescue
+      # Catch facebook errors, and return an empty array. 
+      # TODO alert bugsnag or something to monitor fb hit failures.
+      []
     end
-    event_objects
   end
 
   def self.add_site_data(event, name, url)

@@ -6,20 +6,25 @@
       -# = event.inspect
       .row
         .col-sm-3
-          = image_tag event.cover.source
+          -if !event.cover.blank?
+            = image_tag event.cover.source
         .col-sm-9
-          %h3
-            = link_to event.name, "http://facebook.com/events/#{event.id}", :target => "_blank"
-          %h4
-            %a{ href: event.site.url }
-              = event.site.name 
+          -if !event.name.blank?
+            %h3
+              = link_to event.name, "http://facebook.com/events/#{event.id}", :target => "_blank"
+          -if !event.site.blank?
+            %h4
+              %a{ href: event.site.url }
+                = event.site.name 
           %p
             %em
               = event.times
-          %p 
-            = event.description
-          %p
-            %strong
-              = event.place.name + " - "
-              = event.place.location.street
-              = event.place.location.city
+          -if !event.description.blank?
+            %p 
+              = event.description
+          -if !event.place.blank?
+            %p
+              %strong
+                = event.place.name + " - "
+                = event.place.location.street
+                = event.place.location.city
