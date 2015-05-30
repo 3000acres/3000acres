@@ -1,10 +1,11 @@
-%form{ :"accept-charset" => "UTF-8", action: "http://3000acres.us3.list-manage.com/subscribe/post?u=3d6770001275929f73950dfc2&amp;amp;id: 2011150da6", class: "form-inline hidden-xs subscribe", method: "post", target: "_blank"}
+%form{ :"accept-charset" => "UTF-8", action: "http://3000acres.us3.list-manage.com/subscribe/post?u=3d6770001275929f73950dfc2&amp;id=2011150da6", class: "form-inline hidden-xs subscribe", method: "post", target: "_blank"}
   %div{ style: "display:none"}
     %input{ name: "utf8", type: "hidden", value: "&#x2713;"}
     %input{ name: "authenticity_token", type: "hidden", value: "qSNJaDRqQiJeVMN0gefkHafTkes/nwefco3l2Ryefdc="}
   .form-group
+    %label.sr-only{ for: "EMAIL" } Email address
+    %input.col-xs-12.col-sm-8.input-lg.font-control{ id: "EMAIL", name: "EMAIL", placeholder: "you@example.com", type: "email"}
     <!-- do not remove this or risk form bot signups-->
     %div{ style: 'position: absolute; left: -5000px;'}
       %input{ id: "b_3d6770001275929f73950dfc2_2011150da6", name: "b_3d6770001275929f73950dfc2_2011150da6", type: "text"}
-    %input{ class: "col-xs-12 col-sm-8 input-lg font-control", id: "EMAIL", name: "EMAIL", placeholder: "you@example.com", type: "email"}
-    %input{ class: "col-sm-4 btn btn-primary btn-lg", name: "commit", type: "submit", value: "Subscribe"}
+    %input.btn.btn-primary.btn-lg{ name: "commit", type: "submit", value: "Subscribe"}
