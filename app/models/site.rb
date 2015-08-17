@@ -14,7 +14,7 @@ class Site < ActiveRecord::Base
   validates :address, :presence => true
   validates :suburb, :presence => true
 
-  STATUSES = [ "potential", "proposed", "active" ]
+  STATUSES = [ "potential", "proposed", "active", "independent" ]
   validates :status, :presence => true # for the benefit of simple_form
   validates :status, :inclusion => { :in => STATUSES,
           :message => "%{value} is not a valid status" },
