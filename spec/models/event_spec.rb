@@ -1,19 +1,18 @@
 require 'spec_helper'
 
-EVENT1 = FactoryGirl.build(:event, id: 11, start_time: "2015-01-01T14:30:00+1000", end_time: "2015-01-01T16:00:00+1000")
-EVENT21 = FactoryGirl.build(:event, id: 21, start_time: "2015-02-01T14:30:00+1000", end_time: "2015-02-01T16:00:00+1000")
-EVENT22 = FactoryGirl.build(:event, id: 22, start_time: "2015-02-02T14:30:00+1000", end_time: "2015-02-02T16:00:00+1000")
-ACRES_EVENT = FactoryGirl.build(:event, id: 33, start_time: "2015-03-01T14:30:00+1000", end_time: "2015-03-01T16:00:00+1000")
-OB1  = Event.hash_to_object(EVENT1)
-OB21 = Event.hash_to_object(EVENT21)
-OB22 = Event.hash_to_object(EVENT22)
-ACRES_OB = Event.hash_to_object(ACRES_EVENT) 
-
 def expect_matching_ids(objects)
   expect(Event.all.map {|e| e.id }).to eq objects.map {|o| o.id }
 end
 
 describe Event do
+  let(:event1)      { FactoryGirl.build(:event, id: 11, start_time: "2015-01-01T14:30:00+1000", end_time: "2015-01-01T16:00:00+1000") }
+  let(:event21)     { FactoryGirl.build(:event, id: 21, start_time: "2015-02-01T14:30:00+1000", end_time: "2015-02-01T16:00:00+1000") }
+  let(:event22)     { FactoryGirl.build(:event, id: 22, start_time: "2015-02-02T14:30:00+1000", end_time: "2015-02-02T16:00:00+1000") }
+  let(:acres_event) { FactoryGirl.build(:event, id: 33, start_time: "2015-03-01T14:30:00+1000", end_time: "2015-03-01T16:00:00+1000") }
+  let(:ob1)         { Event.hash_to_object(event1) }
+  let(:ob21)        { Event.hash_to_object(event21) }
+  let(:ob22)        { Event.hash_to_object(event22) }
+  let(:acres_ob)    { Event.hash_to_object(acres_event) }
 
   let(:events) do 
     [{
@@ -29,7 +28,6 @@ describe Event do
       "end_time" => "2015-03-01T16:00:00+1000"
     }]
   end
-
   let(:event_object) do 
     hash = {
       "id" => 99,
@@ -49,7 +47,6 @@ describe Event do
     }
     Event.hash_to_object(hash)
   end
-
   let(:past_events) do 
     [{
       "id" => 73,
@@ -91,12 +88,12 @@ describe Event do
         case id
         when 1
           # Mock a page with one event.
-          [ EVENT1 ]
+          [ event1 ]
         when 2
           # Mock a page with two events.
-          [ EVENT22, EVENT21 ]
+          [ event22, event21 ]
         when 3
-          [ ACRES_EVENT ]
+          [ acres_event ]
         end
       end
     end
@@ -104,14 +101,14 @@ describe Event do
     it 'lists events for the acres facebook page' do
       Figaro.env.stub(:acres_fb_id).and_return(3)
       # The acres facebook page can have id of 3.
-      expect(Event.all[0].id).to eq ACRES_OB.id
+      expect(Event.all[0].id).to eq acres_ob.id
     end
 
     it 'lists events for all sites with a facebook_id, in ascending order by start_time' do
       @site1 = FactoryGirl.create(:site, :facebook => 'facebook.com/site1')
       @site2 = FactoryGirl.create(:site, :facebook => 'facebook.com/site2')
       expect(@site1.facebook_id).to eq 1
-      expect_matching_ids([OB1, OB21, OB22])
+      expect_matching_ids([ob1, ob21, ob22])
     end
 
     it 'lists all events for all sites and acres, in ascending order' do
@@ -119,8 +116,8 @@ describe Event do
       @site1 = FactoryGirl.create(:site, :facebook => 'facebook.com/site1')
       @site2 = FactoryGirl.create(:site, :facebook => 'facebook.com/site2')
       expect(@site1.facebook_id).to eq 1
-      expect_matching_ids([ OB1, OB21, OB22, ACRES_OB ])
+      expect_matching_ids([ ob1, ob21, ob22, acres_ob ])
     end
-
   end
+
 end
