@@ -1,4 +1,3 @@
-require 'pp'
 # No Active Record here, this is modeling facebook data.
 class Event
 
@@ -15,13 +14,19 @@ class Event
 
   def self.all
     authorize
-    events = []
     # Get acres facebook events.
-    events.concat(build_events(Figaro.env.acres_fb_id, Figaro.env.acres_site_name, Figaro.env.acres_host))
+    events = build_events(get_facebook_events(Figaro.env.acres_fb_id), Figaro.env.acres_site_name, Figaro.env.acres_host)
     # Gt events for sites with facebook pages.
     Site.where.not(facebook_id: nil).each do |site|
-      events.concat(build_events(site.facebook_id, site.to_s, Rails.application.routes.url_helpers.site_url(site, only_path: true)))
+      site_url = Rails.application.routes.url_helpers.site_url(site, only_path: true)
+      events.concat(build_events(get_facebook_events(site.facebook_id), site.to_s, site_url))
     end
+    events.sort_by!(&:start_time)
+  end
+
+  def self.select(id, name = "", url = "")
+    authorize
+    events = build_events(get_facebook_events(id), name, url)
     events.sort_by!(&:start_time)
   end
 
@@ -36,17 +41,17 @@ class Event
     @graph = Koala::Facebook::API.new(@oauth.get_app_access_token)
   end
 
-  def self.build_events(id, name, url)
+  def self.build_events(events, name, url)
     begin
       event_objects = []
-      events = get_facebook_events(id)
-      # pp events
-      if !events.nil?
+      unless events.nil?
         events.each do |event|
           next if event['id'].blank?
           event = add_site_data(event, name, url)
-          # Convert hash to an Event object and add to @events array.
-          event_objects << hash_to_object(event)
+          # Convert hash to an Event object.
+          event_object = hash_to_object(event)
+          # Add event only if the start time is in the future.
+          event_objects << event_object if event_object.start_time > current_time
         end
       end
       event_objects
@@ -55,6 +60,10 @@ class Event
       # TODO alert bugsnag or something to monitor fb hit failures.
       []
     end
+  end
+
+  def self.current_time
+    DateTime.now
   end
 
   def self.add_site_data(event, name, url)

@@ -3,7 +3,6 @@
 #events
   .container
     - @events.sort_by { |e| e.start_time }.each do |event|
-      -# = event.inspect
       .row
         .col-sm-3
           -if !event.cover.blank?
