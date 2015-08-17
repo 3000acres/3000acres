@@ -17,12 +17,19 @@ RSpec.configure do |config|
     Figaro.env.stub(:acres_fb_id).and_return(99)
     Figaro.env.stub(:acres_site_name).and_return("acres")
     Figaro.env.stub(:acres_host).and_return("localhost")
-
     # Return a mock facebook id based on any numbers in the url.
     Site.any_instance.stub(:get_facebook_page) do |site,url|  
       id = url.scan(/\d/).first
       id.nil? ? { 'id' => url } : { 'id' => id, 'name' => 'foo' }
     end
+    Site.any_instance.stub(:geocode)
+
+    class Event
+      def self.current_time
+        "2015-01-01T01:01:00+1000".to_datetime
+      end
+    end
+
   end
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
