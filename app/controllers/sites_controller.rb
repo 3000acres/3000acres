@@ -22,6 +22,7 @@ class SitesController < ApplicationController
     end
     # In this context featured_sites are just nearby, not actually featured, as we reuse the partial for featured sites.
     @featured_sites = @site.nearby_sites
+    @events = @site.facebook_events
   end
 
   # GET /sites/new

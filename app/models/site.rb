@@ -118,6 +118,10 @@ class Site < ActiveRecord::Base
     @graph.graph_call('',{},'get',options)
   end
 
+  def facebook_events
+    Event.select(self.facebook_id)
+  end
+
   def nearby_sites
     # Return nearby sites excluding self.
     Site.where.not(slug: self.slug).near([self.latitude, self.longitude], 4, units: :km)
