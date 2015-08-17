@@ -7,7 +7,7 @@
             - if !site.image.blank? 
               = image_tag site.image.url(:medium)
           %h4.name
-            = site.name
+            = site.to_s
           .address
             = site.address
             = site.suburb
