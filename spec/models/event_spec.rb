@@ -5,6 +5,22 @@ def expect_matching_ids(objects)
 end
 
 describe Event do
+  before(:each) do
+    # Stub the get_facebook_events call and return our prebuilt hashes instead.
+    Event.stub(:get_facebook_events) do |id|
+      case id
+      when 1
+        # Mock a page with one event.
+        [ event1 ]
+      when 2
+        # Mock a page with two events.
+        [ event22, event21 ]
+      when 3
+        [ acres_event ]
+      end
+    end
+  end
+
   let(:event1)      { FactoryGirl.build(:event, id: 11, start_time: "2015-01-01T14:30:00+1000", end_time: "2015-01-01T16:00:00+1000") }
   let(:event21)     { FactoryGirl.build(:event, id: 21, start_time: "2015-02-01T14:30:00+1000", end_time: "2015-02-01T16:00:00+1000") }
   let(:event22)     { FactoryGirl.build(:event, id: 22, start_time: "2015-02-02T14:30:00+1000", end_time: "2015-02-02T16:00:00+1000") }
@@ -63,7 +79,7 @@ describe Event do
   end
   let(:empty_events) { [] }
 
-  context "get_facebook_events" do
+  context "build_events" do
 
     it 'can return events as objects' do
       ob = event_object
@@ -81,22 +97,6 @@ describe Event do
   end
 
   context "all" do
-
-    before(:each) do
-      # Stub the get_facebook_events call and return our prebuilt hashes instead.
-      Event.stub(:get_facebook_events) do |id|
-        case id
-        when 1
-          # Mock a page with one event.
-          [ event1 ]
-        when 2
-          # Mock a page with two events.
-          [ event22, event21 ]
-        when 3
-          [ acres_event ]
-        end
-      end
-    end
 
     it 'lists events for the acres facebook page' do
       Figaro.env.stub(:acres_fb_id).and_return(3)
@@ -120,4 +120,10 @@ describe Event do
     end
   end
 
+  context 'select' do 
+    it "lists all events for a specific facebook id" do
+      @site2 = FactoryGirl.create(:site, :facebook => 'facebook.com/site2')
+      expect(Event.select(@site2.facebook_id).map {|e| e.id }).to eq [ob21, ob22].map {|o| o.id } 
+    end
+  end
 end

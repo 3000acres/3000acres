@@ -24,47 +24,60 @@ feature "events" do
     log_in
   end
 
-  scenario "user should see sites facebook events" do
-    setup_site
-    fill_in 'Facebook', :with => 'http://facebook.com/acres1'
-    click_button 'Create Site'
-    user_event_obj = Event.hash_to_object(Event.add_site_data(USER_EVENT, Site.last.to_s, site_path(Site.last)))
-    visit '/events'
-    expect(page.find('//h1.title')).to have_content 'Events'
-    expect(page).to have_content 'First event!'
-    expect(page).to have_content "Some Community Garden"
-    expect(page).to have_content "Brunswick"
-    expect(page).to have_content "33 James st"
-    expect(page).to have_content "Test"
-    expect(page).to have_css("//a[@href = '#{user_event_obj.site.url}']")
-    expect(page).to have_css("//img[@src = '#{user_event_obj.cover.source}']")
-    expect(page).to have_content user_event_obj.times
+  describe "events page" do
+    scenario "user should see sites facebook events on events page" do
+      setup_site
+      fill_in 'Facebook', :with => 'http://facebook.com/acres1'
+      click_button 'Create Site'
+      visit '/events'
+      expect(page.find('//h1.title')).to have_content 'Events'
+      expect(page).to have_content 'First event!'
+      expect(page).to have_content "Some Community Garden"
+      expect(page).to have_content "Brunswick"
+      expect(page).to have_content "33 James st"
+      expect(page).to have_content "Test"
+      expect(page).to have_css("//a[@href = '/sites/1-smith-st-smithville']")
+      expect(page).to have_css("//img[@src = 'http://some_image.com/image']")
+      expect(page).to have_content 'Friday, January 02 at 02:30PM - 04:00PM'
+    end
+
+    scenario "user should see acres facebook events on events page" do
+      Figaro.env.stub(:acres_fb_id).and_return(2)
+      Figaro.env.stub(:acres_site_name).and_return("acres")
+      Figaro.env.stub(:acres_host).and_return("http://www.acres.org")
+      visit '/events'
+      expect(page).to have_content 'Acres foo event'
+      expect(page).to have_content "Sunday, February 01 at 02:30PM - 04:00PM"
+    end
+
+    scenario "page should handle events missing any fields" do
+      setup_site
+      fill_in 'Facebook', :with => 'http://facebook.com/acres3'
+      click_button 'Create Site'
+      visit '/events'
+      expect(page).to have_content 'Empty event'
+    end
+
+    scenario "page should handle nil events" do
+      setup_site
+      fill_in 'Facebook', :with => 'http://facebook.com/acres4'
+      click_button 'Create Site'
+      visit '/events'
+      expect(page.find('//h1.title')).to have_content 'Events'
+    end
   end
 
-  scenario "user should see acres facebook events" do
-    Figaro.env.stub(:acres_fb_id).and_return(2)
-    Figaro.env.stub(:acres_site_name).and_return("acres")
-    Figaro.env.stub(:acres_host).and_return("http://www.acres.org")
-    acres_event_obj = Event.hash_to_object(Event.add_site_data(ACRES_EVENT, Figaro.env.acres_site_name, Figaro.env.acres_host))
-    visit '/events'
-    expect(page).to have_content 'Acres foo event'
-    expect(page).to have_content acres_event_obj.times
-  end
-
-  scenario "page should handle events missing any fields" do
-    setup_site
-    fill_in 'Facebook', :with => 'http://facebook.com/acres3'
-    click_button 'Create Site'
-    visit '/events'
-    expect(page).to have_content 'Empty event'
-  end
-
-  scenario "page should handle nil events" do
-    setup_site
-    fill_in 'Facebook', :with => 'http://facebook.com/acres4'
-    click_button 'Create Site'
-    visit '/events'
-    expect(page.find('//h1.title')).to have_content 'Events'
+  describe "site show page" do
+    scenario "user should see facebook events on sites page" do
+      setup_site
+      fill_in 'Facebook', :with => 'http://facebook.com/acres1'
+      click_button 'Create Site'
+      expect(page.find('//h2')).to have_content 'Events'
+      expect(page).to have_content 'First event!'
+      expect(page).to have_content "Test"
+      expect(page).to have_css("//img[@src = 'http://some_image.com/image']")
+      expect(page).to have_content "Friday, January 02 at 02:30PM - 04:00PM"
+    end
   end
 end
 

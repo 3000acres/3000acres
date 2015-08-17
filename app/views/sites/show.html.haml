@@ -131,30 +131,31 @@
                 fjs.parentNode.insertBefore(js, fjs);
               }(document, 'script', 'facebook-jssdk'));
             .fb-like-box{ :"data-href" => "#{@site.facebook}", :"data-width" => "320", :"data-height" => "400", :"data-colorscheme" => "light", :"data-show-faces" => "true", :"data-header" => "false", :"data-stream" => "true", :"data-show-border" => "false" }
-            - @events.sort_by { |e| e.start_time }.each do |event|
-              .fb-events
-              .row
-                -if !event.cover.blank?
-                  = image_tag event.cover.source
-                -if !event.name.blank?
-                  %h3
-                    = link_to event.name, "http://facebook.com/events/#{event.id}", :target => "_blank"
-                -if !event.site.blank?
-                  %h4
-                    %a{ href: event.site.url }
-                      = event.site.name 
-                  %p
-                    %em
-                      = event.times
-                  -if !event.description.blank?
-                    %p 
-                      = event.description
-                  -if !event.place.blank?
+            .fb-events
+              %h2 Events
+              - @events.sort_by { |e| e.start_time }.each do |event|
+                .row
+                  -if !event.cover.blank?
+                    = image_tag event.cover.source
+                  -if !event.name.blank?
+                    %h3
+                      = link_to event.name, "http://facebook.com/events/#{event.id}", :target => "_blank"
+                  -if !event.site.blank?
+                    %h4
+                      %a{ href: event.site.url }
+                        = event.site.name 
                     %p
-                      %strong
-                        = event.place.name + " - "
-                        = event.place.location.street
-                        = event.place.location.city
+                      %em
+                        = event.times
+                    -if !event.description.blank?
+                      %p 
+                        = event.description
+                    -if !event.place.blank?
+                      %p
+                        %strong
+                          = event.place.name + " - "
+                          = event.place.location.street
+                          = event.place.location.city
 
           .visible-sm.visible-xs
             %p
