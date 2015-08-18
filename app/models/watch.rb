@@ -4,6 +4,7 @@ class Watch < ActiveRecord::Base
   belongs_to :site
 
   after_create :send_new_watcher_email
+  after_update :send_changed_email
 
   # send_new_watcher_email()
   # when a user watches a site, send other watchers an email
@@ -22,4 +23,18 @@ class Watch < ActiveRecord::Base
       end
     end
   end
+
+  # send_changed_email()
+  # when a site's details are changed, send an email to watchers
+  def send_changed_email
+    if changed?
+      watches.each do |watch|
+        recipient = watch.user
+        if recipient.send_email # don't spam
+          Mailer.site_changed_notification(self, recipient).deliver!
+        end
+      end
+    end
+  end
+
 end
