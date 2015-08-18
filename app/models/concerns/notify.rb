@@ -2,27 +2,30 @@ module Notify
   extend ActiveSupport::Concern
 
   included do 
-    after_create :send_added_email, :notify_new
-    after_update :notify_update
+    after_create :notify_created_email, :notify_created_admin_email
+    after_update :notify_changed_admin_email
   end
 
-  # send_added_email()
-  # when a user adds a site, send them a thank you email
-  def send_added_email
+  # When a user adds a site, send them a thank you email.
+  def notify_created_email
     if added_by_user.send_email # don't spam!
-      Mailer.site_added_thanks(self.added_by_user, self).deliver!
+      Mailer.send_site_created_thanks!(self, self.added_by_user)
     end
   end
 
-  def notify_new
-    User.with_role :admin do |user|
-      Mailer.site_added_notification(user, self)
+  # Always notify admin of new sites.
+  def notify_created_admin_email
+    User.with_role(:admin).each do |user|
+      Mailer.send_site_created_notification!(self, user)
     end
   end
 
-  def notify_update
-    User.with_role :admin do |user|
-      Mailer.site_changed_notification(user, self)
+  # Always notify admin of site updates.
+  def notify_changed_admin_email
+    if changed?
+      User.with_role(:admin).each do |user|
+        Mailer.send_site_changed_notification!(self, user)
+      end
     end
   end
 
