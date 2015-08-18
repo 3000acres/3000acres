@@ -56,8 +56,5 @@ describe Mailer do
     it "renders the receiver email" do
       expect(mail.to).to eq [user2.email]
     end
-    it "returns a correct email" do
-      # expect(mail.body.encoded).to match 
-    end
   end
 end

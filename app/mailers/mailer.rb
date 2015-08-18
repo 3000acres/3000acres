@@ -3,16 +3,17 @@ class Mailer < ActionMailer::Base
 
   # These class methods make testing easier as mailer behaviour is WEIRD.
   # It also keeps mailer behaviours like deliver! all in one place.
+
   def self.send_site_created_thanks!(site, recipient)
     site_created_thanks(site, recipient).deliver!
   end
 
   def self.send_site_created_notification!(site, recipient)
-    site_created_thanks(site, recipient).deliver!
+    site_created_notification(site, recipient).deliver!
   end
   
   def self.send_site_changed_notification!(site, recipient)
-    site_created_thanks(site, recipient).deliver!
+    site_changed_notification(site, recipient).deliver!
   end
   
   def self.send_new_watcher_notification!(new_watcher, site, recipient)
@@ -23,7 +24,6 @@ class Mailer < ActionMailer::Base
     post_created_notification(post, recipient).deliver!
   end
   
-
   def site_created_thanks(site, recipient)
     @user = recipient
     @site = site
