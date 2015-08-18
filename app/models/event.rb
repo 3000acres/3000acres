@@ -14,19 +14,27 @@ class Event
 
   def self.all
     # Get acres facebook events.
-    events = build_events(Graph.get_graph_events(Figaro.env.acres_fb_id), Figaro.env.acres_site_name, Figaro.env.acres_host)
-    # Gt events for sites with facebook pages.
+    id = Figaro.env.acres_fb_id
+    name = Figaro.env.acres_site_name
+    url = Figaro.env.acres_host
+    events = build_events(Graph.get_graph_events(id), name, url)
+
+    # Get events for sites with facebook pages.
     Site.where.not(facebook_id: nil).each do |site|
-      site_url = Rails.application.routes.url_helpers.site_url(site, only_path: true)
-      events.concat(build_events(Graph.get_graph_events(site.facebook_id), site.to_s, site_url))
+      id = site.facebook_id
+      name = site.to_s
+      url = Rails.application.routes.url_helpers.site_url(site, only_path: true)
+      events.concat(build_events(Graph.get_graph_events(id), name, url))
     end
+
     events.sort_by!(&:start_time)
   end
 
-  def self.select(id, name = "", url = "")
+  def self.page_events(id, name = "", url = "")
     events = build_events(Graph.get_graph_events(id), name, url)
     events.sort_by!(&:start_time)
   end
+
 
   private 
 
@@ -37,8 +45,9 @@ class Event
         graph_events.each do |graph_event|
           next if graph_event['id'].blank?
           graph_event = add_site_data(graph_event, name, url)
-          # Convert hash to an Event object.
+          # Convert graph event hash to an object.
           event = hash_to_object(graph_event)
+
           # Add event only if the start time is in the future.
           events << event if event.start_time > current_time
         end

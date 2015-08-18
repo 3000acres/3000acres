@@ -1,4 +1,5 @@
 module Fb
+  require 'event'
   extend ActiveSupport::Concern
   extend Graph
 
@@ -27,7 +28,7 @@ module Fb
   end
 
   def facebook_events
-    Event.select(self.facebook_id)
+    Event.page_events(self.facebook_id)
   end
 
 end
