@@ -37,12 +37,6 @@ FactoryGirl.define do
       site.stub(:geocode)
       site.latitude = evaluator.latitude
       site.longitude = evaluator.longitude
-
-      # Mock facebooks weird error handling behaviour.
-      site.stub(:get_facebook_page) do |url|  
-        id = url.scan(/\d/).first
-        id.nil? ? { 'id' => url } : { 'id' => id, 'name' => 'foo' }
-      end
     end
   end
 

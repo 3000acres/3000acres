@@ -13,48 +13,37 @@ class Event
   end
 
   def self.all
-    authorize
     # Get acres facebook events.
-    events = build_events(get_facebook_events(Figaro.env.acres_fb_id), Figaro.env.acres_site_name, Figaro.env.acres_host)
+    events = build_events(Graph.get_graph_events(Figaro.env.acres_fb_id), Figaro.env.acres_site_name, Figaro.env.acres_host)
     # Gt events for sites with facebook pages.
     Site.where.not(facebook_id: nil).each do |site|
       site_url = Rails.application.routes.url_helpers.site_url(site, only_path: true)
-      events.concat(build_events(get_facebook_events(site.facebook_id), site.to_s, site_url))
+      events.concat(build_events(Graph.get_graph_events(site.facebook_id), site.to_s, site_url))
     end
     events.sort_by!(&:start_time)
   end
 
   def self.select(id, name = "", url = "")
-    authorize
-    events = build_events(get_facebook_events(id), name, url)
+    events = build_events(Graph.get_graph_events(id), name, url)
     events.sort_by!(&:start_time)
-  end
-
-  def self.get_facebook_events(id)
-    @graph.get_connection(id, "events", { fields: 'id, name, cover, description, end_time' })
   end
 
   private 
 
-  def self.authorize
-    @oauth = Koala::Facebook::OAuth.new
-    @graph = Koala::Facebook::API.new(@oauth.get_app_access_token)
-  end
-
-  def self.build_events(events, name, url)
+  def self.build_events(graph_events, name, url)
     begin
-      event_objects = []
-      unless events.nil?
-        events.each do |event|
-          next if event['id'].blank?
-          event = add_site_data(event, name, url)
+      events = []
+      unless graph_events.nil?
+        graph_events.each do |graph_event|
+          next if graph_event['id'].blank?
+          graph_event = add_site_data(graph_event, name, url)
           # Convert hash to an Event object.
-          event_object = hash_to_object(event)
+          event = hash_to_object(graph_event)
           # Add event only if the start time is in the future.
-          event_objects << event_object if event_object.start_time > current_time
+          events << event if event.start_time > current_time
         end
       end
-      event_objects
+      events
     rescue
       # Catch facebook errors, and return an empty array. 
       # TODO alert bugsnag or something to monitor fb hit failures.
@@ -66,13 +55,13 @@ class Event
     DateTime.now
   end
 
-  def self.add_site_data(event, name, url)
-    event['site'] = { 'name' => name, 'url' => url }
-    event
+  def self.add_site_data(graph_event, name, url)
+    graph_event['site'] = { 'name' => name, 'url' => url }
+    graph_event
   end
   
-  def self.hash_to_object(event)
-    Dish(event, EventObject)
+  def self.hash_to_object(graph_event)
+    Dish(graph_event, EventObject)
   end
 
 end

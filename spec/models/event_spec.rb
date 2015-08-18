@@ -7,7 +7,7 @@ end
 describe Event do
   before(:each) do
     # Stub the get_facebook_events call and return our prebuilt hashes instead.
-    Event.stub(:get_facebook_events) do |id|
+    Graph.stub(:get_graph_events) do |id|
       case id
       when 1
         # Mock a page with one event.

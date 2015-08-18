@@ -1,24 +1,24 @@
 require 'spec_helper'
 
-USER_EVENT = FactoryGirl.build(:event, name: 'First event!', id: 11, start_time: "2015-01-02T14:30:00+1000", end_time: "2015-01-02T16:00:00+1000")
-ACRES_EVENT = FactoryGirl.build(:event, name: 'Acres foo event', id: 22, start_time: "2015-02-01T14:30:00+1000", end_time: "2015-02-01T16:00:00+1000")
-EMPTY_EVENT = { "id" => 33, "name" => "Empty event", start_time: "2015-02-01T14:30:00+1000", }
-NIL_EVENT = {}
-
 feature "events" do
   include UIHelper
 
+  let(:user_event) { FactoryGirl.build(:event, name: 'First event!', id: 11, start_time: "2015-01-02T14:30:00+1000", end_time: "2015-01-02T16:00:00+1000") }
+  let(:acres_event) { FactoryGirl.build(:event, name: 'Acres foo event', id: 22, start_time: "2015-02-01T14:30:00+1000", end_time: "2015-02-01T16:00:00+1000") }
+  let(:empty_event) { { "id" => 33, "name" => "Empty event", start_time: "2015-02-01T14:30:00+1000", } }
+  let(:nil_event) { {} }
+
   before(:each) do
-    Event.stub(:get_facebook_events) do |id|
+    Graph.stub(:get_graph_events) do |id|
       case id
       when 1
-        [ USER_EVENT ]
+        [ user_event ]
       when 2
-        [ ACRES_EVENT ]
+        [ acres_event ]
       when 3
-        [ EMPTY_EVENT ]
+        [ empty_event ]
       when 4
-        [ NIL_EVENT ]
+        [ nil_event ]
       end
     end
     log_in

@@ -11,24 +11,30 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
   config.before(:each) do
+
     # Stub facebook methods and vars before all tests.
-    Event.stub(:get_facebook_events).and_return []
-    Event.stub(:authorize)
-    Figaro.env.stub(:acres_fb_id).and_return(99)
-    Figaro.env.stub(:acres_site_name).and_return("acres")
-    Figaro.env.stub(:acres_host).and_return("localhost")
-    # Return a mock facebook id based on any numbers in the url.
-    Site.any_instance.stub(:get_facebook_page) do |site,url|  
+    Graph.stub(:get_graph_events).and_return []
+    Graph.stub(:graph_authorize)
+    Graph.stub(:get_graph_page) do |url|  
+      # Return a mock facebook id based on any numbers in the url.
       id = url.scan(/\d/).first
       id.nil? ? { 'id' => url } : { 'id' => id, 'name' => 'foo' }
     end
-    Site.any_instance.stub(:geocode)
 
+    # Stub acres site vars for facebook events.
+    Figaro.env.stub(:acres_fb_id).and_return(99)
+    Figaro.env.stub(:acres_site_name).and_return("acres")
+    Figaro.env.stub(:acres_host).and_return("localhost")
+
+    # Use a constant current time for any event related tests, instead of "now".
     class Event
       def self.current_time
         "2015-01-01T01:01:00+1000".to_datetime
       end
     end
+
+    # Just don't call geocoder during a test, ever.
+    Site.any_instance.stub(:geocode)
 
   end
   config.include(EmailSpec::Helpers)
