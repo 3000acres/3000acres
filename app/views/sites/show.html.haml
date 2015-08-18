@@ -77,15 +77,14 @@
             - else
               = simple_form_for(@post) do |f|
                 = f.error_notification
-
-                .form-inputs
-                  = f.input :body, :placeholder => 'Add Your Message', :label => false, :as => :text, :input_html => { :rows => 3 }
-                  = f.hidden_field :site_id, :value => @site.id
-                .form-actions
-                  = f.button :submit, "Post"
+                .row 
+                  .form-inputs.col-sm-8
+                    = f.input :body, :placeholder => 'Add Your Message', :label => false, :as => :text, :input_html => { :rows => 3 }
+                    = f.hidden_field :site_id, :value => @site.id
+                  .form-actions.col-sm-4
+                    = f.button :submit, "Post"
 
       .col-md-4
-
         %p
           %b Address:
           = @site.address
