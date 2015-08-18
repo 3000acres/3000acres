@@ -8,7 +8,7 @@ shared_examples "watches" do
     it "can watch a site" do
       expect {
         FactoryGirl.create(:watch, site: @site)
-      }.to change { @site.watches.count}.by(1)
+      }.to change { @site.watches.count }.by(1)
     end
 
     it "auto-watches site when added by a non-admin" do
