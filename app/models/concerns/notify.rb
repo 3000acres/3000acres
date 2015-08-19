@@ -15,16 +15,20 @@ module Notify
 
   # Always notify admin of new sites.
   def send_created_admin_email
-    User.with_role(:admin).each do |user|
-      Mailer.send_site_created_notification!(self, user)
+    User.with_role(:admin).each do |recipient|
+      if recipient.send_email # don't spam
+        Mailer.send_site_created_notification!(self, recipient)
+      end
     end
   end
 
   # Always notify admin of site updates.
   def send_changed_admin_email
     if changed?
-      User.with_role(:admin).each do |user|
-        Mailer.send_site_changed_notification!(self, user)
+      User.with_role(:admin).each do |recipient|
+        if recipient.send_email # don't spam
+          Mailer.send_site_changed_notification!(self, recipient)
+        end
       end
     end
   end

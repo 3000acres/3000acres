@@ -31,6 +31,11 @@ shared_examples "notify" do
       expect(Mailer).to receive(:send_site_created_notification!).once.with(anything(), @admin_user)
     end
 
+    it 'will not send email to admin user if send_email is false' do
+      @admin_user = FactoryGirl.create(:admin_user, :send_email => false)
+      expect(Mailer).not_to receive(:send_site_created_notification!)
+    end
+
     it 'will send emails to multiple admins when created' do
       @admin_user1 = FactoryGirl.create(:admin_user)
       @admin_user2 = FactoryGirl.create(:admin_user)
@@ -52,6 +57,12 @@ shared_examples "notify" do
     it 'will send email to admin user if there are changes' do
       @admin_user = FactoryGirl.create(:admin_user)
       expect(Mailer).to receive(:send_site_changed_notification!).once.with(@site, @admin_user)
+      @site.name = "A new name"
+    end
+
+    it 'will not send email to admin user if send_email is false' do
+      @admin_user = FactoryGirl.create(:admin_user, :send_email => false)
+      expect(Mailer).not_to receive(:send_site_changed_notification!)
       @site.name = "A new name"
     end
 
