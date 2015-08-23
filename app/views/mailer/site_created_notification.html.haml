@@ -1,0 +1,15 @@
+%p
+  Hi, #{@recipient.name}!
+
+%p
+  A new site was just created:
+  = link_to @site.to_s, site_url(@site)
+  on #{ENV['acres_site_name']}.
+  
+%p
+  Yours,
+%p
+  The #{ENV['acres_site_name']} team
+  %br/
+  = link_to ENV['acres_host'], ENV['acres_host']
+  

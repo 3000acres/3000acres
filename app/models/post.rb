@@ -16,7 +16,7 @@ class Post < ActiveRecord::Base
       unless watch.user == self.user # don't send notifications of your own post to yourself!
         recipient = watch.user
         if recipient.send_email # don't spam
-          Mailer.post_notification(self, recipient).deliver!
+          Mailer.send_post_created_notification!(self, recipient)
         end
       end
     end
