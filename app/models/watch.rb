@@ -5,8 +5,7 @@ class Watch < ActiveRecord::Base
 
   after_create :send_new_watcher_email
 
-  # send_new_watcher_email()
-  # when a user watches a site, send other watchers an email
+  # When a user watches a site, send other watchers an email.
   def send_new_watcher_email
     new_watcher = self.user
     site = self.site
@@ -22,4 +21,5 @@ class Watch < ActiveRecord::Base
       end
     end
   end
+
 end

@@ -2,24 +2,31 @@
 .container
   #map-key
     .row
-      .col-md-4
+      .col-md-3.col-xs-6
         .row
-          .col-md-2
-            = image_tag "pin-green.png", :size => '31x42', :alt => "grey map pin"
-          .col-md-10
+          .col-xs-2
+            = image_tag "pin-green.png", :size => '31x42', :alt => "green map pin"
+          .col-xs-10
             %p
               != cms_editable_snippet(:homepage_map_pin1)
-      .col-md-4
+      .col-md-3.col-xs-6
         .row
-          .col-md-2
-            = image_tag "pin-yellow.png", :size => '31x42', :alt => "grey map pin"
-          .col-md-10
+          .col-xs-2
+            = image_tag "pin-yellow.png", :size => '31x42', :alt => "yellow map pin"
+          .col-xs-10
             %p
               != cms_editable_snippet(:homepage_map_pin2)
-      .col-md-4
+      .col-md-3.col-xs-6
         .row
-          .col-md-2
-            = image_tag "pin-orange.png", :size => '31x42', :alt => "grey map pin"
-          .col-md-10
+          .col-xs-2
+            = image_tag "pin-orange.png", :size => '31x42', :alt => "orange map pin"
+          .col-xs-10
             %p
               != cms_editable_snippet(:homepage_map_pin3)
+      .col-md-3.col-xs-6
+        .row
+          .col-xs-2
+            = image_tag "pin-grey.png", :size => '31x42', :alt => "grey map pin"
+          .col-xs-10
+            %p
+              != cms_editable_snippet(:homepage_map_pin4)
