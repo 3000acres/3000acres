@@ -1,7 +1,6 @@
 module Fb
   require 'event'
   extend ActiveSupport::Concern
-  extend Graph
 
   included do 
     validates :facebook, :url => { :allow_blank => true, :allow_nil => true }
