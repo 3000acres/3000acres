@@ -43,5 +43,7 @@ module Acres
 
     config.mapbox_map_id = '3000acres.hmh1c6pj'
 
+    Koala.config.api_version = "v2.3"
+
   end
 end
