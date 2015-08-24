@@ -7,6 +7,6 @@ module Image
                       :default_url => "/images/:style/missing.png"
     validates_attachment :image, 
         :content_type => { :content_type => /\Aimage\/.*\Z/ },
-        :size => { :less_than => 4.megabytes }
+        :size => { :less_than => 1.megabytes }
   end
 end
