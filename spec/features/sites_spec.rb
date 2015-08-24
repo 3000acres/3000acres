@@ -96,6 +96,8 @@ feature "sites" do
       attach_file "site_image", 'spec/fixtures/images/test.png'  
       click_button 'Create Site'
       expect(page).to have_xpath "//img[@alt='Test']"
+      click_link 'Edit'
+      expect(page).to have_xpath "//img[@alt='test.png']"
     end
 
     scenario "can't see admin panel on sites index page" do

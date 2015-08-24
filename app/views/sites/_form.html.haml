@@ -1,10 +1,13 @@
 = simple_form_for(@site) do |f|
+  - if f.error_notification.blank?
+    %p
+      != cms_snippet_content(:site_add_intro)
+
   = f.error_notification
-
-  %p
-    != cms_snippet_content(:site_add_intro)
-
   .form-inputs
+    - if f.object.image.exists?
+      .col-sm-offset-4.col-md-offset-4.col-lg-offset-3
+        = link_to image_tag(f.object.image.url(:small), title: f.object.image_file_name, alt: f.object.image_file_name), f.object.image.url(:original)
     = f.input :image, as: :file, label: "Image"
     = f.input :address, :placeholder => '99 Bourke St', :hint => "Don't know the address, or the site doesn't have one? Just pick something as close as possible for now."
     = f.input :suburb, :placeholder => 'Melbourne'
