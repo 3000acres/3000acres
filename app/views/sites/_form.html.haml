@@ -1,4 +1,4 @@
-= simple_form_for(@site) do |f|
+= simple_form_for(@site, :html => { :multipart => true } ) do |f|
   - if f.error_notification.blank?
     %p
       != cms_snippet_content(:site_add_intro)
